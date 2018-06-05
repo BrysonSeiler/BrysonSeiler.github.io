@@ -1,6 +1,6 @@
 body {margin: 40px auto; width: 70%; }
 
-a { text-decoration: none; color: #3E688E; }
+a { text-decoration: none; color: #3E688E; font-family: 'Arial', 'Helvetica', 'Sans-Serif';}
 a:hover { text-decoration: underline; }
 
 inf_text { text-decoration: none; color: #999; font-family: 'Arial', 'Helvetica', 'Sans-Serif'; font-size: 1em; }
