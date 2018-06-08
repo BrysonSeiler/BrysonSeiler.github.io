@@ -34,7 +34,7 @@
     </blockquote>
 
     <blockquote style="text-indent: 3em">
-        For the sake of providing an example that is easy to understand, I have produced the following documents to make up our corpus:
+        Suppose that the following four, contrived, documents make up our corpus:
 
     </blockquote>
 
@@ -49,17 +49,26 @@
 
     <blockquote style="text-indent: 3em">
 
-        This is a rather trivial conclusion that can be drawn for a human, but how can we make a computer recognize these patterns? One technique would be to look at the frequencies at 
-        which words appear in each document and group together the documents that use the same words frequently. For example, we can see that documents 1 and 2 both use the words pets, cats, 
-        and dogs very frequently, hence it may be reasonable to assume that documents 1 and 2 belong in the same group.
+        This is a rather trivial conclusion for a human, but how can we make a computer recognize these patterns? One technique would be to look at the frequencies at 
+        which words appear in each document and group together the documents that use the same words frequently. For example, we can see that documents 1 and 2 both use the words <i>pets</i>, <i>cats</i>, 
+        and <i>dogs</i> very frequently, hence it may be reasonable to assume that documents 1 and 2 belong in the same group.
     
     </blockquote>
 
-    <img src="\pictures\Count_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_heatmap" vspace="-5"/>
+    <blockquote style="text-indent: 3em">
+
+        To quantify this idea, it is common practice to convert a corpus into what is known as a <i>document-term</i> frequency matrix. Each row of this matrix represents a document 
+        in the corpus and each column represents a unique word inside of the documents. By letting each entry of the matrix represent the frequency at which a word appears inside of 
+        a document, we can begin to quantify the similarity of documents.
+    
+    </blockquote>
+
+    <img src="\pictures\Count_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_heatmap"/>
 
     <blockquote style="text-indent: 3em">
 
-        By representing the documents in a <i>document-term frequency</i> heatmap, it becomes clear that 
+        The heatmap above represents the document-term frequency matrix for our corpus. As we can see, it is starting to become more clear which documents are related to eachother, but we can
+        do better.
         
     </blockquote>
 

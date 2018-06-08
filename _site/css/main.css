@@ -9,9 +9,9 @@ body {margin: 20px auto; width: 50%; }
 
 .center_heatmap {
     display: block;
-    margin-left: -15em;
+    margin-left: -2em;
     margin-right: auto;
-    width: 150%;
+    width: 100%;
 }
 
 a { text-decoration: none; color: #3178b3; font-family: 'Arial', 'Helvetica', 'Sans-Serif';}
