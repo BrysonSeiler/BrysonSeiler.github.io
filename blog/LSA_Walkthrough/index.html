@@ -1,0 +1,51 @@
+---
+layout: main_layout
+title: Latent Semantic Analysis
+---
+
+<div class="main">
+    <h2>{{page.title}}</h2>
+
+    <blockquote style="text-indent: 3em">
+
+        <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a mathematical model that provides us with a way to rigorously define 
+        the similarities between bodies of text based on the frequencies at which words appear inside of them. This post will walk through an example of how Latent Semantic Analysis
+        can be used to group similar documents with each other.
+
+    </blockquote>
+
+    <blockquote style="text-indent: 3em">
+        For the sake of providing an example that is easy to understand, I have produced the following documents to make up our corpus:
+
+    </blockquote>
+
+    <img src="\pictures\Documents.svg" title="Example Documents" class="centerimage"/>
+
+    <blockquote style="text-indent: 3em">
+
+        If we were asked to categorize these documents, it's evident that we could put the first two documents into the same category and the
+        third and fourth documents into a different category, let's call them <i>pets</i> and <i>travel</i>.  
+
+    </blockquote>
+
+    <blockquote style="text-indent: 3em">
+
+        This is a rather trivial conclusion that can be drawn for a human, but how can we make a computer recognize these patterns? One technique would be to look at the frequencies at 
+        which words appear in each document and group together the documents that use the same words frequently. For example, we can see that documents 1 and 2 both use the words pets, cats, 
+        and dogs very frequently, hence it may be reasonable to assume that documents 1 and 2 belong in the same group.
+    
+    </blockquote>
+
+    <img src="\pictures\Count_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_heatmap" vspace="-5"/>
+
+    <blockquote style="text-indent: 3em">
+
+        By representing the documents in a <i>document-term frequency</i> heatmap, it becomes clear that 
+        
+    </blockquote>
+
+    
+
+    
+
+</div>
