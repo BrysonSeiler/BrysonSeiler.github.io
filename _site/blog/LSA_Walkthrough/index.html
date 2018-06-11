@@ -26,25 +26,31 @@
     <h2>Latent Semantic Analysis</h2>
 
     <blockquote style="text-indent: 3em">
-
-        <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a mathematical model that provides us with a way to rigorously define 
-        the similarities between bodies of text based on the frequencies at which words appear inside of them. This post will walk through an example of how Latent Semantic Analysis
-        can be used to group similar documents with each other.
-
+        Within the realm of natural language processing, <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a method that we use to 
+        analyze the relationships between a set of documents (a <i>corpus</i>) and the words that they contain. In this post, we will be taking an in-depth look at LSA by showing how 
+        this technique can be used to categorize a set of documents.
     </blockquote>
 
     <blockquote style="text-indent: 3em">
-        Suppose that the following four, contrived, documents make up our corpus:
-
+        The code that I produced for this post can be find at the following repository: <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Example">LSA Walkthrough</a>
+        <br/><br/>
     </blockquote>
 
-    <img src="\pictures\Documents.svg" title="Example Documents" class="centerimage"/>
 
     <blockquote style="text-indent: 3em">
 
-        If we were asked to categorize these documents, it's evident that we could put the first two documents into the same category and the
-        third and fourth documents into a different category, let's call them <i>pets</i> and <i>travel</i>.  
+        To begin, let’s suppose that your boss asked you read through the following documents and then sort them into two different categories.
 
+    </blockquote>
+
+
+    <img src="\pictures\Documents.svg" title="Example Documents" class="center_image"/>
+
+    <blockquote style="text-indent: 3em">
+
+        After reading through these documents, it's easy to see that the first two could fall under the same category lets say <i>pets</i> and that the third and fourth documents could 
+        belong to a different category, lets call it <i>travel</i>. 
+      
     </blockquote>
 
     <blockquote style="text-indent: 3em">
@@ -67,13 +73,14 @@
 
     <blockquote style="text-indent: 3em">
 
-        The heatmap above represents the document-term frequency matrix for our corpus. As we can see, it is starting to become more clear which documents are related to eachother, but we can
-        do better.
+        The heatmap above represents the document-term frequency matrix for our corpus. With this representation, we can see not only what words appeared most frquently inside of these documents,
+        but we can also see which documents used the same words most frequently together.
         
     </blockquote>
 
+    <img src="\pictures\U_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_heatmap"/>
     
-
+    <img src="\pictures\VT_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_image"/>
     
 
 </div>
