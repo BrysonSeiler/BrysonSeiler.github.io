@@ -26,7 +26,7 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 					width = +svg.attr("width"),
 					height = +svg.attr("height");
 				
-	var color = d3.scaleOrdinal(d3.schemeCategory20c);
+	var color = d3.scaleOrdinal().range(["#E63946", "#455561", "#457B9D", "#457B9D", "#1D3557"]);
 				
 	var simulation = d3.forceSimulation()
 					//Bryson Seiler: Added: .strength(strength).distance(distance).iterations(iterations)
@@ -51,20 +51,18 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 						.data(graph.nodes)
 						.enter().append("circle")
 						//Bryson Seiler added: Change color/size based off of degree
-						.attr("fill", function(d) { return color(d.group); })
 						.attr("fill", function(d) { return color(d.Degree); })
-						//.attr("r", function(d) { return d.group*2; })
 						.attr("r", function(d) { return d.Degree*scale_node; })
 						.call(d3.drag()
 							.on("start", dragstarted)
 							.on("drag", dragged)
 							.on("end", dragended));
 
-		//Bryson Seiler Added labels:
-		node.append("text")
-			.attr("dx", 12)
-			.attr("dy", ".35em")
-			.text(function(d) { return d.Label });
+		var lables = node.append("text")
+						.attr("class", "text")
+						.text(function(d) { return d.Label;})
+						.attr('x', 6)
+						.attr('y', 3);
 					
 		node.append("title")
 			.text(function(d) { return d.id; });
@@ -86,6 +84,7 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 			node
 				.attr("cx", function(d) { return d.x; })
 				.attr("cy", function(d) { return d.y; });
+
 			}
 		});
 			

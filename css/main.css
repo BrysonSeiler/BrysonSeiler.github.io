@@ -28,11 +28,11 @@ inf_text { text-decoration: none; color: #999; font-family: 'Arial', 'Helvetica'
 
 p, blockquote, h1, h2, h3, h4, text { font-family: 'Arial', 'Helvetica', 'Sans-Serif';}
 h1 { font-size: 3em;}
-h2 { font-size: 2.7em; line-height: 0.4em;}
+h2 { font-size: 2.7em; line-height: 0.4em; color: #070707;}
 h3 { font-size: 2.3em;}
 h4 { font-size: 1.9em;}
 
-p, blockquote { font-size: 1.15em; line-height: 1.4em; color: #333;}
+p, blockquote { font-size: 1.15em; line-height: 1.4em; color: #070707;}
 ul  {border-bottom: 1px solid #A1A6B4; font-size: 1.2em; line-height: 1.4em; color: #333;}
 
 nav ul, footer ul { font-size: 1em; font-family: 'Arial', 'Helvetica', 'Sans-Serif'; padding: 0px; list-style: none; font-weight: bold;}
