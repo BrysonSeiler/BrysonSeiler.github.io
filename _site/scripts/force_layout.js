@@ -10,9 +10,9 @@
 
 
 //Bryson Seiler: Added: function to open json networks:
-function open_file(filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations){
+function open_file(filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations, show_labels, node_att){
 
-	//Bryson Seiler: Added: Varaibles: filename, strength, distance, iterations
+	//Bryson Seiler: Added: Varaibles: filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations
 
 	var filename = filename;
 	var scale_node = scale_node;
@@ -21,6 +21,8 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 	var collide_strength = collide_strength;
 	var distance = distance; 
 	var iterations = iterations;
+	var show_labels = show_labels;
+	var node_att = node_att;
 
 	var svg = d3.select("svg"),
 					width = +svg.attr("width"),
@@ -29,7 +31,9 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 	var color = d3.scaleOrdinal().range(["#E63946", "#455561", "#457B9D", "#457B9D", "#1D3557"]);
 				
 	var simulation = d3.forceSimulation()
-					//Bryson Seiler: Added: .strength(strength).distance(distance).iterations(iterations)
+
+					//Bryson Seiler: Added: 1. Collision 2. 
+
 					.force("link", d3.forceLink().id(function(d) { return d.id; }).strength(link_strength).distance(distance))
 					.force("charge", d3.forceManyBody().strength(body_strength))
 					.force("collision", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
@@ -44,26 +48,52 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 						.data(graph.links)
 						.enter().append("line")
 						.attr("stroke-width", function(d) { return Math.sqrt(d.value); });
-					
-		var node = svg.append("g")
-						.attr("class", "nodes")
-						.selectAll("circle")
-						.data(graph.nodes)
-						.enter().append("circle")
-						//Bryson Seiler added: Change color/size based off of degree
-						.attr("fill", function(d) { return color(d.Degree); })
-						.attr("r", function(d) { return d.Degree*scale_node; })
-						.call(d3.drag()
-							.on("start", dragstarted)
-							.on("drag", dragged)
-							.on("end", dragended));
+			
+		if(node_att){
 
-		var lables = node.append("text")
-						.attr("class", "text")
-						.text(function(d) { return d.Label;})
-						.attr('x', 6)
-						.attr('y', 3);
-					
+			var node = svg.append("g")
+							.attr("class", "nodes")
+							.selectAll("circle")
+							.data(graph.nodes)
+							.enter().append("circle")
+							//Bryson Seiler added: Change color/size based off of degree
+							.attr("fill", function(d) { return color(d.Degree); })
+							.attr("r", function(d) { return d.Degree*scale_node; })
+							.call(d3.drag()
+								.on("start", dragstarted)
+								.on("drag", dragged)
+								.on("end", dragended));
+		}
+
+		else{
+
+			var node = svg.append("g")
+							.attr("class", "nodes")
+							.selectAll("circle")
+							.data(graph.nodes)
+							.enter().append("circle")
+							//Bryson Seiler added: Change color/size based off of degree
+							.attr("fill", "#457B9D")
+							.attr("r", scale_node)
+							.call(d3.drag()
+								.on("start", dragstarted)
+								.on("drag", dragged)
+								.on("end", dragended));
+
+		}
+
+		if(show_labels == true){
+
+			var lables = svg.append("g")
+							.attr("class", "labels")
+							.selectAll("text")
+							.data(graph.nodes)
+							.enter().append("text")
+							.attr("dx", ".25em")
+							.attr("dy", "-0.5em")
+							.text(function(d) { return d.id;});
+		}
+								
 		node.append("title")
 			.text(function(d) { return d.id; });
 					
@@ -84,6 +114,10 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 			node
 				.attr("cx", function(d) { return d.x; })
 				.attr("cy", function(d) { return d.y; });
+
+			lables
+				.attr("x", function(d) { return d.x; })
+				.attr("y", function(d) { return d.y; });
 
 			}
 		});
