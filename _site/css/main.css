@@ -1,12 +1,5 @@
 body {margin: 20px auto; width: 50%; }
 
-.centerimage {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
-}
-
 .center_image {
     display: block;
     margin-left: auto;
@@ -16,9 +9,24 @@ body {margin: 20px auto; width: 50%; }
 
 .center_heatmap {
     display: block;
-    margin-left: -2em;
+    margin-top: -1.65em;
+    margin-left: -1.5em;
     margin-right: auto;
     width: 100%;
+}
+
+.center_alt_heatmap {
+    display: block;
+    margin-top: -2em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.move_vertical {
+    margin-top: -2.5em;
+    margin-left: 2em;
+    margin-right: 1em;
 }
 
 a { text-decoration: none; color: #3178b3; font-family: 'Arial', 'Helvetica', 'Sans-Serif';}

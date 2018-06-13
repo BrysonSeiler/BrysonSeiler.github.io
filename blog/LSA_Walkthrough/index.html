@@ -7,61 +7,74 @@ title: Latent Semantic Analysis
     <h2>{{page.title}}</h2>
 
     <blockquote style="text-indent: 3em">
-        Within the realm of natural language processing, <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a method that we use to 
-        analyze the relationships between a set of documents (a <i>corpus</i>) and the words that they contain. In this post, we will be taking an in-depth look at LSA by showing how 
-        this technique can be used to categorize a set of documents.
+        Within the realm of natural language processing, <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that we use to 
+        analyze the relationships between a set of documents and the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort a collection
+        of documents (a <i>corpus</i>) into groupings of similar documents.
     </blockquote>
 
     <blockquote style="text-indent: 3em">
-        The code that I produced for this post can be find at the following repository: <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Example">LSA Walkthrough</a>
+        Repository for the Python code that was used in this post: <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Example">LSA Walkthrough</a>
         <br/><br/>
     </blockquote>
 
 
     <blockquote style="text-indent: 3em">
-
-        To begin, let’s suppose that your boss asked you read through the following documents and then sort them into two different categories.
-
+        Consider the following four documents:
     </blockquote>
 
 
     <img src="\pictures\Documents.svg" title="Example Documents" class="center_image"/>
 
     <blockquote style="text-indent: 3em">
-
-        After reading through these documents, it's easy to see that the first two could fall under the same category lets say <i>pets</i> and that the third and fourth documents could 
-        belong to a different category, lets call it <i>travel</i>. 
-      
+        After reading through these documents, it’s easy to see that they could be sorted into two different categories. For the sake of simplicity, let’s call these categories 
+        <i>pets</i> and <i>travel</i>. 
     </blockquote>
 
     <blockquote style="text-indent: 3em">
-
-        This is a rather trivial conclusion for a human, but how can we make a computer recognize these patterns? One technique would be to look at the frequencies at 
-        which words appear in each document and group together the documents that use the same words frequently. For example, we can see that documents 1 and 2 both use the words <i>pets</i>, <i>cats</i>, 
-        and <i>dogs</i> very frequently, hence it may be reasonable to assume that documents 1 and 2 belong in the same group.
-    
+        This is a rather trivial conclusion for us to draw since there is a clear difference in subject between the first two documents and the last two documents. However, for a 
+        computer, identifying the differences is not a simple task. What techniques do we have at our disposal to make a computer to recognize these kinds of differences?
     </blockquote>
 
     <blockquote style="text-indent: 3em">
+        One common techinque starts by looking at the frequencies at which words appear inside of each document. Intuitively, by grouping together the documents that 
+        use the same words frequently, we can naively sort the documents. For example, the first two documents use the words <i>cats</i> and <i>dogs</i> frequently while the other 
+        two documents do not, hence it may be reasonable to assume that these two documents are similar to each other and can be placed in the same category.
+    </blockquote>
 
+    <blockquote style="text-indent: 3em">
         To quantify this idea, it is common practice to convert a corpus into what is known as a <i>document-term</i> frequency matrix. Each row of this matrix represents a document 
-        in the corpus and each column represents a unique word inside of the documents. By letting each entry of the matrix represent the frequency at which a word appears inside of 
-        a document, we can begin to quantify the similarity of documents.
-    
+        and the columns represent the words that appear inside of these documents. By letting each entry of this matrix represent the frequency at which these words 
+        appear inside of each document, we have a consise way of representing these documents based off of their word frequencies. The rows of this matrix are often referred to as 
+        <i>document vectors</i>.
     </blockquote>
+
+    <blockquote style="text-indent: 3em">
+        Here is the document-term frequency matrix for our example documents (note that I filtered out useless words like <i>and</i> and <i>the</i> before I created the matrix by using a 
+        <a href="https://en.wikipedia.org/wiki/Stop_words">stop list</a>):
+    </blockquote>
+
 
     <img src="\pictures\Count_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_heatmap"/>
 
-    <blockquote style="text-indent: 3em">
+    <blockquote style="text-indent: 3em" class="move_vertical">
 
-        The heatmap above represents the document-term frequency matrix for our corpus. With this representation, we can see not only what words appeared most frquently inside of these documents,
-        but we can also see which documents used the same words most frequently together.
+        I converted the matrix into a heat map using R where dark blue represents a word that appears at a high frequency inside of a document. With this visualization, we can see not only what words
+        appeared most frequently inside of each of these documents, but we can also see which documents used the same words together at the highest frequency.
+        
+    </blockquote>
+
+    <blockquote style="text-indent: 3em">
+        While it may not be abundantly clear which documents belong to the same category based off of the document-term frequency matrix, we can certainly begin to see correlations between
+        the documents based off which documents use the same words.
+    </blockquote>
+
+    <blockquote style="text-indent: 3em">
         
     </blockquote>
 
     <img src="\pictures\U_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_heatmap"/>
     
-    <img src="\pictures\VT_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_image"/>
+    <img src="\pictures\VT_Matrix_Heat_Map.png" title="Document-Term Frequency Matrix" class="center_alt_heatmap"/>
     
 
 </div>
