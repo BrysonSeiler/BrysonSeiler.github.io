@@ -1,4 +1,4 @@
-body {margin: 20px auto; width: 50%; }
+body {margin: 20px auto; width: 75%; }
 
 .center_image {
     display: block;
@@ -29,12 +29,12 @@ body {margin: 20px auto; width: 50%; }
     margin-right: 1em;
 }
 
-a { text-decoration: none; color: #3178b3; font-family: 'Arial', 'Helvetica', 'Sans-Serif';}
+a { text-decoration: none; color: #3178b3; font-family: 'Open Sans', sans-serif, 'Arial';}
 a:hover { text-decoration: underline; }
 
-inf_text { text-decoration: none; color: #999; font-family: 'Arial', 'Helvetica', 'Sans-Serif'; font-size: 1em; }
+inf_text { text-decoration: none; color: #999; font-family: 'Open Sans', sans-serif, 'Arial'; font-size: 1em; }
 
-p, blockquote, h1, h2, h3, h4, text { font-family: 'Arial', 'Helvetica', 'Sans-Serif';}
+p, blockquote, h1, h2, h3, h4, text { font-family: 'Open Sans', sans-serif, 'Arial';}
 h1 { font-size: 3em;}
 h2 { font-size: 2.7em; line-height: 0.4em; color: #070707;}
 h3 { font-size: 2.3em;}
@@ -43,7 +43,7 @@ h4 { font-size: 1.9em;}
 p, blockquote { font-size: 1.15em; line-height: 1.4em; color: #070707;}
 ul  {border-bottom: 1px solid #A1A6B4; font-size: 1.2em; line-height: 1.4em; color: #333;}
 
-nav ul, footer ul { font-size: 1em; font-family: 'Arial', 'Helvetica', 'Sans-Serif'; padding: 0px; list-style: none; font-weight: bold;}
+nav ul, footer ul { font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
 nav ul li, footer ul li { display: inline; margin-right: 20px; }
 
 footer {font-size: .8em;}
