@@ -29,7 +29,9 @@ function open_file(filename, scale_node, link_strength, body_strength, collide_s
 					height = +svg.attr("height");
 				
 	var color = d3.scaleOrdinal().range(["#E63946", "#455561", "#457B9D", "#457B9D", "#1D3557"]);
-				
+		
+	//var color = d3.scaleOrdinal().range(["#124e78", "#f0f0c9", "#f2bb05", "#d74e09", "#6e0e0a"]);
+
 	var simulation = d3.forceSimulation()
 
 					//Bryson Seiler: Added: 1. Collision 2. 
