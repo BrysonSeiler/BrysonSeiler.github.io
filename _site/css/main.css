@@ -9,18 +9,9 @@ body {margin: 20px auto; width: 75%; }
 
 .center_heatmap {
     display: block;
-    margin-top: -1.65em;
-    margin-left: -1.5em;
-    margin-right: auto;
-    width: 100%;
-}
-
-.center_alt_heatmap {
-    display: block;
-    margin-top: -2em;
     margin-left: auto;
     margin-right: auto;
-    width: 30%;
+    width: 34%
 }
 
 .move_vertical {
@@ -30,7 +21,7 @@ body {margin: 20px auto; width: 75%; }
 }
 
 a { text-decoration: none; color: #3178b3; font-family: 'Open Sans', sans-serif, 'Arial';}
-a:hover { text-decoration: underline; }
+/*a:hover { text-decoration: bg-grey text-grey-darkest }*/
 
 inf_text { text-decoration: none; color: #999; font-family: 'Open Sans', sans-serif, 'Arial'; font-size: 1em; }
 

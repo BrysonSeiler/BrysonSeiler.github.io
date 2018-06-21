@@ -7,9 +7,9 @@ title: Latent Semantic Analysis
     <h2>{{page.title}}</h2>
 
     <blockquote style="text-indent: 3em">
-        Within the realm of natural language processing, <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that we use to 
-        analyze the relationships between a set of documents and the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort a collection
-        of documents (a <i>corpus</i>) into groupings of similar documents.
+        Within the realm of natural language processing, <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that is used to 
+        analyze the relationships between a set of documents and the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort large 
+        collections of documents.
     </blockquote>
 
     <blockquote style="text-indent: 3em">
@@ -19,7 +19,7 @@ title: Latent Semantic Analysis
 
 
     <blockquote style="text-indent: 3em">
-        Consider the following four documents:
+        Consider the four following documents:
     </blockquote>
 
 
@@ -38,7 +38,7 @@ title: Latent Semantic Analysis
     <blockquote style="text-indent: 3em">
         One common techinque starts by looking at the frequencies at which words appear inside of each document. Intuitively, by grouping together the documents that 
         use the same words frequently, we can naively sort the documents. For example, the first two documents use the words <i>cats</i> and <i>dogs</i> frequently while the other 
-        two documents do not, hence it may be reasonable to assume that these two documents are similar to each other and can be placed in the same category.
+        two documents do not, hence it may be reasonable to assume that these two documents are similar to each other and can be placed into the same category.
     </blockquote>
 
     <blockquote style="text-indent: 3em">
@@ -49,7 +49,7 @@ title: Latent Semantic Analysis
     </blockquote>
 
     <blockquote style="text-indent: 3em">
-        Here is the document-term frequency matrix for our example documents (note that I filtered out useless words like <i>and</i> and <i>the</i> before I created the matrix by using a 
+        Here is the document-term frequency matrix for our example documents (note that I filtered out words like <i>and</i> and <i>the</i> before I created the matrix by using a 
         <a href="https://en.wikipedia.org/wiki/Stop_words">stop list</a>):
     </blockquote>
 
@@ -57,26 +57,45 @@ title: Latent Semantic Analysis
 
     <blockquote style="text-indent: 3em">
 
-        I converted the matrix into a heat map using R where dark blue represents a word that appears at a high frequency inside of a document. With this visualization, we can see not only what words
-        appeared most frequently inside of each of these documents, but we can also see which documents used the same words together at the highest frequency.
-        
-    </blockquote>
-
-    <blockquote style="text-indent: 3em">
-        While it may not be abundantly clear which documents belong to the same category based off of the document-term frequency matrix, we can certainly begin to see correlations between
-        the documents based off which documents use the same words.
-    </blockquote>
-
-    <blockquote style="text-indent: 3em">
+        From this representation, we can clearly see which documents used the same words frequently, but it's not abundantly clear which documents belong to the same category. 
         
     </blockquote>
 
     <iframe width="1400" height="350" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
 
-    <blockquote style="text-indent: 3em">
-        While it may not be abundantly clear which documents belong to the same category based off of the document-term frequency matrix, we can certainly begin to see correlations between
-        the documents based off which documents use the same words.
-    </blockquote>
+    <iframe width="500" height="400" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/6.embed" class="center_heatmap"></iframe>
+
+    <h2>Math in MathML notation</h2>
+
+      <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      </script>
+
+When <math><mi>a</mi><mo>&#x2260;</mo><mn>0</mn></math>,
+there are two solutions to <math>
+  <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup>
+  <mo>+</mo> <mi>b</mi><mi>x</mi>
+  <mo>+</mo> <mi>c</mi> <mo>=</mo> <mn>0</mn>
+</math> and they are
+<math mode="display">
+  <mi>x</mi> <mo>=</mo>
+  <mrow>
+    <mfrac>
+      <mrow>
+        <mo>&#x2212;</mo>
+        <mi>b</mi>
+        <mo>&#x00B1;</mo>
+        <msqrt>
+          <msup><mi>b</mi><mn>2</mn></msup>
+          <mo>&#x2212;</mo>
+          <mn>4</mn><mi>a</mi><mi>c</mi>
+        </msqrt>
+      </mrow>
+      <mrow> <mn>2</mn><mi>a</mi> </mrow>
+    </mfrac>
+  </mrow>
+  <mtext>.</mtext>
+</math>
     
 
 </div>
