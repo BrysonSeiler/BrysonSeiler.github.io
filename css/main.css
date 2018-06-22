@@ -1,41 +1,50 @@
-body {margin: 20px auto; width: 75%; }
+/*Body*/
+body {margin: 20px auto; width: 75%;}
 
+/*Font family pulled from Google Fonts: Roboto*/
+a, p, blockquote, h1, h2, h3, h4, text { font-family: 'Open Sans', sans-serif, 'Arial';}
+
+/*Link to Website*/
+a { text-decoration: none; color: #3178b3;}
+
+/*Headers*/
+h1, h2, h3, h4 {line-height: 0.4em; color: #070707;}
+
+h1 { font-size: 3em;}
+h2 { font-size: 2.7em;}
+h3 { font-size: 2.3em;}
+h4 { font-size: 1.9em;}
+
+/*Body Text*/
+p {font-size: 1.15em; line-height: 1.4em; color: #070707;}
+
+/*List Elements*/
+ul {border-bottom: 1px solid #A1A6B4; font-size: 1.2em; line-height: 1.4em; color: #333;}
+nav ul, footer ul {font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
+nav ul li, footer ul li { display: inline; margin-right: 20px;}
+
+/*Footer*/
+footer {font-size: .8em;}
+
+/*Foot Note*/
+.footnote {color: #999; font-size: 1em;}
+
+.italics {color: #9D9A9E; font-size: .8em;}
+
+/*Indent*/
+.indent {text-indent: 3em}
+
+/*Images*/
 .center_image {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 85%;
+    width: 75%;
 }
-
 .center_heatmap {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 34%
+    width: 35%;
 }
-
-.move_vertical {
-    margin-top: -2.5em;
-    margin-left: 2em;
-    margin-right: 1em;
-}
-
-a { text-decoration: none; color: #3178b3; font-family: 'Open Sans', sans-serif, 'Arial';}
-/*a:hover { text-decoration: bg-grey text-grey-darkest }*/
-
-inf_text { text-decoration: none; color: #999; font-family: 'Open Sans', sans-serif, 'Arial'; font-size: 1em; }
-
-p, blockquote, h1, h2, h3, h4, text { font-family: 'Open Sans', sans-serif, 'Arial';}
-h1 { font-size: 3em;}
-h2 { font-size: 2.7em; line-height: 0.4em; color: #070707;}
-h3 { font-size: 2.3em;}
-h4 { font-size: 1.9em;}
-
-p, blockquote { font-size: 1.15em; line-height: 1.4em; color: #070707;}
-ul  {border-bottom: 1px solid #A1A6B4; font-size: 1.2em; line-height: 1.4em; color: #333;}
-
-nav ul, footer ul { font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
-nav ul li, footer ul li { display: inline; margin-right: 20px; }
-
-footer {font-size: .8em;}
 

@@ -1,145 +1,143 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Latent Semantic Analysis</title>
-    
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  
-    </head>
+
+<head>
+    <title>Latent Semantic Analysis</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+</head>
 
 
-    <body>
+<body>
 
-        <nav>
+    <nav>
 
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/CV">CV</a></li>
-            </ul>
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/projects">Projects</a>
+            </li>
+            <li>
+                <a href="/blog">Blog</a>
+            </li>
+            <li>
+                <a href="/CV">CV</a>
+            </li>
+        </ul>
 
-        </nav>
+    </nav>
 
-        <div class="container">
+    <div class="container">
 
-            <div class="main">
+        <div class="main">
     <h2>Latent Semantic Analysis</h2>
 
-    <blockquote style="text-indent: 3em">
-        Within the realm of natural language processing, <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that is used to 
-        analyze the relationships between a set of documents and the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort large 
-        collections of documents.
+    <p class="indent">
+        Within the realm of natural language processing,
+        <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that is used to analyze the relationships between a set of documents
+        and the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort
+        large collections of documents.
+    </p>
+
+    <blockquote>
+
+        <p class="indent">
+            Repository for the Python code that was used in this post:
+            <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Example">LSA Walkthrough</a>
+            <br/>
+        </p>
+
     </blockquote>
 
-    <blockquote style="text-indent: 3em">
-        Repository for the Python code that was used in this post: <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Example">LSA Walkthrough</a>
-        <br/><br/>
-    </blockquote>
 
-
-    <blockquote style="text-indent: 3em">
+    <p class="indent">
         Consider the four following documents:
-    </blockquote>
+    </p>
+
+    <img src="\pictures\Documents.svg" title="Example Documents" class="center_image" />
+
+    <p class="indent">
+        After reading through these documents, it’s easy to see that they could be sorted into two different categories. For the
+        sake of simplicity, let’s call these categories
+        <i>pets</i> and
+        <i>travel</i>.
+    </p>
+
+    <p class="indent">
+        This is a rather trivial conclusion for us to draw since there is a clear difference in subject between the first two documents
+        and the last two documents. However, for a computer, identifying the differences is not a simple task. What techniques
+        do we have at our disposal to make a computer to recognize these kinds of differences?
+    </p>
+
+    <p class="indent">
+        One common techinque starts by looking at the frequencies at which words appear inside of each document. Intuitively, by
+        grouping together the documents that use the same words frequently, we can naively sort the documents. For example,
+        the first two documents use the words
+        <i>cats</i> and
+        <i>dogs</i> frequently while the other two documents do not, hence it may be reasonable to assume that these two documents
+        are similar to each other and can be placed into the same category.
+    </p>
 
 
-    <img src="\pictures\Documents.svg" title="Example Documents" class="center_image"/>
-
-    <blockquote style="text-indent: 3em">
-        After reading through these documents, it’s easy to see that they could be sorted into two different categories. For the sake of simplicity, let’s call these categories 
-        <i>pets</i> and <i>travel</i>. 
-    </blockquote>
-
-    <blockquote style="text-indent: 3em">
-        This is a rather trivial conclusion for us to draw since there is a clear difference in subject between the first two documents and the last two documents. However, for a 
-        computer, identifying the differences is not a simple task. What techniques do we have at our disposal to make a computer to recognize these kinds of differences?
-    </blockquote>
-
-    <blockquote style="text-indent: 3em">
-        One common techinque starts by looking at the frequencies at which words appear inside of each document. Intuitively, by grouping together the documents that 
-        use the same words frequently, we can naively sort the documents. For example, the first two documents use the words <i>cats</i> and <i>dogs</i> frequently while the other 
-        two documents do not, hence it may be reasonable to assume that these two documents are similar to each other and can be placed into the same category.
-    </blockquote>
-
-    <blockquote style="text-indent: 3em">
-        To quantify this idea, it is common practice to convert a corpus into what is known as a <i>document-term</i> frequency matrix. Each row of this matrix represents a document 
-        and the columns represent the words that appear inside of these documents. By letting each entry of this matrix represent the frequency at which these words 
-        appear inside of each document, we have a consise way of representing these documents based off of their word frequencies. The rows of this matrix are often referred to as 
+    <p class="indent">
+        To quantify this idea, it is common practice to convert a corpus into what is known as a
+        <i>document-term</i> frequency matrix. Each row of this matrix represents a document and the columns represent the words
+        that appear inside of these documents. By letting each entry of this matrix represent the frequency at which these
+        words appear inside of each document, we have a consise way of representing these documents based off of their word
+        frequencies. The rows of this matrix are often referred to as
         <i>document vectors</i>.
-    </blockquote>
+    </p>
 
-    <blockquote style="text-indent: 3em">
-        Here is the document-term frequency matrix for our example documents (note that I filtered out words like <i>and</i> and <i>the</i> before I created the matrix by using a 
+    <p class="indent">
+        Here is the document-term frequency matrix for our example documents (note that I filtered out words like
+        <i>and</i> and
+        <i>the</i> before I created the matrix by using a
         <a href="https://en.wikipedia.org/wiki/Stop_words">stop list</a>):
-    </blockquote>
+    </p>
 
-    <iframe width="1400" height="350" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/2.embed"></iframe>
+    <iframe width=100% height="350" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/2.embed"></iframe>
 
-    <blockquote style="text-indent: 3em">
+    <p class="indent">
+        From this representation, we can clearly see which documents used the same words frequently, but it's not abundantly clear
+        which documents belong to the same category.
+    </p>
 
-        From this representation, we can clearly see which documents used the same words frequently, but it's not abundantly clear which documents belong to the same category. 
-        
-    </blockquote>
+    <iframe width=100% height="350" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
 
-    <iframe width="1400" height="350" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
-
-    <iframe width="500" height="400" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/6.embed" class="center_heatmap"></iframe>
-
-    <h2>Math in MathML notation</h2>
-
-      <script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-      </script>
-
-When <math><mi>a</mi><mo>&#x2260;</mo><mn>0</mn></math>,
-there are two solutions to <math>
-  <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup>
-  <mo>+</mo> <mi>b</mi><mi>x</mi>
-  <mo>+</mo> <mi>c</mi> <mo>=</mo> <mn>0</mn>
-</math> and they are
-<math mode="display">
-  <mi>x</mi> <mo>=</mo>
-  <mrow>
-    <mfrac>
-      <mrow>
-        <mo>&#x2212;</mo>
-        <mi>b</mi>
-        <mo>&#x00B1;</mo>
-        <msqrt>
-          <msup><mi>b</mi><mn>2</mn></msup>
-          <mo>&#x2212;</mo>
-          <mn>4</mn><mi>a</mi><mi>c</mi>
-        </msqrt>
-      </mrow>
-      <mrow> <mn>2</mn><mi>a</mi> </mrow>
-    </mfrac>
-  </mrow>
-  <mtext>.</mtext>
-</math>
-    
+    <iframe width=100% height="400" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/6.embed" class="center_heatmap"></iframe>
 
 </div>
 
-        </div>
+    </div>
 
-        <footer>
-            <ul>
-                <li><a href="Bryson.Seiler@gmail.com">Email</a></li>
-                <li><a href="https://github.com/BrysonSeiler">GitHub</a></li>
-                <li><a href="https://www.linkedin.com/in/brysonseiler/">LinkedIn</a></li>
-            </ul>
+    <footer>
+        <ul>
+            <li>
+                <a href="Bryson.Seiler@gmail.com">Email</a>
+            </li>
+            <li>
+                <a href="https://github.com/BrysonSeiler">GitHub</a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/brysonseiler/">LinkedIn</a>
+            </li>
+        </ul>
 
-            <inf_text>
-                
-                 This website was influenced by <a href="http://jmcglone.com/guides/github-pages/"> Jonathan McGlone's guide </a> to hosting a personal site on GitHub.
+        <p class="footnote">
 
-            </inf_text>
+            This website was influenced by
+            <a href="http://jmcglone.com/guides/github-pages/"> Jonathan McGlone's guide </a> to hosting a personal site on GitHub.
 
-        </footer>
+        </p>
 
-        
-        
-    </body>
+    </footer>
+
+
+
+</body>
 
 </html>

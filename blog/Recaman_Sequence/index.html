@@ -1,0 +1,57 @@
+---
+layout: main_layout
+title: The Recamán Sequence
+---
+
+<div class="main">
+    <h2>{{page.title}}</h2>
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+
+    <script>
+
+        var width = 500;
+        var height = 500;
+        var twoPi = 2 * Math.PI;
+        var formatPercent = d3.format(".0%");
+        var curvePercent = [-.25, .50, .50, .50];
+
+        // Colours for curves
+        var colours = d3.scale.category10();
+        var colourValue = function (d, i) { return d; };
+
+        // Arc for paths surrounding the pie chart.
+        var pathArc = d3.svg.arc()
+            .innerRadius(width / 4)
+            .outerRadius(width / 4 + 5)
+            .startAngle(0);
+
+        // Appending SVG to the body
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Curved paths surrounding the pie chart g (groups) container.
+        var curves = svg.append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        // Appending the curve path endAngle to show percentage of data[curvePercent]
+        curves.selectAll("path")
+            .data(curvePercent)
+            .enter().append("path")
+            .each(arcFunction)
+            .style("fill", function (d) { return colours(colourValue(d)); });
+
+        // Function called for each path appended to increase scale and iterate.
+        function arcFunction(d, i) {
+            return d3.select(this)
+                .transition()
+                .ease('bounce')
+                .duration(1200)
+                .attr("d", pathArc.endAngle(twoPi * curvePercent[i]))
+                .attr("transform", "scale(1." + i + ")");
+        }
+
+    </script>
+
+</div>

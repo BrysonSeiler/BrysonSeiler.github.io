@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Recamán Sequence</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+    <nav>
+
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/projects">Projects</a>
+            </li>
+            <li>
+                <a href="/blog">Blog</a>
+            </li>
+            <li>
+                <a href="/CV">CV</a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="main">
+    <h2>The Recamán Sequence</h2>
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+
+    <script>
+
+        var width = 500;
+        var height = 500;
+        var twoPi = 2 * Math.PI;
+        var formatPercent = d3.format(".0%");
+        var curvePercent = [-.25, .50, .50, .50];
+
+        // Colours for curves
+        var colours = d3.scale.category10();
+        var colourValue = function (d, i) { return d; };
+
+        // Arc for paths surrounding the pie chart.
+        var pathArc = d3.svg.arc()
+            .innerRadius(width / 4)
+            .outerRadius(width / 4 + 5)
+            .startAngle(0);
+
+        // Appending SVG to the body
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Curved paths surrounding the pie chart g (groups) container.
+        var curves = svg.append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        // Appending the curve path endAngle to show percentage of data[curvePercent]
+        curves.selectAll("path")
+            .data(curvePercent)
+            .enter().append("path")
+            .each(arcFunction)
+            .style("fill", function (d) { return colours(colourValue(d)); });
+
+        // Function called for each path appended to increase scale and iterate.
+        function arcFunction(d, i) {
+            return d3.select(this)
+                .transition()
+                .ease('bounce')
+                .duration(1200)
+                .attr("d", pathArc.endAngle(twoPi * curvePercent[i]))
+                .attr("transform", "scale(1." + i + ")");
+        }
+
+    </script>
+
+</div>
+
+    </div>
+
+    <footer>
+        <ul>
+            <li>
+                <a href="Bryson.Seiler@gmail.com">Email</a>
+            </li>
+            <li>
+                <a href="https://github.com/BrysonSeiler">GitHub</a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/brysonseiler/">LinkedIn</a>
+            </li>
+        </ul>
+
+        <p class="footnote">
+
+            This website was influenced by
+            <a href="http://jmcglone.com/guides/github-pages/"> Jonathan McGlone's guide </a> to hosting a personal site on GitHub.
+
+        </p>
+
+    </footer>
+
+
+
+</body>
+
+</html>
