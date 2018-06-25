@@ -1,10 +1,10 @@
 ---
 layout: main_layout
-title: Introduction to Centrality Measurements
+title: Network Analysis
 ---
 
 <div class="main">
-    <h2>{{page.title}}</h2>
+	<h2>{{page.title}}</h2>
 
     <svg width="1200" height="800"></svg>
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -24,11 +24,53 @@ title: Introduction to Centrality Measurements
             font-family: sans-serif;
             font-size: 12px;
         }
-    </style>
+	</style>
+
+<div>
+	<button onclick = "choose(1)" class="button">Degree</button>
+	<button onclick = "choose(2)" class="button">Betweeness</button>	
+	<button onclick = "choose(3)" class="button">Eigenvector</button>
+</div>
+
+
+
+
 
     <script src="/scripts/force_layout.js"></script>
 
-	<!--filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations, show_labels-->
-	<script type="text/javascript">open_file("/networks/Lost_Network.json", 2.5, 1, -500, 1, 10, 10, true, true);</script>
+	<!--filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations, show_labels, node_att-->
+	<script type="text/javascript">setup("/networks/Lost_Network.json", 2.5, 1, -500, 1, 10, 10, true, true);</script>
+
+	
+	<h3>What is a network?</h3>
+
+	<p class="indent">
+		Networks have become a standard tool for analyzing the relationships/interactions between the components of a complex system. When it comes to understanding and modeling certain 
+		systems, like <a href="https://www.ebi.ac.uk/training/online/course/network-analysis-protein-interaction-data-introduction/protein-protein-interaction-networks">protein-protein interactions</a>
+		or <a href="https://en.wikipedia.org/wiki/Gene_regulatory_network">gene regulatory networks</a>, it becomes apparent that these systems portray non-linear behavior and are simply 
+		too complex to model with a simple mathematical equation. 
+	</p>
+
+	<p class="indent">
+		By utilizing a branch of mathematics known as graph theory, we can produce simple visual representations of these kinds of systems by treating the components of the system as 
+		vertices and the relationships between them as edges.  
+	</p>
+	
+	<p class="indent">
+		The network above represents the character relationship mapping for the TV show <i>Lost</i>. Used this infographic.
+	</p>
+	
+	<h3>Introduction to Centrality Measurements</h3>
+
+	<p class="indent">
+		What is centrality. We will be discussing a few different types.
+	</p>
+
+	<h4>Degree Centrality</h4>
+
+	<h4>Betweeness Centrality</h4>
+
+	<h4>Eigenvector Centrality</h4>
+
 
 </div>
