@@ -36,8 +36,10 @@
         <div class="main">
 	<h2>Network Analysis</h2>
 
-    <svg width="1200" height="800"></svg>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+	<svg width="1200" height="800"></svg>
+
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="/scripts/force_layout.js"></script>
 
     <style>
 	    .links line {
@@ -60,16 +62,17 @@
 	<button onclick = "choose(1)" class="button">Degree</button>
 	<button onclick = "choose(2)" class="button">Betweeness</button>	
 	<button onclick = "choose(3)" class="button">Eigenvector</button>
+	<button onclick = "choose(0)" class="button">Reset</button>
 </div>
 
 
 
 
 
-    <script src="/scripts/force_layout.js"></script>
-
-	<!--filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations, show_labels, node_att-->
-	<script type="text/javascript">setup("/networks/Lost_Network.json", 2.5, 1, -500, 1, 10, 10, true, true);</script>
+    <!--filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations, show_labels, node_att -->
+	
+	
+	<script type="text/javascript"> setup("/networks/Lost_Network.json", 3, 1, -500, 1, 65, 5, true, true);</script>
 
 	
 	<h3>What is a network?</h3>

@@ -29,7 +29,7 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 		width = +svg.attr("width"),
 		height = +svg.attr("height");
 
-	var color = d3.scaleOrdinal().range(["#457B9D"]);
+	var color = "#457B9D";
 
 	var simulation = d3.forceSimulation()
 		//Bryson Seiler: Added: 1. Collision 2. 
@@ -43,6 +43,8 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 		d3.json(filename, function (error, graph) {
 			if (error) throw error;
 
+			var node;
+
 			var link = svg.append("g")
 				.attr("class", "links")
 				.selectAll("line")
@@ -54,7 +56,7 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 
 				if (option == 0) {
 
-					var node = svg.append("g")
+					node = svg.append("g")
 						.attr("class", "nodes")
 						.selectAll("circle")
 						.data(graph.nodes)
@@ -71,7 +73,7 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 
 				if (option == 1) {
 
-					var node = svg.append("g")
+					node = svg.append("g")
 						.attr("class", "nodes")
 						.selectAll("circle")
 						.data(graph.nodes)
@@ -87,14 +89,14 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 
 				if (option == 2) {
 
-					var node = svg.append("g")
+					node = svg.append("g")
 						.attr("class", "nodes")
 						.selectAll("circle")
 						.data(graph.nodes)
 						.enter().append("circle")
 						//Bryson Seiler added: Change color/size based off of degree
 						.attr("fill", function (d) { return color(d.BetweennessCentrality); })
-						.attr("r", function (d) { return d.BetweennessCentrality/(2*scale_node); })
+						.attr("r", function (d) { return d.BetweennessCentrality / (1.5*scale_node); })
 						.call(d3.drag()
 							.on("start", dragstarted)
 							.on("drag", dragged)
@@ -103,7 +105,7 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 
 				if (option == 3) {
 
-					var node = svg.append("g")
+					node = svg.append("g")
 						.attr("class", "nodes")
 						.selectAll("circle")
 						.data(graph.nodes)
@@ -121,7 +123,7 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 
 			else {
 
-				var node = svg.append("g")
+				node = svg.append("g")
 					.attr("class", "nodes")
 					.selectAll("circle")
 					.data(graph.nodes)
@@ -203,32 +205,39 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 
 		//Reset
 		d3.selectAll("g").remove();
-		
+
 		simulation = d3.forceSimulation()
 			.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance))
 			.force("charge", d3.forceManyBody().strength(body_strength))
 			.force("collision", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
 			.force("center", d3.forceCenter(width / 2, height / 2));
 
+
+		if (choice == 0) {
+			option = 0;
+
+			color = "#457B9D";
+			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
+		}
+
 		if (choice == 1) {
 			option = 1;
 
-			color = d3.scaleOrdinal().range(["#E63946", "#455561", "#457B9D", "#457B9D", "#1D3557"]);
+			color = d3.scaleOrdinal().range(["#05668d", "#028090", "#00a896", "#02c39a", "#f0f3bd"]);
 			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
 		}
 
 		if (choice == 2) {
-
 			option = 2;
 
-			color = d3.scaleOrdinal().range(["#132a13", "#31572c", "#4f772d", "#90a955", "#ecf39e"]);
+			color = d3.scaleOrdinal().range(["#220901", "#621708", "#941b0c", "#bc3908", "#f6aa1c"]);
 			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
 		}
 
 		if (choice == 3) {
 			option = 3;
-			
-			color = d3.scaleOrdinal().range(["#124e78", "#f0f0c9", "#f2bb05", "#d74e09", "#6e0e0a"]);
+
+			color = d3.scaleOrdinal().range(["#003049", "#d62828", "#f77f00", "#fcbf49", "#eae2b7"]);
 			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
 		}
 
