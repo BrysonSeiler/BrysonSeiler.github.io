@@ -70,10 +70,12 @@
         identifying these subject differences is no simple task. What techniques do we have at our disposal to make a computer to recognize these kinds of differences?
     </p>
 
+    <h3>Document-Term Frequency</h3>
+
     <p class="indent">
         A common starting point begins by looking at the frequencies at which the words inside of a document appear inside of the others. Intuitively, by grouping together
         the documents that use the same words frequently, we can (naively) sort the documents. To do this, it is common practice to convert a collection of documents into what 
-        is known as a <i>document-term</i> frequency matrix (in my code I refer to it as the "frequency matrix").
+        is known as a <i>document-term</i> frequency matrix (in my code and from here on out, I will refer to it as a "frequency matrix").
     </p>
 
 
@@ -81,8 +83,7 @@
         Each row of this matrix represents a document and the columns represent the words
         that appear inside of these documents. By letting each entry of this matrix represent the <i>frequency</i> at which these
         words appear inside of each document, we have a consise way of representing these documents based off of their word
-        frequencies. The rows of this matrix are often referred to as
-        <i>document vectors</i>.
+        frequencies.
     </p>
 
     <p class="indent">
@@ -91,21 +92,21 @@
 
     <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/2.embed"></iframe>
 
-    
-
     <p class="indent">
         While it may not be abundantly clear, if we sift through this matrix, we can see that words like <i>cats</i> and <i>dogs</i> are frequently used by the first two documents and
-        that the third and fourth documents frequently use words like <i>travel</i> and <i>Italy</i>. Based off of these patterns, we can already begin to see a division between the documents.
+        that the third and fourth documents frequently use words like <i>travel</i> and <i>Italy</i>. Just based off of these patterns, we can already begin to get a sense of how these
+        documents are similar.
     </p>
 
     <p class="indent">
-        By treating documents as vectors, we have a quick way of making pairwise comparisons between documents based off of their
-        <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>. Cosine similarity simply tells us just how large the angle is between any two vectors. If the angle
-        between two vectors is small, meaning they're close to being the same vectors, then the cosine similarity score will be high since they are similar to eachother.
+        By treating the rows of this matrix as vectors (often referred to as <i>document vectors</i>), we can quantify the similarity of two documents based off of their document vector's
+        <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>. Cosine similarity simply tells us how large the angle is between any two vectors. If the angle
+        between two vectors is small, meaning that they're <i>similar</i>, then the cosine similarity score will be high.
     </p>
 
     <p class="indent">
-        In the code below, I did a quick pairwise cosine similarity calculation between every document vector in our collection:
+        In the code below, I do a quick pairwise cosine similarity calculation between every document vector in our collection to get an idea of how similar each document is to
+        the others:
     </p>
     
     <div class="center">
@@ -113,39 +114,41 @@
     </div>
 
     <p class="indent">
-        The document-term frequency matrix coupled with cosine similarity provides us with a great baseline for quantifying the similarity between the documents in our collection. As we
-        can see, the document pairs (1,2) and (3,4) have the highest cosine similarity scores, which is what we would expect to see from these documents, but it would also appear that 
-        the document pair (2,3) has a rather high similarity score, which is unexpected.
+        As we can see, the document pairs (1,2) and (3,4) have the highest cosine similarity scores, which is what we would expect to see from these documents, but we can also see that 
+        the document pair (2,3) has an unexpectedly high similarity score.
     </p>
 
+    <h3>Stop Words and Tf-idf</h3>
+
     <p class="indent">
-        The reason why this pair has an unexpectedly high cosine similarity score is due to the fact that both of these documents use the word "to" frequently. This points out a major flaw in
+        The reason why this pair has a high cosine similarity score is due to the fact that both of these documents use the word "to" frequently. This points out a major flaw in
         this model. By simply letting word frequencies contribute to the similarity between documents, we are allowing for certain, not very useful words, to contribute to the similarity.
     </p>
 
     <p class="indent">
-        For example, the word "and" appears in nearly every body of text that you can come across. If you let "and" contribute to the similarity, then EVERY body of text is going to be related
-        since the all contain the word "and."
+        For example, the word "and" appears in nearly every English body of text that you can come across. If you let "and" contribute to the similarity, then almost every body of text 
+        is going to be related since almost all of them contain the word "and." 
     </p>
 
     <p class="indent">
-        Due to this fact, we often introduce what we call a <a href="https://en.wikipedia.org/wiki/Stop_words">stop list</a> to filter out an of these nusiance words. A stop list is a list of words
-        that we want to be filtered out of our bodies of text before we convert them into a frequency matrix.
+        Due to this fact, before we make our frequency matrix, it is common practice to use a <a href="https://en.wikipedia.org/wiki/Stop_words">stop list</a> to filter out conjuctions, 
+        prepositions and determiners since they appear in the majority of documents and do not contribute all that much information to the subject of the document.
     </p>
 
     <p class="indent">
-        After removing stop words from our documents, to further increase the accuracy of this matrix, we introduce a weighting scheme known as <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a>
-        to penalize words that appear frequently in all of the documents and reward words that rarely occur.
+        To further increase the accuracy of our cosine similarity scores, we introduce a weighting scheme known as <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a> to 
+        weight each word based off of how frequently it appears and the number of documents that it appears in. Doing this in some sense quantifies the "importance" of a word to a 
+        collection of documents. If a word appears infrequently in a select few documents, then it is likely that the word is a defining feature to the documents and dictates the subject.
     </p>
 
     <p class="indent">
-        We call this the <i>tf-idf</i> matrix. Here it is for our example documents:
+        After removing our stop words and running the tf-idf weighting scheme over our collection of documents, we produce the <i>tf-idf</i> matrix:
     </p>
 
     <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/9.embed"></iframe>
 
     <p class="indent">
-        As you can see, after removing stop words and introducing the tf-idf weighting scheme, the similarities between the documents becomes much more clear. Now we are really able to pick up
+        After removing stop words and introducing the tf-idf weighting scheme, the similarities between the documents becomes much more clear. Now we are really able to pick up
         on the fact that, for example, words like <i>cats</i>, <i>dogs</i> and <i>pets</i> are prominent words that appear frequently inside of the first two documents.
     </p>
 
@@ -156,6 +159,24 @@
     <div class="center">
         <img src="\pictures\LSA_Cosine_Tfidf.png" title="LSA Cosine Similarity"/>
     </div>
+
+    <p class="indent">
+        As we can see, the similarity scores for all of the document pairs have gone down, but some have been squashed more than others. In paticular, the documents that we know
+        are not similar have been, for the most part, driven down to less than 20%.
+    </p>
+
+    <h3>Singular Value Deomposition and Semantic Space</h3>
+
+    <p class="indent">
+        Cosine similarity is useful if the vectors that we're studying live in a relatively low dimension. As we increase the dimension that our vectors live in, the angle between
+        any two of our vectors gets smaller. Hence, cosine similarity is useless since in very high dimensions, every vector is going to appear to be similar.
+        
+        This is known as the <a href="https://en.wikipedia.org/wiki/Curse_of_dimensionality">curse of dimensionality</a>.
+        
+        
+        The reality of LSA is that we are almost always going 
+        to be analyzing thousands of documents with tens of thousands of words, which implies that our document vectors are going to live in a very high dimensional space. 
+    </p>
 
     <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
 
