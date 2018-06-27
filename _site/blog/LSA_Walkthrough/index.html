@@ -39,18 +39,18 @@
     <p class="indent">
         Within the realm of natural language processing,
         <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that is used to analyze the relationships between a set of documents
-        and the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort
+        based on the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort
         large collections of documents.
     </p>
 
     <p class="indent">
-        Repository for the Python code that was used in this post:
+        The Python code that was used in this post can be found here:
         <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Example">LSA Walkthrough</a>
         <br/>
     </p>
 
     <p class="indent">
-        Consider the four following documents:
+        To understand Latent Semantic Analysis, lets walk through an example of how it can be used to sort the following four (very unrealistic) documents:
     </p>
 
     <div class="center">
@@ -59,32 +59,27 @@
     
 
     <p class="indent">
-        After reading through these documents, it’s easy to see that they could be sorted into two different categories. For the
+        After reading through these documents, it’s not hard to see that they could be sorted into two different categories. For the
         sake of simplicity, let’s call these categories
         <i>pets</i> and
         <i>travel</i>.
     </p>
 
     <p class="indent">
-        This is a rather trivial conclusion for us to draw since there is a clear difference in subject between the first two documents
-        and the last two documents. However, for a computer, identifying the differences is not a simple task. What techniques
-        do we have at our disposal to make a computer to recognize these kinds of differences?
+        This is a rather trivial conclusion for us to draw since the subject of the first two documents is clearly different than the last two, but for a computer,
+        identifying these subject differences is no simple task. What techniques do we have at our disposal to make a computer to recognize these kinds of differences?
     </p>
 
     <p class="indent">
-        One common techinque starts by looking at the frequencies at which words appear inside of each document. Intuitively, by
-        grouping together the documents that use the same words frequently, we can naively sort the documents. For example,
-        the first two documents use the words
-        <i>cats</i> and
-        <i>dogs</i> frequently while the other two documents do not, hence it may be reasonable to assume that these two documents
-        are similar to each other and can be placed into the same category.
+        A common starting point begins by looking at the frequencies at which the words inside of a document appear inside of the others. Intuitively, by grouping together
+        the documents that use the same words frequently, we can (naively) sort the documents. To do this, it is common practice to convert a collection of documents into what 
+        is known as a <i>document-term</i> frequency matrix (in my code I refer to it as the "frequency matrix").
     </p>
 
 
     <p class="indent">
-        To quantify this idea, it is common practice to convert a corpus into what is known as a
-        <i>document-term</i> frequency matrix. Each row of this matrix represents a document and the columns represent the words
-        that appear inside of these documents. By letting each entry of this matrix represent the frequency at which these
+        Each row of this matrix represents a document and the columns represent the words
+        that appear inside of these documents. By letting each entry of this matrix represent the <i>frequency</i> at which these
         words appear inside of each document, we have a consise way of representing these documents based off of their word
         frequencies. The rows of this matrix are often referred to as
         <i>document vectors</i>.
@@ -99,35 +94,68 @@
     
 
     <p class="indent">
-        While it may not be abundantly clear, if we sift through this matrix, we can see that words like <i>cats</i>, <i>dogs</i> and <i>pets</i> are frequently used by the first two documents and
-        that the third and fourth documents frequently use words like <i>travel</i> and <i>Italy</i>.
+        While it may not be abundantly clear, if we sift through this matrix, we can see that words like <i>cats</i> and <i>dogs</i> are frequently used by the first two documents and
+        that the third and fourth documents frequently use words like <i>travel</i> and <i>Italy</i>. Based off of these patterns, we can already begin to see a division between the documents.
     </p>
 
     <p class="indent">
-        One of the advantages of treating documents as vectors is that we have a quick way of making pairwise comparisons with cosine similarity. In the code below, I did a quick pairwise
-        cosine similarity calculation between every document.
+        By treating documents as vectors, we have a quick way of making pairwise comparisons between documents based off of their
+        <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>. Cosine similarity simply tells us just how large the angle is between any two vectors. If the angle
+        between two vectors is small, meaning they're close to being the same vectors, then the cosine similarity score will be high since they are similar to eachother.
+    </p>
+
+    <p class="indent">
+        In the code below, I did a quick pairwise cosine similarity calculation between every document vector in our collection:
     </p>
     
-
     <div class="center">
         <img src="\pictures\LSA_Cosine_Count.png" title="LSA Cosine Similarity"/>
     </div>
 
     <p class="indent">
-        Based off of these patterns, we can already begin to see a division between the documents, but the document-term frequency matrix doesn't do a great job of making this division
-        abundantly clear. The issue with this model is that this frequency matrix allows for certain words to contribute to the similarity between two documents when they really shouldn't.
-        The word <i>to</i> is a great example of this. 
-            (note that I filtered out words like
-            <i>and</i> and
-            <i>the</i> before I created the matrix by with a
-            <a href="https://en.wikipedia.org/wiki/Stop_words">stop list</a>):
-
+        The document-term frequency matrix coupled with cosine similarity provides us with a great baseline for quantifying the similarity between the documents in our collection. As we
+        can see, the document pairs (1,2) and (3,4) have the highest cosine similarity scores, which is what we would expect to see from these documents, but it would also appear that 
+        the document pair (2,3) has a rather high similarity score, which is unexpected.
     </p>
 
-    
+    <p class="indent">
+        The reason why this pair has an unexpectedly high cosine similarity score is due to the fact that both of these documents use the word "to" frequently. This points out a major flaw in
+        this model. By simply letting word frequencies contribute to the similarity between documents, we are allowing for certain, not very useful words, to contribute to the similarity.
+    </p>
 
+    <p class="indent">
+        For example, the word "and" appears in nearly every body of text that you can come across. If you let "and" contribute to the similarity, then EVERY body of text is going to be related
+        since the all contain the word "and."
+    </p>
+
+    <p class="indent">
+        Due to this fact, we often introduce what we call a <a href="https://en.wikipedia.org/wiki/Stop_words">stop list</a> to filter out an of these nusiance words. A stop list is a list of words
+        that we want to be filtered out of our bodies of text before we convert them into a frequency matrix.
+    </p>
+
+    <p class="indent">
+        After removing stop words from our documents, to further increase the accuracy of this matrix, we introduce a weighting scheme known as <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a>
+        to penalize words that appear frequently in all of the documents and reward words that rarely occur.
+    </p>
+
+    <p class="indent">
+        We call this the <i>tf-idf</i> matrix. Here it is for our example documents:
+    </p>
 
     <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/9.embed"></iframe>
+
+    <p class="indent">
+        As you can see, after removing stop words and introducing the tf-idf weighting scheme, the similarities between the documents becomes much more clear. Now we are really able to pick up
+        on the fact that, for example, words like <i>cats</i>, <i>dogs</i> and <i>pets</i> are prominent words that appear frequently inside of the first two documents.
+    </p>
+
+    <p class="indent">
+        Let's take a look at the cosine similarities between these new document vectors:
+    </p>
+
+    <div class="center">
+        <img src="\pictures\LSA_Cosine_Tfidf.png" title="LSA Cosine Similarity"/>
+    </div>
 
     <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
 
