@@ -6,7 +6,8 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
 </head>
 
 
@@ -57,7 +58,6 @@
         <img src="\pictures\Documents.svg" title="Example Documents"/>
     </div>
     
-
     <p class="indent">
         After reading through these documents, it’s not hard to see that they could be sorted into two different categories. For the
         sake of simplicity, let’s call these categories
@@ -70,7 +70,7 @@
         identifying these subject differences is no simple task. What techniques do we have at our disposal to make a computer to recognize these kinds of differences?
     </p>
 
-    <h3>Document-Term Frequency</h3>
+    <h3>Document-Term Frequency and Cosine Similarity</h3>
 
     <p class="indent">
         A common starting point begins by looking at the frequencies at which the words inside of a document appear inside of the others. Intuitively, by grouping together
@@ -108,9 +108,11 @@
         In the code below, I do a quick pairwise cosine similarity calculation between every document vector in our collection to get an idea of how similar each document is to
         the others:
     </p>
+
     
-    <div class="center">
-        <img src="\pictures\LSA_Cosine_Count.png" title="LSA Cosine Similarity"/>
+    
+    <div class="code">
+        <img style="width: 800px" src="\pictures\LSA_Cosine_Count.png" title="LSA Cosine Similarity"/>
     </div>
 
     <p class="indent">
@@ -156,8 +158,8 @@
         Let's take a look at the cosine similarities between these new document vectors:
     </p>
 
-    <div class="center">
-        <img src="\pictures\LSA_Cosine_Tfidf.png" title="LSA Cosine Similarity"/>
+    <div class="code">
+        <img style="width: 500px" src="\pictures\LSA_Cosine_Tfidf.png" title="LSA Cosine Similarity"/>
     </div>
 
     <p class="indent">
@@ -168,61 +170,98 @@
     <h3>Singular Value Deomposition and Semantic Space</h3>
 
     <p class="indent">
-        Cosine similarity is useful if the vectors that we're studying live in a relatively low dimension. As we increase the dimension that our vectors live in, the angle between
-        any two of our vectors gets smaller. Hence, cosine similarity is useless since in very high dimensions, every vector is going to appear to be similar.
+        The tf-idf model coupled with cosine similarity provides us with a great approximation for the similarity between documents, but there are some limitations to this model.
+    </p>
+
+    <p class="indent">
+        First of all, this model compares documents based on the idea that documents that frequently use the same words will be similar to one another. While for the most part, this works
+        decently well, the problem with this idea is that it leads to the inability to pick up on <i>synonyms</i>. Suppose, for example, we chose to add a fifth document to our collection 
+        that frequently used the words <i>feline</i> and <i>canidae</i>. The tf-idf model would fail to recognize that the first two documents are similar to this new one since neither of 
+        them use the word feline!
+    </p>
+
+    <p class="indent">
+        The second issue with this model boils down to the fact that in any real world situation, we would be using this technique to analyze <i>thousands</i> of documents that contain 
+        <i>tens of thousands</i> of words, which leads to document vectors that live in a very high dimensional space. Cosine similarity is only useful if the vectors that we're studying 
+        live in a relatively low dimensional space. As we increase the dimension that our vectors live in, the angle between any two of our vectors gets smaller, hence, cosine similarity 
+        is useless since in very high dimensions, every vector is going to appear to be similar. This is known as the 
+        <a href="https://en.wikipedia.org/wiki/Curse_of_dimensionality">curse of dimensionality</a>.
+    </p>
+
+
+    <p class="indent">
+        To counteract these issues, we need to find a way to pick up on synonyms and also reduce the dimension of these document vectors. Conveniently, this can be done 
+        with <a href="https://en.wikipedia.org/wiki/Singular-value_decomposition">singular value decomposition</a>.
         
-        This is known as the <a href="https://en.wikipedia.org/wiki/Curse_of_dimensionality">curse of dimensionality</a>.
-        
-        
-        The reality of LSA is that we are almost always going 
-        to be analyzing thousands of documents with tens of thousands of words, which implies that our document vectors are going to live in a very high dimensional space. 
+        of our tf-idf matrix and then using this decomposition to project our documents into <a href="https://en.wikipedia.org/wiki/Semantic_space">
+        semantic space</a>.
+    </p>
+
+    <p class="indent">
+        Singular value decomposition provides us with a way to decompose our tf-idf matrix into a product of three smaller matrices:
+    </p>
+
+    <p class="indent">
+        Given an arbitrary <i>transposed</i> tf-idf matrix
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mi>D</mi>
+            </math>,
+            there exists a singular value decomposition of the form:
+            <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                <mi>D</mi> <mo>=</mo> <mi>U</mi> <mi>S</mi><msup><mi>V</mi><mn>T</mn></msup>
+            </math>
+    </p>
+    <p class="indent">
+        where 
+        <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> is a unitary matrix that describes how are the <i>words in our documents</i> are related to our 
+        <i>features</i> (I'll explain what I mean by this in just a second), <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> describes the <i>strength</i> of our features and 
+        <math xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> describes how our <i>documents</i> are related to our features.
+    </p>
+
+    <p class="indent">
+        What's a feature you might ask? When we initially started this example, we intuitively divided our collection of documents into two categories: <i>pets</i> and <i>travel</i>.
+        These categories are examples of <i>features</i> for our collection of documents.
+    </p>
+
+    <p class="indent">
+        Here is the <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> matrix for our collection of documents:
     </p>
 
     <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
 
     <p class="indent">
-        
+        As we can see, words like <i>cats</i> and <i>dogs</i> are strongly associated with our first feature: <i>pets!</i> Furthermore, words like <i>travel</i> and <i>Italy</i>
+        are strongly associated with our second feature: <i>travel!</i> 
+    </p>
+
+    <p class="indent">
+        It's unclear to me what the third and fourth features are trying to describe. By taking a quick look at our <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> 
+        matrix, which is a diagonal matrix that consists of singular values that describe the strength of each of our features:
+    </p>
+
+    <div class="code">
+        <img style="width: 300px" src="\pictures\Singular_Values.png" title="Singular Values"/>
+    </div>
+
+    <p class="indent">
+        We can see that our first two features are the dominating features in our collection of documents.
+    </p>
+
+    <p class="indent">
+        Lets take a look at our <math xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> matrix:
     </p>
 
     <iframe height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/6.embed" class="center_heatmap"></iframe>
 
-    <script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-<p>
-    When
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <mi>a</mi><mo>&#x2260;</mo><mn>0</mn>
-    </math>,
-    there are two solutions to
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup>
-      <mo>+</mo> <mi>b</mi><mi>x</mi>
-      <mo>+</mo> <mi>c</mi> <mo>=</mo> <mn>0</mn>
-    </math>
-    and they are
-    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-      <mi>x</mi> <mo>=</mo>
-      <mrow>
-        <mfrac>
-          <mrow>
-            <mo>&#x2212;</mo>
-            <mi>b</mi>
-            <mo>&#x00B1;</mo>
-            <msqrt>
-              <msup><mi>b</mi><mn>2</mn></msup>
-              <mo>&#x2212;</mo>
-              <mn>4</mn><mi>a</mi><mi>c</mi>
-            </msqrt>
-          </mrow>
-          <mrow> <mn>2</mn><mi>a</mi> </mrow>
-        </mfrac>
-      </mrow>
-      <mtext>.</mtext>
-    </math>
+    <p class="indent">
+        As we can see, the first two documents are highly associated with our first feature, and the third and fourth documents are highly associated with our second feature, as we would
+        expect.
     </p>
 
+    <p class="indent">
+        As we can see, the decomposition allows us to pick up synonyms, but the real guts of this method comes from projecting our matrix into semantic space.
+    </p>
+    
 
 </div>
 
