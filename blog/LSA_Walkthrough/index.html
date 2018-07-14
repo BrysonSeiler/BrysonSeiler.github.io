@@ -78,11 +78,31 @@ title: Latent Semantic Analysis
         the others:
     </p>
 
-    
-    
-    <div class="code">
-        <img style="width: 800px" src="\pictures\LSA_Cosine_Count.png" title="LSA Cosine Similarity"/>
-    </div>
+<pre class="code_output">
+from sklearn.metrics.pairwise import cosine_similarity
+
+num_documents = frequency_matrix.toarray().shape[0]
+
+print("Cosine Similarity: \n")
+for i in range(num_documents-1):
+    for j in range(i+1, num_documents):
+        print("\t Document %d and %d: %s" % 
+        (i+1, j+1, str(cosine_similarity(frequency_matrix[i], frequency_matrix[j])).strip('[]')))
+
+'''
+Output:
+
+Cosine Similarity:
+
+    Document 1 and 2: 0.30555556
+    Document 1 and 3: 0.07273930
+    Document 1 and 4: 0.10206207
+    Document 2 and 3: 0.24246432
+    Document 1 and 4: 0.13608276
+    Document 3 and 4: 0.53452248
+
+'''
+</pre>
 
     <p class="indent">
         As we can see, the document pairs (1,2) and (3,4) have the highest cosine similarity scores, which is what we would expect to see from these documents, but we can also see that 
@@ -127,9 +147,18 @@ title: Latent Semantic Analysis
         Let's take a look at the cosine similarities between these new document vectors:
     </p>
 
-    <div class="code">
-        <img style="width: 500px" src="\pictures\LSA_Cosine_Tfidf.png" title="LSA Cosine Similarity"/>
-    </div>
+<pre class="code_output">
+Output:
+            
+Cosine Similarity:
+
+    Document 1 and 2: 0.26221910
+    Document 1 and 3: 0.04448158
+    Document 1 and 4: 0.05626396
+    Document 2 and 3: 0.14167618
+    Document 1 and 4: 0.07168148
+    Document 3 and 4: 0.39328159
+</pre>
 
     <p class="indent">
         As we can see, the similarity scores for all of the document pairs have gone down, but some have been squashed more than others. In paticular, the documents that we know
@@ -208,9 +237,14 @@ title: Latent Semantic Analysis
         matrix, which is a diagonal matrix that consists of singular values that describe the strength of each of our features:
     </p>
 
-    <div class="code">
-        <img style="width: 300px" src="\pictures\Singular_Values.png" title="Singular Values"/>
-    </div>
+<pre class="code_output">
+Singular Values:
+
+    1.225233566301
+    1.077347205740
+    0.863096120569
+    0.770188803448
+</pre>
 
     <p class="indent">
         We can see that our first two features are the dominating features in our collection of documents.

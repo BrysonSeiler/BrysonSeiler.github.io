@@ -13,7 +13,7 @@ title: Network Analysis
 
     <style>
 	    .links line {
-	    	stroke: #999;
+	    	stroke: #6e7276;
 			stroke-opacity: 0.6;
 		}
 			
@@ -29,14 +29,14 @@ title: Network Analysis
 	</style>
 
 
-    <!--filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations, show_labels, node_att -->
-	<script type="text/javascript"> setup("/networks/Lost_Network.json", 3, 1, -500, 1, 65, 5, true, true);</script>
+    <!--filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size-->
+	<script type="text/javascript"> setup("/networks/Lost_Network.json", 1, -500, 5, 65, 5, true, '#3178b3', 8);</script>
 
 	<div>
-		<button onclick = "choose(1)" class="button">Degree</button>
-		<button onclick = "choose(2)" class="button">Betweeness</button>	
-		<button onclick = "choose(3)" class="button">Eigenvector</button>
-		<button onclick = "choose(0)" class="button">Reset</button>
+		<button onclick = "update_node(1)" class="button">Degree</button>
+		<button onclick = "update_node(2)" class="button">Betweeness</button>	
+		<button onclick = "update_node(3)" class="button">Eigenvector</button>
+		<button onclick = "update_node(0)" class="button">Reset</button>
 	</div>
 
 	

@@ -9,42 +9,33 @@
 */
 
 //Bryson Seiler: Added: function to open json networks:
-function setup(filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations, show_labels, node_att) {
+function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size) {
 
-	//Bryson Seiler: Added: Varaibles: filename, scale_node, link_strength, body_strength, collide_strength, distance, iterations
-
-	var option = 0;
-
-	var filename = filename;
-	var scale_node = scale_node;
-	var link_strength = link_strength;
-	var body_strength = body_strength;
-	var collide_strength = collide_strength;
-	var distance = distance;
-	var iterations = iterations;
-	var show_labels = show_labels;
-	var node_att = node_att;
-
+	//Create svg container
 	var svg = d3.select("svg"),
 		width = +svg.attr("width"),
 		height = +svg.attr("height");
 
-	var color = "#457B9D";
+	//Set default node size/color
 
+	//Initialize force simulation
 	var simulation = d3.forceSimulation()
-		//Bryson Seiler: Added: 1. Collision 2. 
+		//Bryson Seiler: Added: 1. Collision 
 		.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance))
 		.force("charge", d3.forceManyBody().strength(body_strength))
 		.force("collision", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
 		.force("center", d3.forceCenter(width / 2, height / 2));
 
-	function draw(filename, scale_node, svg, color, simulation, show_labels, node_att) {
+	//Draw network
+	window.draw = draw(filename, svg, simulation, show_labels);
 
+	function draw(filename, svg, simulation, show_labels) {
+
+		//Open json network
 		d3.json(filename, function (error, graph) {
 			if (error) throw error;
 
-			var node;
-
+			//Create links
 			var link = svg.append("g")
 				.attr("class", "links")
 				.selectAll("line")
@@ -52,92 +43,20 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 				.enter().append("line")
 				.attr("stroke-width", function (d) { return Math.sqrt(d.value); });
 
-			if (node_att) {
+			//Create nodes of default size/color
+			var node = svg.append("g")
+				.attr("class", "nodes")
+				.selectAll("circle")
+				.data(graph.nodes)
+				.enter().append("circle")
+				.attr("fill", default_node_color)
+				.attr("r", default_node_size)
+				.call(d3.drag()
+					.on("start", dragstarted)
+					.on("drag", dragged)
+					.on("end", dragended));
 
-				if (option == 0) {
-
-					node = svg.append("g")
-						.attr("class", "nodes")
-						.selectAll("circle")
-						.data(graph.nodes)
-						.enter().append("circle")
-						//Bryson Seiler added: Change color/size based off of degree
-						.attr("fill", "#457B9D")
-						.attr("r", 3 * scale_node)
-						.call(d3.drag()
-							.on("start", dragstarted)
-							.on("drag", dragged)
-							.on("end", dragended));
-
-				}
-
-				if (option == 1) {
-
-					node = svg.append("g")
-						.attr("class", "nodes")
-						.selectAll("circle")
-						.data(graph.nodes)
-						.enter().append("circle")
-						//Bryson Seiler added: Change color/size based off of degree
-						.attr("fill", function (d) { return color(d.Degree); })
-						.attr("r", function (d) { return d.Degree * scale_node; })
-						.call(d3.drag()
-							.on("start", dragstarted)
-							.on("drag", dragged)
-							.on("end", dragended));
-				}
-
-				if (option == 2) {
-
-					node = svg.append("g")
-						.attr("class", "nodes")
-						.selectAll("circle")
-						.data(graph.nodes)
-						.enter().append("circle")
-						//Bryson Seiler added: Change color/size based off of degree
-						.attr("fill", function (d) { return color(d.BetweennessCentrality); })
-						.attr("r", function (d) { return d.BetweennessCentrality / (1.5*scale_node); })
-						.call(d3.drag()
-							.on("start", dragstarted)
-							.on("drag", dragged)
-							.on("end", dragended));
-				}
-
-				if (option == 3) {
-
-					node = svg.append("g")
-						.attr("class", "nodes")
-						.selectAll("circle")
-						.data(graph.nodes)
-						.enter().append("circle")
-						//Bryson Seiler added: Change color/size based off of degree
-						.attr("fill", function (d) { return color(d.EigenvectorCentrality); })
-						.attr("r", function (d) { return d.EigenvectorCentrality * scale_node * 9; })
-						.call(d3.drag()
-							.on("start", dragstarted)
-							.on("drag", dragged)
-							.on("end", dragended));
-				}
-
-			}
-
-			else {
-
-				node = svg.append("g")
-					.attr("class", "nodes")
-					.selectAll("circle")
-					.data(graph.nodes)
-					.enter().append("circle")
-					//Bryson Seiler added: Change color/size based off of degree
-					.attr("fill", "#457B9D")
-					.attr("r", scale_node)
-					.call(d3.drag()
-						.on("start", dragstarted)
-						.on("drag", dragged)
-						.on("end", dragended));
-
-			}
-
+			//Create node labels
 			if (show_labels == true) {
 
 				var lables = svg.append("g")
@@ -149,9 +68,6 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 					.attr("dy", "-0.5em")
 					.text(function (d) { return d.id; });
 			}
-
-			node.append("title")
-				.text(function (d) { return d.id; });
 
 			simulation
 				.nodes(graph.nodes)
@@ -178,7 +94,9 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 						.attr("y", function (d) { return d.y; });
 
 				}
+
 			}
+
 		});
 
 		function dragstarted(d) {
@@ -197,53 +115,117 @@ function setup(filename, scale_node, link_strength, body_strength, collide_stren
 			d.fx = null;
 			d.fy = null;
 		}
-	}
-
-	window.draw = draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
-
-	function choose(choice) {
-
-		//Reset
-		d3.selectAll("g").remove();
-
-		simulation = d3.forceSimulation()
-			.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance))
-			.force("charge", d3.forceManyBody().strength(body_strength))
-			.force("collision", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
-			.force("center", d3.forceCenter(width / 2, height / 2));
-
-
-		if (choice == 0) {
-			option = 0;
-
-			color = "#457B9D";
-			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
-		}
-
-		if (choice == 1) {
-			option = 1;
-
-			color = d3.scaleOrdinal().range(["#05668d", "#028090", "#00a896", "#02c39a", "#f0f3bd"]);
-			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
-		}
-
-		if (choice == 2) {
-			option = 2;
-
-			color = d3.scaleOrdinal().range(["#220901", "#621708", "#941b0c", "#bc3908", "#f6aa1c"]);
-			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
-		}
-
-		if (choice == 3) {
-			option = 3;
-
-			color = d3.scaleOrdinal().range(["#003049", "#d62828", "#f77f00", "#fcbf49", "#eae2b7"]);
-			draw(filename, scale_node, svg, color, simulation, show_labels, node_att);
-		}
 
 	}
 
-	window.choose = choose;
 
+	//Bryson Seiler: added code to change color/size of node based off of centrality measurement
+	function update_node(value) {
+
+		var color = ['#215077', '#265d8b', '#2c6b9f', '#3178b3', '#3685c7', '#4a92cd', '#5e9ed3'];
+
+		if (value == 0) {
+
+			//Reset nodes color/size to original values
+
+			d3.selectAll("svg").selectAll("circle").each(function (d, i) {
+				d3.select(this).attr("fill", default_node_color)
+				d3.select(this).attr("r", default_node_size)
+				console.log(this)
+			})
+
+		}
+
+		if (value == 1) {
+
+			//Size/color nodes based off of degree centrality
+
+			d3.selectAll("svg").selectAll("circle").each(function (d) {
+				d3.select(this).attr("fill", function (d){ return color[d.Degree-1]})
+				d3.select(this).attr("r", function (d) { return default_node_size + Math.pow(d.Degree, 1.65); })
+			})
+
+		}
+
+		if (value == 2) {
+
+			//Size/color nodes based off of Betweenness centrality
+			
+			d3.selectAll("svg").selectAll("circle").each(function (d) {
+
+				if (d.BetweennessCentrality == 0.0){
+					d3.select(this).attr("fill", color[0])
+				}
+
+				if (d.BetweennessCentrality > 0.0 && d.BetweennessCentrality < 20.0){
+					d3.select(this).attr("fill", color[1])
+				}
+
+				if (d.BetweennessCentrality > 20.0 && d.BetweennessCentrality < 50.0){
+					d3.select(this).attr("fill", color[2])
+				}
+
+				if (d.BetweennessCentrality > 50.0 && d.BetweennessCentrality < 80.0){
+					d3.select(this).attr("fill", color[3])
+				}
+
+				if (d.BetweennessCentrality > 80.0 && d.BetweennessCentrality < 100.0){
+					d3.select(this).attr("fill", color[4])
+				}
+
+				if (d.BetweennessCentrality > 100.0 && d.BetweennessCentrality < 120.0){
+					d3.select(this).attr("fill", color[5])
+				}
+
+				if (d.BetweennessCentrality > 120.0 && d.BetweennessCentrality < 150.0){
+					d3.select(this).attr("fill", color[6])
+				}
+				
+				d3.select(this).attr("r", function (d) { return default_node_size + 0.18*(d.BetweennessCentrality); })
+			})
+
+		}
+
+		if (value == 3) {
+
+			//Size/color nodes based off of Eigenvector centrality
+
+			d3.selectAll("svg").selectAll("circle").each(function (d, i) {
+
+				if (d.EigenvectorCentrality > 0.0 && d.EigenvectorCentrality < 0.2){
+					d3.select(this).attr("fill", color[0])
+				}
+
+				if (d.EigenvectorCentrality > 0.2 && d.EigenvectorCentrality < 0.3){
+					d3.select(this).attr("fill", color[1])
+				}
+
+				if (d.EigenvectorCentrality > 0.3 && d.EigenvectorCentrality < 0.4){
+					d3.select(this).attr("fill", color[2])
+				}
+
+				if (d.EigenvectorCentrality > 0.4 && d.EigenvectorCentrality < 0.5){
+					d3.select(this).attr("fill", color[3])
+				}
+
+				if (d.EigenvectorCentrality > 0.5 && d.BetweennessCentrality < 0.6){
+					d3.select(this).attr("fill", color[4])
+				}
+
+				if (d.EigenvectorCentrality > 0.6 && d.EigenvectorCentrality < 0.8){
+					d3.select(this).attr("fill", color[5])
+				}
+
+				if (d.EigenvectorCentrality > 0.8 && d.EigenvectorCentrality <= 1.0){
+					d3.select(this).attr("fill", color[6])
+				}
+
+				d3.select(this).attr("r", function (d) { return default_node_size + 25*d.EigenvectorCentrality; })
+			})
+
+		}
+	}
+
+	window.update_node = update_node
 
 }
