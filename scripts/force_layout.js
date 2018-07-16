@@ -122,7 +122,11 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	//Bryson Seiler: added code to change color/size of node based off of centrality measurement
 	function update_node(value) {
 
-		var color = ['#215077', '#265d8b', '#2c6b9f', '#3178b3', '#3685c7', '#4a92cd', '#5e9ed3'];
+		//Blue: ['#215077', '#265d8b', '#2c6b9f', '#3178b3', '#3685c7', '#4a92cd', '#5e9ed3'];
+		//New Blue: ['#215077', '#2c6b9f', '#3685c7', '#5e9ed3', '#9ac2e3', '#d6e6f4', '#feffff'];
+
+		var color = ['#215077', '#2c6b9f', '#3685c7', '#5e9ed3', '#9ac2e3', '#d6e6f4', '#eaf2f9'];
+		var size = [default_node_size, default_node_size + 6, default_node_size + 11, default_node_size + 14, default_node_size + 17, default_node_size + 20, default_node_size + 25]
 
 		if (value == 0) {
 
@@ -131,7 +135,6 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 			d3.selectAll("svg").selectAll("circle").each(function (d, i) {
 				d3.select(this).attr("fill", default_node_color)
 				d3.select(this).attr("r", default_node_size)
-				console.log(this)
 			})
 
 		}
@@ -143,6 +146,36 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 			d3.selectAll("svg").selectAll("circle").each(function (d) {
 				d3.select(this).attr("fill", function (d){ return color[d.Degree-1]})
 				d3.select(this).attr("r", function (d) { return default_node_size + Math.pow(d.Degree, 1.65); })
+
+
+				if (d.Degree == 0 || d.Degree == 1){
+					d3.select(this).attr("fill", color[0]).attr("r", size[0])
+				}
+
+				if (d.Degree == 2){
+					d3.select(this).attr("fill", color[1]).attr("r", size[1])
+				}
+
+				if (d.Degree == 3){
+					d3.select(this).attr("fill", color[2]).attr("r", size[2])
+				}
+
+				if (d.Degree == 4){
+					d3.select(this).attr("fill", color[3]).attr("r", size[3])
+				}
+
+				if (d.Degree == 5){
+					d3.select(this).attr("fill", color[4]).attr("r", size[4])
+				}
+
+				if (d.Degree == 6){
+					d3.select(this).attr("fill", color[5]).attr("r", size[5])
+				}
+
+				if (d.Degree == 7){
+					d3.select(this).attr("fill", color[6]).attr("r", size[6])
+				}
+
 			})
 
 		}
@@ -154,34 +187,33 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 			d3.selectAll("svg").selectAll("circle").each(function (d) {
 
 				if (d.BetweennessCentrality == 0.0){
-					d3.select(this).attr("fill", color[0])
+					d3.select(this).attr("fill", color[0]).attr("r", size[0])
 				}
 
 				if (d.BetweennessCentrality > 0.0 && d.BetweennessCentrality < 20.0){
-					d3.select(this).attr("fill", color[1])
+					d3.select(this).attr("fill", color[1]).attr("r", size[1])
 				}
 
 				if (d.BetweennessCentrality > 20.0 && d.BetweennessCentrality < 50.0){
-					d3.select(this).attr("fill", color[2])
+					d3.select(this).attr("fill", color[2]).attr("r", size[2])
 				}
 
 				if (d.BetweennessCentrality > 50.0 && d.BetweennessCentrality < 80.0){
-					d3.select(this).attr("fill", color[3])
+					d3.select(this).attr("fill", color[3]).attr("r", size[3])
 				}
 
 				if (d.BetweennessCentrality > 80.0 && d.BetweennessCentrality < 100.0){
-					d3.select(this).attr("fill", color[4])
+					d3.select(this).attr("fill", color[4]).attr("r", size[4])
 				}
 
 				if (d.BetweennessCentrality > 100.0 && d.BetweennessCentrality < 120.0){
-					d3.select(this).attr("fill", color[5])
+					d3.select(this).attr("fill", color[5]).attr("r", size[5])
 				}
 
 				if (d.BetweennessCentrality > 120.0 && d.BetweennessCentrality < 150.0){
-					d3.select(this).attr("fill", color[6])
+					d3.select(this).attr("fill", color[6]).attr("r", size[6])
 				}
 				
-				d3.select(this).attr("r", function (d) { return default_node_size + 0.18*(d.BetweennessCentrality); })
 			})
 
 		}
@@ -190,37 +222,37 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 
 			//Size/color nodes based off of Eigenvector centrality
 
-			d3.selectAll("svg").selectAll("circle").each(function (d, i) {
+			d3.selectAll("svg").selectAll("circle").each(function (d) {
 
 				if (d.EigenvectorCentrality > 0.0 && d.EigenvectorCentrality < 0.2){
-					d3.select(this).attr("fill", color[0])
+					d3.select(this).attr("fill", color[0]).attr("r", size[0])
 				}
 
 				if (d.EigenvectorCentrality > 0.2 && d.EigenvectorCentrality < 0.3){
-					d3.select(this).attr("fill", color[1])
+					d3.select(this).attr("fill", color[1]).attr("r", size[1])
 				}
 
 				if (d.EigenvectorCentrality > 0.3 && d.EigenvectorCentrality < 0.4){
-					d3.select(this).attr("fill", color[2])
+					d3.select(this).attr("fill", color[2]).attr("r", size[2])
 				}
 
 				if (d.EigenvectorCentrality > 0.4 && d.EigenvectorCentrality < 0.5){
-					d3.select(this).attr("fill", color[3])
+					d3.select(this).attr("fill", color[3]).attr("r", size[3])
 				}
 
 				if (d.EigenvectorCentrality > 0.5 && d.BetweennessCentrality < 0.6){
-					d3.select(this).attr("fill", color[4])
+					d3.select(this).attr("fill", color[4]).attr("r", size[4])
 				}
 
 				if (d.EigenvectorCentrality > 0.6 && d.EigenvectorCentrality < 0.8){
-					d3.select(this).attr("fill", color[5])
+					d3.select(this).attr("fill", color[5]).attr("r", size[5])
 				}
 
 				if (d.EigenvectorCentrality > 0.8 && d.EigenvectorCentrality <= 1.0){
-					d3.select(this).attr("fill", color[6])
+					d3.select(this).attr("fill", color[6]).attr("r", size[6])
 				}
 
-				d3.select(this).attr("r", function (d) { return default_node_size + 25*d.EigenvectorCentrality; })
+				//d3.select(this).attr("r", function (d) { return default_node_size + 25*d.EigenvectorCentrality; })
 			})
 
 		}

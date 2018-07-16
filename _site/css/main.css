@@ -1,28 +1,37 @@
 /*Html/Body*/
-html, body {
-    margin: 20px auto;
+html {
+    margin: auto;
     width: 75%;
+    height: 100%;
+    background-color: #F5F6FA;
 }
 
-/*Font family pulled from Google Fonts: Roboto*/
-a, p, blockquote, h1, h2, h3, h4, text { font-family: 'Open Sans', sans-serif, 'Arial';}
+body {
+    min-height: 100%;
+}
 
-/*Link to Website*/
-a { text-decoration: none; color: #3178b3;}
-
-/*Headers*/
-h1, h2, h3, h4 {line-height: normal; color: #070707;}
-
+/*Font family pulled from Google Fonts: Roboto Slab*/
+h1, h2, h3, h4 {font-family: 'Roboto Slab', serif; line-height: normal; color: #0f2538;}
 h1 { font-size: 3em;}
 h2 { font-size: 2.7em;}
 h3 { font-size: 2.3em;}
 h4 { font-size: 1.9em;}
 
+/*Font family pulled from Google Fonts: Muli*/
+a, p, blockquote, text {font-family: 'Lato', sans-serif; color: #494c4e;}
+
+/*Link to Website*/
+a { text-decoration: none; color: #3582c2;}
+a.one { text-decoration: none; font-size: 1.1em; color: #3582c2;}
+
+
+
+
 /*Body Text*/
-p {font-size: 1.1em; line-height: 1.4em; color: #070707;}
+p {font-size: 1.15em; line-height: 1.4em;}
 
 /*List Elements*/
-ul {border-bottom: 1px solid #A1A6B4; font-size: 1.2em; line-height: 1.4em; color: #333;}
+ul {border-bottom: 1px solid #909aa5; font-size: 1.2em; line-height: 1.4em; color: #333;}
 nav ul, footer ul {font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
 nav ul li, footer ul li { display: inline; margin-right: 20px;}
 
@@ -30,7 +39,7 @@ nav ul li, footer ul li { display: inline; margin-right: 20px;}
 footer {font-size: .8em;}
 
 /*Foot Note*/
-.footnote {color: #999; font-size: 1em;}
+.footnote {color: #909aa5; font-size: 1em;}
 
 .italics {font-size: .8em;}
 
@@ -38,7 +47,6 @@ footer {font-size: .8em;}
 .indent {text-indent: 3em}
 
 /*Images*/
-
 .center {
     width: 100%;
     height: 100%;
@@ -52,12 +60,22 @@ footer {font-size: .8em;}
     height: auto;
 }
 
+.body_text {
+    padding: 10px 30px 30px 30px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: auto;
+    background-color: white;
+}
 
 /*Code*/
 .code_output {
-    /*Font family pulled from Google Fonts: Inconsolata*/
-    font-family: 'Inconsolata', monospace;
-    font-size: 0.9em;
+    /*Font family pulled from Google Fonts: Fira Mono*/
+    font-family: 'Fira Mono', monospace;
+    font-size: 0.8em;
+    color: #67707C;
     display: block;
     padding: 15px 15px 15px 15px;
     border-radius: 2px;
@@ -65,7 +83,7 @@ footer {font-size: .8em;}
     margin-right: auto;
     width: 80%;
     height: auto;
-    background-color: #EAEDEF;
+    background-color: #F5F6FA;
 }
 
 .center_heatmap {
@@ -79,14 +97,15 @@ footer {font-size: .8em;}
     background-color: #3178b3;
     border: none;
     border-radius: 2px;
-    color: white;
-    padding: 5px 8px;
+    color: #fcfcfc;
+    padding: 3px 4px;
     font-size: 16px;
+    font-family: 'Open Sans', sans-serif, 'Arial';
 }
 
 .button:hover {
-    background-color: #A1A6B4;
-    color: white;
+    background-color: #67707C;
+    color: #fcfcfc;
 }
 
 
