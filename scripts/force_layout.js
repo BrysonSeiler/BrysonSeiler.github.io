@@ -16,8 +16,6 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 		width = +svg.attr("width"),
 		height = +svg.attr("height");
 
-	//Set default node size/color
-
 	//Initialize force simulation
 	var simulation = d3.forceSimulation()
 		//Bryson Seiler: Added: 1. Collision 
