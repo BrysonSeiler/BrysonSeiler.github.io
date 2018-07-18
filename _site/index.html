@@ -61,7 +61,7 @@
 
     <div id="container">
 
-            <svg viewBox="0 0 960 250"></svg>
+            <svg id="svg"></svg>
             <script src="https://d3js.org/d3.v4.min.js"></script>
         
             <style>
@@ -78,8 +78,8 @@
         
             <script src="/scripts/force_layout.js"></script>
         
-            <!--filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size-->
-            <script type="text/javascript">setup("/networks/Grid_10x10.json", 2, -80, 0, 1, 5, false, '#3178b3', 5);</script>
+            <!--filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale-->
+            <script type="text/javascript">setup("/networks/Grid_10x10.json", 2, -80, 0, 1, 5, false, '#3178b3', 5, 1.5);</script>
 
     </div>
 

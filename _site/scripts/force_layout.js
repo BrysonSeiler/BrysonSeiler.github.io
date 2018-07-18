@@ -9,22 +9,25 @@
 */
 
 //Bryson Seiler: Added: function to open json networks:
-function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size) {
+function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale) {
 
 	//Create svg container
 
 	var width = d3.select(".container").style('width').slice(0, -2);
-	var height = d3.select(".container").style('height').slice(0, -2);
+	var height = svg_height_scale*d3.select(".container").style('height').slice(0, -2);
 
-	var svg = d3.select("svg")
-				.attr("viewBox", '0 0 ' + width + ' ' + height)
+	var svg = d3.select("body").select("svg")
+				.attr("viewBox", '0 0 ' + width + ' ' + height);
+
+	console.log(svg.style('width'))
+	console.log(svg.style('height'))
 
 	//Initialize force simulation
 	var simulation = d3.forceSimulation()
 		//Bryson Seiler: Added: 1. Collision 
 		.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance))
 		.force("charge", d3.forceManyBody().strength(body_strength))
-		.force("collision", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
+		.force("collide", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
 		.force("center", d3.forceCenter(width / 2, height / 2));
 
 	//Draw network
@@ -102,8 +105,10 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 			}
 
 			function resize(){
-				width = svg.select("container").width;
+				width = d3.select(".container").style('width').slice(0, -2);
 				height = svg.select("container").height;
+
+				//console.log(width)
 
 				svg.attr("width", width).attr("height", height);
 			}
