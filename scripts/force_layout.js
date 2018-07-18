@@ -12,14 +12,9 @@
 function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size) {
 
 	//Create svg container
-	//var svg = d3.select("svg"),
-	//	width = +svg.attr("width"),
-	//	height = +svg.attr("height");
 
 	var width = d3.select(".container").style('width').slice(0, -2);
 	var height = d3.select(".container").style('height').slice(0, -2);
-
-	console.log((2/3) * d3.select(".container").style('width').slice(0, -2));
 
 	var svg = d3.select("svg")
 				.attr("viewBox", '0 0 ' + width + ' ' + height)
@@ -35,7 +30,6 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	//Draw network
 	window.draw = draw(filename, svg, simulation, show_labels);
 	
-
 	function draw(filename, svg, simulation, show_labels) {
 
 		//Open json network
