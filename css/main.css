@@ -10,6 +10,13 @@ body {
     min-height: 100%;
 }
 
+svg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 /*Font family pulled from Google Fonts: Roboto Slab*/
 h1, h2, h3, h4 {font-family: 'Roboto Slab', serif; line-height: normal; color: #0f2538;}
 h1 { font-size: 3em;}
