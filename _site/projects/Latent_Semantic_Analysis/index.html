@@ -47,43 +47,79 @@
     <h2>Subreddit Analysis</h2>
 
     <p class="indent">
-        Reddit is one of my favorite websites to waste time on. If you aren’t familiar, Reddit is a bulletin board style website where you can share interesting links, pictures, posts, 
-        etc. with other people. To help organize what you share, you are asked to decide which <i>subreddit</i> you would like to post the information to. A subreddit is simply a 
-        community within the website where you can only post information that pertains to the topic of the subreddit. There are thousands of subreddits ranging from politics to tv show fanbases. 
+        Reddit is one of my favorite websites to waste time on. If you aren’t familiar, <a href="https://www.reddit.com">Reddit</a> is a bulletin-board style website where you can share interesting links, pictures, thoughts, 
+        etc. with others. To help organize what you share, you are asked to decide which <i>subreddit</i> you would like to post your information to. A subreddit is nothing more than a page on 
+        the website where you can only post information that pertains to the specific topic/theme of the subreddit. Science, politics, you name it. There is a subreddit for almost any 
+        topic that you can think of. 
+    </p>
+
+
+    <p class="indent">
+        If you browse through reddit enough, you may start to realize that you can often read the title of a post and have a pretty good idea of which subreddit it came from. Posts within a subreddit typically use a similar 
+        vocabulary to one another. If you look at posts, for example, within the personal finance subreddit, you’re going to see that words like “money”, “debt”, and “loan” appear a lot more frequently than in posts within 
+        other subreddits. Due to this fact, it is possible to create a sense of semantic similarity between posts within subreddits, which leads to some interesting questions.
+    </p>
+
+    <blockquote class="reference">
+        <p>
+            <i>Which subreddits are the most semantically similar/dissimilar?</i> <br/><br/>
+            <i>Is it possible to differentiate between subreddits based off the words that are used in a post title?</i>
+        </p>
+    </blockquote>
+
+    <p class="indent">
+        These questions sound like they can be answered using Latent Semantic Analysis (LSA). If you are unfamiliar with LSA, check out my <a href="/blog/LSA_Walkthrough/">blog post</a> 
+        on it. I spent some time trying to flesh out the core of how it works.
     </p>
 
     <p class="indent">
-        If you browse through reddit enough, you may start to notice that you can often read the title of a post and guess which subreddit it came from. This is due to the fact that each
-        subreddit typically has its own unique set of verbage. Political subreddits will typically use words like ... while subreddits that focus on tv shows will often use the names of the 
-        characters in the show frequently.
-
-        This made me wonder, <i>can I write a program that is able to differentiate between subreddits strictly based off of the verbage that is used in post titles?</i>
+        In theory, if we were to gather a bunch of post titles (which I will now refer to as submissions) from different subreddits, we could then use LSA to extract the 
+        semantic similarity between them. Let's see if it works...
     </p>
 
     <p class="indent">
-            The Python code for this project can be found here:
-            <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Reddit">Reddit Latent Semantic Analysis</a>
-            <br/>
+        The Python code for this project can be found here:
+        <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Reddit">Reddit Latent Semantic Analysis</a>
+        <br/>
     </p>
 
     <h3>Gathering and Processing Submission Titles From Reddit</h3>
 
     <p class="indent">
-        To gather submission titles from Reddit, I used a Python package called <a href="https://praw.readthedocs.io/en/latest/">PRAW</a> (Python Reddit API Wrapper). PRAW allows for 
-        simple access to Reddit's API. It's easy to use and allows you to gather up to 1000 submission titles (per subreddit) at once.
+        To gather submissions from Reddit, I used the Python package <a href="https://praw.readthedocs.io/en/latest/">PRAW</a> (Python Reddit API Wrapper). PRAW is an excellent package
+        that allows for simple access to Reddit's API. It's easy to use and it allows you to gather up to 1000 submissions (per subreddit) at once. 
     </p>
 
     <p class="indent">
-        For this project, I decided to keep it simple and only gather 1000 submission titles from the Westworld, Doctor Who, and Game of Thrones subreddits. 
-    </p>
-
-    <p class="indent">
-        While gathering submission titles, I filtered out all special characters along with stop words to make it easier to process the data when we do LSA. I combined both of the nltk
-        and sklearn stopwords lists. Here is a sample of the program filtering the submission titles:
+        Once you have signed up to access Reddit's API and have your credientials for OAuth2, we can have access subreddit submissions with only a few lines of code. Here's the
+        general idea:
     </p>
 
 <pre class="code_output">
-Gathering top 3 submission titles from westworld...
+#Use your credentials to log into your bot's account
+reddit_bot.login()
+
+#Create a subreddit object for a specific subreddit that contains all provided attributes of that subreddit
+subreddit = reddit_bot.subreddit(subreddit_name)
+
+#Print top level comments from x number of submissions inside of the subreddit
+for submission in subreddit.top(limit = num_submissions):
+    print(submission)
+</pre>
+
+    <p class="indent">
+        For this project, I decided to keep it simple gather 1000 submissions from three different subreddits: Westworld, Doctor Who, and Game of Thrones. 
+    </p>
+
+    <p class="indent">
+        While gathering submissions from each subreddit, I filter out all of the special characters along with stop words to make it easier for the data to be processed with LSA.
+        
+        By using <code class="code_inline">stop_words = set(list(text.ENGLISH_STOP_WORDS) +  list(stopwords.words("english")))</code> I was able to combine both the nltk and sklearn sets
+        of stop words since individually they did not seem to remove the breadth of stop words that I would have liked. Here's some sample output showing before/after filtering submisisons:
+    </p>
+
+<pre class="code_output">
+Gathering top 3 submission titles from <b>westworld</b>...
 
 <b>Submission title:</b> My Secret Santa sent me a package, but it doesn't look like anything to me.
 
@@ -173,6 +209,9 @@ Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
         From the frequency matrix, we can see what the most commonly occuring words for each subreddit are.
     </p>
 
+     
+
+    
 
 
     <p class="indent">
@@ -194,6 +233,8 @@ Percent variance explained by all 300 components: 0.848
         Now that I have successfully filtered the submission titles, its time to create the frequency, tfidf, and reduced matrix.
     </p>
 
+    <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/18.embed"></iframe>
+
 <pre class="code_output">
 Distance metric:
 
@@ -206,10 +247,12 @@ Running k-means using euclidean distance...
 
 Successfully found 3 clusters in 300 dimensions
 
-Successfully grouped 47.1% of submissions
+Successfully grouped 71.3% of submissions
 </pre>
 
-    <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/18.embed"></iframe>
+<p>
+    Hm. Okay, well it did alright, but not perfect. It seems like a large ammount of the data clusters into that corner. 
+</p>
 
 </div>
 
