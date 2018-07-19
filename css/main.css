@@ -22,8 +22,8 @@ svg {
 /*Font family pulled from Google Fonts: Roboto Slab*/
 h1, h2, h3, h4 {font-family: 'Roboto Slab', serif; line-height: normal; color: #0f2538;}
 h1 { font-size: 3em;}
-h2 { font-size: 2.7em;}
-h3 { font-size: 2.3em;}
+h2 { font-size: 2.4vw;}
+h3 { font-size: 1.6vw;}
 h4 { font-size: 1.9em;}
 
 /*Font family pulled from Google Fonts: Muli*/
@@ -31,7 +31,23 @@ a, p, blockquote, text {font-family: 'Lato', sans-serif; color: #0f2538dc;}
 
 /*Link to Website*/
 a { text-decoration: none; color: #3582c2;}
-a.one { text-decoration: none; font-size: 1.1em; color: #3582c2;}
+a.header { text-decoration: none; font-size: 0.9vw; color: #3582c2;}
+a.footer { text-decoration: none; font-size: 0.8vw; color: #3582c2;}
+
+/*Body Text*/
+p {font-size: 0.9vw; line-height: 1.4em;}
+
+blockquote {font-size: 0.9vw; line-height: 1.4em;}
+
+/*List Elements*/
+ul {border-bottom: 1px solid #909aa5; font-size: 1.2em; line-height: 1.4em; color: #333;}
+nav ul, footer ul {font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
+nav ul li, footer ul li { display: inline; margin-right: 20px;}
+
+/*Footer*/
+footer {font-size: .8vw;}
+
+
 
 .tagline {font-family: 'Lato', sans-serif; font-size: 0.45em; color: #0f2537;}
 
@@ -44,18 +60,6 @@ a.one { text-decoration: none; font-size: 1.1em; color: #3582c2;}
     padding: 0.5em 10px;
     font-size: 0.9em;
 }
-
-
-/*Body Text*/
-p {font-size: 1.15em; line-height: 1.4em;}
-
-/*List Elements*/
-ul {border-bottom: 1px solid #909aa5; font-size: 1.2em; line-height: 1.4em; color: #333;}
-nav ul, footer ul {font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
-nav ul li, footer ul li { display: inline; margin-right: 20px;}
-
-/*Footer*/
-footer {font-size: .8em;}
 
 /*Foot Note*/
 .footnote {color: #909aa5; font-size: 1em;}
@@ -91,6 +95,7 @@ footer {font-size: .8em;}
 
 /*Code*/
 .code_output {
+    font-size: 0.7vw;
     display: block;
     padding: 15px 15px 15px 15px;
     border-radius: 3px;
@@ -102,14 +107,13 @@ footer {font-size: .8em;}
 }
 
 .code_highlight {
+    font-size: 0.7vw;
     border-radius: 3px;
     white-space: pre-wrap;
 }
 
 .code_inline {
-    /*Font family pulled from Google Fonts: Fira Mono*/
-    font-family: 'Fira Mono', monospace;
-    font-size: 0.7em;
+    font-size: 0.7vw;
     color: #3582c2;
     padding: 1px 1px 1px 1px;
     border-radius: 3px;
