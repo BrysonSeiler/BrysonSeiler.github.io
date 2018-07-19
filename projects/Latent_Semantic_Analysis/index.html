@@ -55,17 +55,17 @@ title: Subreddit Analysis
         general idea:
     </p>
 
-<pre class="code_output">
-#Use your credentials to log into your bot's account
+<pre><code class="Python code_highlight">#Use your credentials to log into your bot's account
 reddit_bot.login()
-
+                
 #Create a subreddit object for a specific subreddit that contains all provided attributes of that subreddit
 subreddit = reddit_bot.subreddit(subreddit_name)
-
+                
 #Print top level comments from x number of submissions inside of the subreddit
 for submission in subreddit.top(limit = num_submissions):
     print(submission)
-</pre>
+            
+</code></pre>
 
     <p class="indent">
         For this project, I decided to keep it simple gather 1000 submissions from three different subreddits: Westworld, Doctor Who, and Game of Thrones. 
@@ -78,7 +78,7 @@ for submission in subreddit.top(limit = num_submissions):
         of stop words since individually they did not seem to remove the breadth of stop words that I would have liked. Here's some sample output showing before/after filtering submisisons:
     </p>
 
-<pre class="code_output">
+<pre><code class="nohighlight code_output">#Use your credentials to log into your bot's account
 Gathering top 3 submission titles from <b>westworld</b>...
 
 <b>Submission title:</b> My Secret Santa sent me a package, but it doesn't look like anything to me.
@@ -95,14 +95,14 @@ Gathering top 3 submission titles from <b>westworld</b>...
 <b>Filtered submission:</b> reading emmy nominations seeing true star season
 
 Successfully parsed 3 submissions out of 3 --- 100.00%
-</pre>
+</code></pre>
+
 
     <p class="indent">
         Results:
     </p>
 
-<pre class="code_output">
-Gathering top 1000 submission titles from westworld...
+<pre><code class="nohighlight code_output">Gathering top 1000 submission titles from westworld...
 Successfully parsed 974 submissions out of 1000 --- 97.40%
             
 Gathering top 1000 submission titles from doctorwho...
@@ -117,7 +117,7 @@ Bundling up submissions...
             
 Successfully bundled: 2947 submissions
 Successfully tagged: 2947 submissions
-</pre>
+</code></pre>
 
 
     <p class="indent">
@@ -125,8 +125,7 @@ Successfully tagged: 2947 submissions
     </p>
 
 
-<pre class="code_output">
-Learning vocabulary...
+<pre><code class="nohighlight code_output">Learning vocabulary...
 
 Building frequency matrix...
 Frequency matrix shape: 2947 by 500
@@ -161,7 +160,7 @@ Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
 7      (15.2148709101, post)      (15.8375799748, met)     (14.7023527661, snow)
 8      (14.3639195808, host)  (15.4155473247, doctors)  (14.6150241288, cosplay)
 9     (13.9498082193, maeve)   (15.3802164488, friend)     (14.1079479072, king)
-</pre>
+</code></pre>
 
 
 
@@ -177,8 +176,7 @@ Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
     <p class="indent">
         Now that I have successfully filtered the submission titles, its time to create the frequency, tfidf, and reduced matrix.
     </p>
-<pre class="code_output">
-Reducing dimension of data...
+<pre><code class="nohighlight code_output">Reducing dimension of data...
 Successfully reduced data to 2947 submissions explained by 300 features
 Reduced matrix shape: 2947 by 300
             
@@ -187,7 +185,7 @@ Explained variance of first 5 components:  0.01797551  0.02242872  0.01745798  0
 Singular values:  8.0255198   7.77709256  6.80748527  5.99201428  5.40177308
             
 Percent variance explained by all 300 components: 0.848
-</pre>
+</code></pre>
 
     <p class="indent">
         Now that I have successfully filtered the submission titles, its time to create the frequency, tfidf, and reduced matrix.
@@ -195,8 +193,7 @@ Percent variance explained by all 300 components: 0.848
 
     <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/18.embed"></iframe>
 
-<pre class="code_output">
-Distance metric:
+<pre><code class="nohighlight code_output">Distance metric:
 
     1. Euclidean
     2. Cosine (Slow on large batches)
@@ -208,7 +205,7 @@ Running k-means using euclidean distance...
 Successfully found 3 clusters in 300 dimensions
 
 Successfully grouped 71.3% of submissions
-</pre>
+</code></pre>
 
 <p>
     Hm. Okay, well it did alright, but not perfect. It seems like a large ammount of the data clusters into that corner. 

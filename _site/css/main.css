@@ -27,16 +27,16 @@ h3 { font-size: 2.3em;}
 h4 { font-size: 1.9em;}
 
 /*Font family pulled from Google Fonts: Muli*/
-a, p, blockquote, text {font-family: 'Lato', sans-serif; color: #494c4e;}
+a, p, blockquote, text {font-family: 'Lato', sans-serif; color: #132f47;}
 
 /*Link to Website*/
 a { text-decoration: none; color: #3582c2;}
 a.one { text-decoration: none; font-size: 1.1em; color: #3582c2;}
 
-.tagline {font-family: 'Lato', sans-serif; font-size: 0.45em; color: #494c4e;}
+.tagline {font-family: 'Lato', sans-serif; font-size: 0.45em; color: #0f2537;}
 
 .reference {
-    background: #3179b30a;
+    background: #F8F8FF;
     border-left: 2px solid #909aa5;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
@@ -91,18 +91,19 @@ footer {font-size: .8em;}
 
 /*Code*/
 .code_output {
-    /*Font family pulled from Google Fonts: Fira Mono*/
-    font-family: 'Fira Mono', monospace;
-    font-size: 0.8em;
-    color: #67707C;
     display: block;
     padding: 15px 15px 15px 15px;
     border-radius: 3px;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
     height: auto;
-    background-color: #F5F6FA;
+    background-color: #F8F8FF;
+    white-space: pre-wrap;
+}
+
+.code_highlight {
+    border-radius: 3px;
+    white-space: pre-wrap;
 }
 
 .code_inline {

@@ -7,8 +7,14 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css">
 
     <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato:300|Roboto+Slab" rel="stylesheet">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
     
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
     
 </head>
 
@@ -118,8 +124,7 @@
         the others:
     </p>
 
-<pre class="code_output">
-from sklearn.metrics.pairwise import cosine_similarity
+<pre><code class="Python code_output">from sklearn.metrics.pairwise import cosine_similarity
 
 num_documents = frequency_matrix.toarray().shape[0]
 
@@ -128,9 +133,9 @@ for i in range(num_documents-1):
     for j in range(i+1, num_documents):
         print("\t Document %d and %d: %s" % 
         (i+1, j+1, str(cosine_similarity(frequency_matrix[i], frequency_matrix[j])).strip('[]')))
+</code></pre>
 
-'''
-Output:
+<pre><code class="nohighlight code_output">Output:
 
 Cosine Similarity:
 
@@ -140,9 +145,7 @@ Cosine Similarity:
     Document 2 and 3: 0.24246432
     Document 1 and 4: 0.13608276
     Document 3 and 4: 0.53452248
-
-'''
-</pre>
+</code></pre>
 
     <p class="indent">
         As we can see, the document pairs (1,2) and (3,4) have the highest cosine similarity scores, which is what we would expect to see from these documents, but we can also see that 
@@ -187,8 +190,7 @@ Cosine Similarity:
         Let's take a look at the cosine similarities between these new document vectors:
     </p>
 
-<pre class="code_output">
-Output:
+<pre><code class="nohighlight code_output">Output:
             
 Cosine Similarity:
 
@@ -198,7 +200,7 @@ Cosine Similarity:
     Document 2 and 3: 0.14167618
     Document 1 and 4: 0.07168148
     Document 3 and 4: 0.39328159
-</pre>
+</code></pre>
 
     <p class="indent">
         As we can see, the similarity scores for all of the document pairs have gone down, but some have been squashed more than others. In paticular, the documents that we know
@@ -277,14 +279,13 @@ Cosine Similarity:
         matrix, which is a diagonal matrix that consists of singular values that describe the strength of each of our features:
     </p>
 
-<pre class="code_output">
-Singular Values:
+<pre><code class="nohighlight code_output">Singular Values:
 
     1.225233566301
     1.077347205740
     0.863096120569
     0.770188803448
-</pre>
+</code></pre>
 
     <p class="indent">
         We can see that our first two features are the dominating features in our collection of documents.
