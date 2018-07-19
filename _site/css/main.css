@@ -19,8 +19,6 @@ svg {
 }
 
 
-/*======================HEADERS======================*/
-
 /*Font family pulled from Google Fonts: Roboto Slab*/
 h1, h2, h3, h4 {font-family: 'Roboto Slab', serif; line-height: normal; color: #0f2538;}
 h1 { font-size: 3em;}
@@ -28,29 +26,36 @@ h2 { font-size: 2.7em;}
 h3 { font-size: 2.3em;}
 h4 { font-size: 1.9em;}
 
-
-/*======================BODY TEXT/LINKS======================*/
-/*Font family pulled from Google Fonts: Lato*/
+/*Font family pulled from Google Fonts: Muli*/
 a, p, blockquote, text {font-family: 'Lato', sans-serif; color: #0f2538dc;}
 
-/*Links*/
-a {text-decoration: none; color: #3582c2;}
-a.header {text-decoration: none; font-size: 1vw; color: #3582c2;}
-a.footer {text-decoration: none; font-size: 0.8vw; color: #3582c2;}
+/*Link to Website*/
+a { text-decoration: none; color: #3582c2;}
+a.one { text-decoration: none; font-size: 1.1em; color: #3582c2;}
 
-/*Blockquote*/
-blockquote {font-size: 0.8vw; line-height: 1.4em;}
+.tagline {font-family: 'Lato', sans-serif; font-size: 0.45em; color: #0f2537;}
+
+.reference {
+    background: #F8F8FF;
+    border-left: 2px solid #909aa5;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    font-size: 0.9em;
+}
+
 
 /*Body Text*/
-p {font-size: 0.8vw; line-height: 1.4em;}
+p {font-size: 1.15em; line-height: 1.4em;}
 
 /*List Elements*/
-ul {border-bottom: 1px solid #909aa5; line-height: 1.4em; color: #333;}
-nav ul, footer ul {font-family: 'Roboto Slab', serif; padding: 0px; list-style: none; font-weight: bold;}
+ul {border-bottom: 1px solid #909aa5; font-size: 1.2em; line-height: 1.4em; color: #333;}
+nav ul, footer ul {font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
 nav ul li, footer ul li { display: inline; margin-right: 20px;}
 
 /*Footer*/
-footer {font-size: 0.7vw;}
+footer {font-size: .8em;}
 
 /*Foot Note*/
 .footnote {color: #909aa5; font-size: 1em;}
@@ -132,16 +137,4 @@ footer {font-size: 0.7vw;}
 .button:hover {
     background-color: #67707C;
     color: #fcfcfc;
-}
-
-.tagline {font-family: 'Lato', sans-serif; font-size: 0.45em; color: #0f2537;}
-
-.reference {
-    background: #F8F8FF;
-    border-left: 2px solid #909aa5;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-    font-size: 0.9em;
 }
