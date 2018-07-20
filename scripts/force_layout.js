@@ -20,13 +20,12 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 				.attr("viewBox", '0 0 ' + width + ' ' + height);
 
 	console.log(svg.style('width'))
-	console.log(svg.style('height'))
 
 	//Initialize force simulation
 	var simulation = d3.forceSimulation()
 		//Bryson Seiler: Added: 1. Collision 
 		.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance))
-		.force("charge", d3.forceManyBody().strength(body_strength))
+		.force("charge", d3.forceManyBody().strength(-(1/body_strength)*width))
 		.force("collide", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
 		.force("center", d3.forceCenter(width / 2, height / 2));
 
