@@ -13,7 +13,7 @@ var svg = d3.select("body").append("svg")
 var color = ['#3685c7'];
 
 //Recaman sequence
-var sequence =  [0, 1, 3, 6, 2, 7, 13, 20, 12, 21, 11, 22, 10, 23, 9, 24, 8, 25, 43, 62, 42, 63, 41, 18, 42, 17, 43, 16, 44, 15, 45, 14, 46, 79, 113, 78, 114, 77, 39, 78, 38, 79, 37, 80, 36, 81, 35, 82, 34, 83, 33, 84, 32, 85, 31, 86, 30, 87, 29, 88, 28, 89, 27, 90, 26, 91, 157, 224, 156, 225, 155, 226, 154, 227, 153, 228, 152, 75, 153, 74, 154, 73, 155, 72, 156, 71, 157, 70, 158, 69, 159, 68, 160, 67, 161, 66, 162, 65, 163, 64, 164];
+var sequence =  [0, 1, 3, 6, 2, 7, 13, 20, 12, 21, 11, 22, 10, 23, 9, 24, 8, 25, 43, 62, 42, 63, 41, 18, 42, 17, 43, 16, 44, 15, 45, 14, 46, 79, 113, 78, 114, 77, 39, 78, 38, 79, 37, 80, 36, 81, 35, 82, 34, 83, 33, 84, 32, 85, 31, 86, 30, 87, 29, 88, 28, 89, 27, 90, 26, 91, 157, 224, 156, 225, 155, 226, 154, 227, 153, 228, 152, 75, 153, 74, 154, 73, 155, 72, 156, 71, 157, 70, 158, 69, 159, 68, 160, 67, 161, 66, 162, 65, 163, 64, 164, 265, 367, 264, 368, 263, 369, 262, 370, 261, 151, 40, 152, 265, 379, 494, 378, 495, 377, 258, 138, 259, 137, 260, 136, 261, 135, 262, 134, 5, 135, 4, 136, 269, 403, 268, 132, 269, 131, 270, 130, 271, 129, 272, 128, 273, 127, 274, 126, 275, 125, 276, 124, 277, 123, 278, 122, 279, 121, 280, 120, 281, 119, 282, 118, 283, 117, 284, 116, 285, 115, 286, 458, 631, 457, 632, 456, 633, 455, 634, 454, 635, 453, 636, 452, 267, 453, 266, 454, 643, 833, 642, 450, 257, 451, 256, 60, 257, 59, 258, 58];
 
 //Hop_size defines the distance between the i and i+1 elements in the Recaman sequence.
 var hop_size = [];
@@ -21,8 +21,6 @@ var hop_size = [];
 for (i = 0; i < sequence.length - 1; i++) {
     hop_size.push(sequence[i + 1] - sequence[i]);
 }
-
-console.log("Hop Sizes: " + hop_size)
 
 //Stroke width of the arcs
 var stroke_width = 1;
@@ -49,28 +47,17 @@ for (i = 0; i < hop_size.length; i++) {
 
 }
 
-console.log("Inner radii: " + inner_radii)
-
 for (i = 0; i < hop_size.length; i++) {
-
-    console.log("---------------Arc: " + (i+1))
-
-    console.log("Center: " + c_i)
 
     //Get outer radius of arc
     R_i = c_i + inner_radii[i] + stroke_width;
 
-    console.log("Outer radius of arc: " + R_i)
     outer_radii.push(R_i);
-
-    console.log("===============Drawing next arc...")
 
     //If the hop size is positive
     if (hop_size[i+1] > 0){
 
         counter = 0;
-        console.log("Counter set back to 0")
-        console.log("Hop size is positive, moving center to the right...")
 
         if (back == true){
             
@@ -97,11 +84,7 @@ for (i = 0; i < hop_size.length; i++) {
         back = true;
         counter = counter + 1;
 
-        console.log("Hop size is negative, moving center to the left...")
-        console.log("Counter: " + counter)
-
         if (counter > 1){
-            console.log("IN HERE")
             c_i = c_i - 2*inner_radii[i + 1] + 2*stroke_width;
             R_i = c_i + inner_radii[i] + stroke_width;
             centers.push(c_i);
@@ -117,9 +100,6 @@ for (i = 0; i < hop_size.length; i++) {
 
 }
 
-//console.log("Outer Radii: " + centers);
-
-console.log("Centers: " + centers);
 
 //=====================Define first arc=====================//
 
