@@ -59,7 +59,13 @@ title: Latent Semantic Analysis
         Here is the document-term frequency matrix represented as a heat map for our example documents:
     </p>
 
-    <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/2.embed"></iframe>
+    <div class="heatmap">
+
+        <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/2.embed"></iframe>
+
+    </div>
+
+    
 
     <p class="indent">
         While it may not be abundantly clear, if we sift through this matrix, we can see that words like <i>cats</i> and <i>dogs</i> are frequently used by the first two documents and
@@ -133,7 +139,13 @@ Cosine Similarity:
         After removing our stop words and running the tf-idf weighting scheme over our collection of documents, we produce the <i>tf-idf</i> matrix:
     </p>
 
-    <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/9.embed"></iframe>
+    <div class="heatmap">
+
+        <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/9.embed"></iframe>
+
+    </div>
+
+    
 
     <p class="indent">
         After removing stop words and introducing the tf-idf weighting scheme, the similarities between the documents becomes much more clear. Now we are really able to pick up
@@ -221,7 +233,9 @@ Cosine Similarity:
         Here is the <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> matrix for our collection of documents:
     </p>
 
-    <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
+    <div class="heatmap">
+        <iframe width="100%" height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/4.embed"></iframe>
+    </div>
 
     <p class="indent">
         As we can see, words like <i>cats</i> and <i>dogs</i> are strongly associated with our first feature: <i>pets!</i> Furthermore, words like <i>travel</i> and <i>Italy</i>
@@ -249,7 +263,9 @@ Cosine Similarity:
         Lets take a look at our <math xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> matrix:
     </p>
 
-    <iframe height="350" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/6.embed" class="center_heatmap"></iframe>
+    <div  class="heatmap" align= "center">
+        <iframe width="475" height="400" frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/6.embed"></iframe>
+    </div>
 
     <p class="indent">
         As we can see, the first two documents are highly associated with our first feature, and the third and fourth documents are highly associated with our second feature, as we would

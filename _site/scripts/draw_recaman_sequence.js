@@ -1,42 +1,19 @@
-/*
-Initial setup.
-*/
 
-//Canvas size.
-var width = 1200;
-var height = 800;
+
+//Define canvas size
+var width = d3.select(".container").style('width').slice(0, -2);
+var height = 6 * d3.select(".container").style('height').slice(0, -2);
+
+var center_height = height/2;
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-//Stroke width of arc.
-var stroke_width = 3;
-
-//Colors
-var colors = d3.scale.category10();
-var color_value = function (d, i) { return d; };
-
-//Define the radius of the first arc.
-var init_radius = 3;
-
-//The radius of all other arcs are dictated by inner_radius.
-var inner_radius = [];
-
-//Initial svg translation to make first arc fully visible.
-var init_svg_translation = stroke_width + init_radius;
-
-//Find position of first arc on canvas.
-var arc = svg.append("g")
-    .attr("transform", "translate(" + init_svg_translation + "," + height / 2 + ")");
-
-//Global translation variables.
-var right_translation = 0;
-var left_translation = 0;
-var translate_back = false;
+var color = ['#3685c7'];
 
 //Recaman sequence
-var sequence = [0, 1, 3, 6, 2, 7, 13, 20, 12, 21, 11, 22, 10, 23, 9, 24, 8, 25, 43, 62, 42, 63, 41, 18]//, 17, 43, 16, 44, 15, 45, 14, 46, 79, 113, 78, 114, 77, 39, 78, 38]
+var sequence =  [0, 1, 3, 6, 2, 7, 13, 20, 12, 21, 11, 22, 10, 23, 9, 24, 8, 25, 43, 62, 42, 63, 41, 18, 42, 17, 43, 16, 44, 15, 45, 14, 46, 79, 113, 78, 114, 77, 39, 78, 38, 79, 37, 80, 36, 81, 35, 82, 34, 83, 33, 84, 32, 85, 31, 86, 30, 87, 29, 88, 28, 89, 27, 90, 26, 91, 157, 224, 156, 225, 155, 226, 154, 227, 153, 228, 152, 75, 153, 74, 154, 73, 155, 72, 156, 71, 157, 70, 158, 69, 159, 68, 160, 67, 161, 66, 162, 65, 163, 64, 164];
 
 //Hop_size defines the distance between the i and i+1 elements in the Recaman sequence.
 var hop_size = [];
@@ -45,93 +22,185 @@ for (i = 0; i < sequence.length - 1; i++) {
     hop_size.push(sequence[i + 1] - sequence[i]);
 }
 
+console.log("Hop Sizes: " + hop_size)
+
+//Stroke width of the arcs
+var stroke_width = 1;
+
+//Initial arc center to make first arc fully visible
+var initial_center = 6;
+
+var inner_radii = [];
+var outer_radii = [];
+
+var back = false;
+
+var R_i = 0;
+var c_i = initial_center;
+
+var counter = 0;
+
+var centers = [initial_center];
+
 for (i = 0; i < hop_size.length; i++) {
-    inner_radius.push(Math.abs(3 * hop_size[i]));
+
+    //Get inner radius
+    inner_radii.push(Math.abs(3 * hop_size[i]));
+
 }
 
-//Global count.
-var count = 0;
+console.log("Inner radii: " + inner_radii)
 
-//Hop size defines the distance between the i and i+1 element in the sequence.
+for (i = 0; i < hop_size.length; i++) {
 
-function draw_arc() {
+    console.log("---------------Arc: " + (i+1))
 
-    var arc_path = d3.svg.arc()
-        .innerRadius(inner_radius[count])
-        .outerRadius(inner_radius[count] + stroke_width)
-        .startAngle(Math.PI / 2);
+    console.log("Center: " + c_i)
 
-    //If the hop size is positive,we need to translate the next arc to the right. 
-    if (hop_size[count] > 0) {
-        if (translate_back) {
-            translate_back = false;
-        }
+    //Get outer radius of arc
+    R_i = c_i + inner_radii[i] + stroke_width;
 
-        else{
-            right_translation = right_translation + count * init_radius + stroke_width + inner_radius[count];
-        }
+    console.log("Outer radius of arc: " + R_i)
+    outer_radii.push(R_i);
 
-        //Defines the concavity of the arc.
-        if (count % 2 == 0) {
-            count = count + 1;
-            return d3.select(this)
-                .transition()
-                .ease('bounce')
-                .duration(1500)
-                .attr("d", arc_path.endAngle(-0.5 * Math.PI))
-                .attr("transform", "translate(" + right_translation + "," + 0 + ")" + "rotate(" + 180 + ")");
+    console.log("===============Drawing next arc...")
+
+    //If the hop size is positive
+    if (hop_size[i+1] > 0){
+
+        counter = 0;
+        console.log("Counter set back to 0")
+        console.log("Hop size is positive, moving center to the right...")
+
+        if (back == true){
+            
+            c_i = R_i - inner_radii[i] + 2*stroke_width;
+            centers.push(c_i);
+            back = false;
+
         }
 
         else {
-            count = count + 1;
-            return d3.select(this)
-                .transition()
-                .ease('bounce')
-                .duration(1500)
-                .attr("d", arc_path.endAngle(-0.5 * Math.PI))
-                .attr("transform", "translate(" + right_translation + "," + 0 + ")" + "rotate(" + 0 + ")");
-        }
 
+            //Get next center
+            c_i = R_i + inner_radii[i+1];
+            centers.push(c_i);
+
+        }
+    
+        
+        
     }
 
     else {
-        //Translate the arc to the left
 
-        //Initial back hop.
-        left_translation = right_translation - init_radius;
-        translate_back = true;
+        back = true;
+        counter = counter + 1;
 
-        //Defines the concavity of the arc.
-        if (count % 2 == 0) {
-            count = count + 1;
-            return d3.select(this)
-                .transition()
-                .ease('bounce')
-                .duration(1500)
-                .attr("d", arc_path.endAngle(-0.5 * Math.PI))
-                .attr("transform", "translate(" + left_translation + "," + 0 + ")" + "rotate(" + 180 + ")");
+        console.log("Hop size is negative, moving center to the left...")
+        console.log("Counter: " + counter)
+
+        if (counter > 1){
+            console.log("IN HERE")
+            c_i = c_i - 2*inner_radii[i + 1] + 2*stroke_width;
+            R_i = c_i + inner_radii[i] + stroke_width;
+            centers.push(c_i);
+
         }
 
         else {
-            count = count + 1;
-            return d3.select(this)
-                .transition()
-                .ease('bounce')
-                .duration(1500)
-                .attr("d", arc_path.endAngle(-0.5 * Math.PI))
-                .attr("transform", "translate(" + left_translation + "," + 0 + ")" + "rotate(" + 0 + ")");
+            c_i = R_i - inner_radii[i+1] - stroke_width;
+            centers.push(c_i);
         }
-
-
-
 
     }
 
 }
 
-arc.selectAll("path")
-    .data(hop_size)
-    .enter().append("path")
-    .each(draw_arc)
-    .style("fill", function (d) { return colors(color_value(d)); });
+//console.log("Outer Radii: " + centers);
 
+console.log("Centers: " + centers);
+
+//=====================Define first arc=====================//
+
+//Find the positioning of the first arc
+svg.select("g").remove();
+var group = svg.append("g");
+
+function draw(){
+
+    for (i = 0; i < hop_size.length; i++) {
+
+        //Translate arc to the right if the hop size is positive and not the first one
+        if (hop_size[i] > 0 && i != 0){
+
+            right_translation = c_i + 2*stroke_width;
+
+            var arc = d3.svg.arc()
+                .innerRadius(inner_radii[i])
+                .outerRadius(inner_radii[i] + stroke_width)
+                .startAngle(Math.PI/2)
+                .endAngle(-0.5 * Math.PI);
+
+
+            if (i % 2 == 0){
+                group.append("path").attr("d", arc)
+                                .transition()
+                                .ease('bounce')
+                                .duration(1500)
+                                .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 180 + ")")
+                                .style("fill", color[i % color.length]);
+            }
+            else{
+                group.append("path").attr("d", arc)
+                                    .transition()
+                                    .ease('bounce')
+                                    .duration(1500)
+                                    .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 0 + ")")
+                                    .style("fill", color[i % color.length]);
+            }
+
+        }
+
+        else {
+
+
+            if (i == 0){
+                left_translation = initial_center;
+            }
+            
+
+            var arc = d3.svg.arc()
+                .innerRadius(inner_radii[i])
+                .outerRadius(inner_radii[i] + stroke_width)
+                .startAngle(Math.PI/2)
+                .endAngle(-0.5 * Math.PI);
+
+            if (i % 2 == 0){
+                group.append("path").attr("d", arc)
+                                .transition()
+                                .ease('bounce')
+                                .duration(1500)
+                                .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 180 + ")")
+                                .style("fill", color[i % color.length]);
+            }
+            else{
+                group.append("path").attr("d", arc)
+                                    .transition()
+                                    .ease('bounce')
+                                    .duration(1500)
+                                    .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 0 + ")")
+                                    .style("fill", color[i % color.length]);
+            }
+
+
+        }
+
+        
+
+    }
+
+    
+}
+
+draw();
