@@ -22,8 +22,6 @@ for (i = 0; i < sequence.length - 1; i++) {
     hop_size.push(sequence[i + 1] - sequence[i]);
 }
 
-console.log("Hop Sizes: " + hop_size)
-
 //Stroke width of the arcs
 var stroke_width = 1;
 
@@ -49,28 +47,17 @@ for (i = 0; i < hop_size.length; i++) {
 
 }
 
-console.log("Inner radii: " + inner_radii)
-
 for (i = 0; i < hop_size.length; i++) {
-
-    console.log("---------------Arc: " + (i+1))
-
-    console.log("Center: " + c_i)
 
     //Get outer radius of arc
     R_i = c_i + inner_radii[i] + stroke_width;
 
-    console.log("Outer radius of arc: " + R_i)
     outer_radii.push(R_i);
-
-    console.log("===============Drawing next arc...")
 
     //If the hop size is positive
     if (hop_size[i+1] > 0){
 
         counter = 0;
-        console.log("Counter set back to 0")
-        console.log("Hop size is positive, moving center to the right...")
 
         if (back == true){
             
@@ -97,11 +84,7 @@ for (i = 0; i < hop_size.length; i++) {
         back = true;
         counter = counter + 1;
 
-        console.log("Hop size is negative, moving center to the left...")
-        console.log("Counter: " + counter)
-
         if (counter > 1){
-            console.log("IN HERE")
             c_i = c_i - 2*inner_radii[i + 1] + 2*stroke_width;
             R_i = c_i + inner_radii[i] + stroke_width;
             centers.push(c_i);
@@ -117,9 +100,6 @@ for (i = 0; i < hop_size.length; i++) {
 
 }
 
-//console.log("Outer Radii: " + centers);
-
-console.log("Centers: " + centers);
 
 //=====================Define first arc=====================//
 
@@ -145,19 +125,21 @@ function draw(){
 
             if (i % 2 == 0){
                 group.append("path").attr("d", arc)
+                                .style("fill", color[i % color.length])
                                 .transition()
                                 .ease('bounce')
                                 .duration(1500)
-                                .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 180 + ")")
-                                .style("fill", color[i % color.length]);
+                                .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 180 + ")");
+                                
             }
             else{
                 group.append("path").attr("d", arc)
+                                    .style("fill", color[i % color.length])
                                     .transition()
                                     .ease('bounce')
                                     .duration(1500)
-                                    .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 0 + ")")
-                                    .style("fill", color[i % color.length]);
+                                    .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 0 + ")");
+                                    
             }
 
         }
@@ -178,19 +160,19 @@ function draw(){
 
             if (i % 2 == 0){
                 group.append("path").attr("d", arc)
+                                .style("fill", color[i % color.length])
                                 .transition()
                                 .ease('bounce')
                                 .duration(1500)
-                                .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 180 + ")")
-                                .style("fill", color[i % color.length]);
+                                .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 180 + ")");
             }
             else{
                 group.append("path").attr("d", arc)
+                                    .style("fill", color[i % color.length])
                                     .transition()
                                     .ease('bounce')
                                     .duration(1500)
-                                    .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 0 + ")")
-                                    .style("fill", color[i % color.length]);
+                                    .attr("transform", "translate(" + centers[i] + "," + center_height + ")"+ "rotate(" + 0 + ")");
             }
 
 
