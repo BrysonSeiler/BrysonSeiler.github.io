@@ -19,8 +19,6 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	var svg = d3.select("body").select("svg")
 				.attr("viewBox", '0 0 ' + width + ' ' + height);
 
-	console.log(svg.style('width'))
-
 	//Initialize force simulation
 	var simulation = d3.forceSimulation()
 		//Bryson Seiler: Added: 1. Collision 

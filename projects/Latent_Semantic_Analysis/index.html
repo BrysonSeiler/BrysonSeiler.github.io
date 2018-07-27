@@ -9,26 +9,24 @@ title: Subreddit Analysis
     <p class="indent">
         Reddit is one of my favorite websites to waste time on. If you aren’t familiar, <a href="https://www.reddit.com">Reddit</a> is a bulletin-board style website where you can share interesting links, pictures, thoughts, 
         etc. with others. To help organize what you share, you are asked to decide which <i>subreddit</i> you would like to post your information to. A subreddit is nothing more than a page on 
-        the website where you can only post information that pertains to the specific topic/theme of the subreddit. Science, politics, you name it. There is a subreddit for almost any 
+        the website where you can post information that pertains to the specific topic/theme of the subreddit. Science, politics, you name it. There is a subreddit for almost any 
         topic that you can think of. 
     </p>
 
-
     <p class="indent">
-        If you browse through reddit enough, you may start to realize that you can often read the title of a post and have a pretty good idea of which subreddit it came from. Posts within a subreddit typically use a similar 
-        vocabulary to one another. If you look at posts, for example, within the personal finance subreddit, you’re going to see that words like “money”, “debt”, and “loan” appear a lot more frequently than in posts within 
-        other subreddits. Due to this fact, it is possible to create a sense of semantic similarity between posts within subreddits, which leads to some interesting questions.
+        If you spend enough time on Reddit, you may notice that posts within a subreddit typically use a similar vocabulary. For example, posts within the personal finance subreddit are more likely to use words like
+        “money”, “debt”, and “loans” than most other subreddits. This raises some interesting questions:
     </p>
 
     <blockquote class="reference">
         <p>
-            <i>Which subreddits are the most semantically similar/dissimilar?</i> <br/><br/>
-            <i>Is it possible to differentiate between subreddits based off the words that are used in a post title?</i>
+            <i>Which subreddits have the most similar vocabulary? In other words, which subreddits are semantically similar/dissimilar?</i> <br/><br/>
+            <i>Given a post, can we make an educated guess as to which subreddit it came from?</i>
         </p>
     </blockquote>
 
     <p class="indent">
-        These questions sound like they can be answered using Latent Semantic Analysis (LSA). If you are unfamiliar with LSA, check out my <a href="/blog/LSA_Walkthrough/">blog post</a> 
+        These are questions that can be answered with Latent Semantic Analysis (LSA). If you are unfamiliar with LSA, check out my <a href="/blog/LSA_Walkthrough/">blog post</a> 
         on it. I spent some time trying to flesh out the core of how it works.
     </p>
 
@@ -51,7 +49,7 @@ title: Subreddit Analysis
     </p>
 
     <p class="indent">
-        Once you have signed up to access Reddit's API and have your credientials for OAuth2, we can have access subreddit submissions with only a few lines of code. Here's the
+        Once you have signed up to access Reddit's API and have your credientials for OAuth2, we can have access to subreddit submissions with only a few lines of code. Here's the
         general idea:
     </p>
 
@@ -68,18 +66,18 @@ for submission in subreddit.top(limit = num_submissions):
 </code></pre>
 
     <p class="indent">
-        For this project, I decided to keep it simple gather 1000 submissions from three different subreddits: Westworld, Doctor Who, and Game of Thrones. 
+        For this project, I decided to keep it simple gather 1000 submissions from three different subreddits: Westworld, Doctor Who, and Game of Thrones. These are T.V. show fan base subreddits where character 
+        names will be frequently mentioned. My hope is that LSA will pick up on this fact and be able to differentiate betwen the subreddits.
     </p>
 
     <p class="indent">
-        While gathering submissions from each subreddit, I filter out all of the special characters along with stop words to make it easier for the data to be processed with LSA.
-        
-        By using <code class="code_inline">stop_words = set(list(text.ENGLISH_STOP_WORDS) +  list(stopwords.words("english")))</code> I was able to combine both the nltk and sklearn sets
-        of stop words since individually they did not seem to remove the breadth of stop words that I would have liked. Here's some sample output showing before/after filtering submisisons:
+        While gathering submissions from each subreddit, I filter out all of the special characters along with stop words and remove capitalization to make it easier for the data to be processed when it comes to 
+        applying LSA. By using <code class="code_inline">stop_words = set(list(text.ENGLISH_STOP_WORDS) +  list(stopwords.words("english")))</code> I was able to combine both the <code class="code_inline">nltk</code> and 
+        <code class="code_inline">sklearn</code> stop word sets since individually, they did not seem to remove the breadth of stop words that I would have liked. Here's some sample output showing before/after 
+        the filtering of the submisisons:
     </p>
 
-<pre><code class="nohighlight code_output">#Use your credentials to log into your bot's account
-Gathering top 3 submission titles from <b>westworld</b>...
+<pre><code class="nohighlight code_output">Gathering top 3 submission titles from <b>westworld</b>...
 
 <b>Submission title:</b> My Secret Santa sent me a package, but it doesn't look like anything to me.
 
@@ -97,9 +95,8 @@ Gathering top 3 submission titles from <b>westworld</b>...
 Successfully parsed 3 submissions out of 3 --- 100.00%
 </code></pre>
 
-
     <p class="indent">
-        Results:
+        After gathering all of the submissions from each subreddit, we lost a few in each subreddit due to empty/deleted posts, but retained an average of 98.6% of all parsed submisisons. Here are the results:
     </p>
 
 <pre><code class="nohighlight code_output">Gathering top 1000 submission titles from westworld...
@@ -121,8 +118,60 @@ Successfully tagged: 2947 submissions
 
 
     <p class="indent">
-        Now that I have successfully filtered the submission titles, its time to create the frequency, tfidf, and reduced matrix.
+        When I refer to tagging and bundling, I am refering to the fact that I bundled all 2947 submissions into one pandas data frame and then created a separate column to tag each of the submissions with the proper subreddit
+        in which the submission came from. This will be the raw data that is used when we run LSA.
     </p>
+
+
+    <p class="indent">
+        Now that I have successfully filtered, bundled and tagged the submissions, its time to do some initial analyis on this data by converting the raw data into their frequency and tfidf matrix representations. To
+        do so, I used <code class="code_inline">sklearn</code>.
+    </p>
+
+<pre><code class="Python code_highlight">def run_count_vectorizer(num_strings, text):
+
+    count_vectorizer = CountVectorizer(max_df=0.25, max_features=500)
+    frequency_matrix = count_vectorizer.fit_transform(text)
+    feature_names = count_vectorizer.get_feature_names()
+    frequency_df = pd.DataFrame(frequency_matrix.toarray(), columns=feature_names)
+
+    frequency_df = get_rownames(num_strings, frequency_df)
+
+    return frequency_df, feature_names
+
+def run_tfidf_vectorizer(num_strings, feature_names, frequency_df):
+
+    tfidf_transformer = TfidfTransformer(use_idf=True, smooth_idf=True)
+    tfidf_matrix = tfidf_transformer.fit_transform(frequency_df)
+    tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
+
+    tfidf_df = get_rownames(num_strings, tfidf_df)
+
+    print("Tfidf matrix shape: %d by %d \n" % (tfidf_df.shape[0], tfidf_df.shape[1]))
+
+    return tfidf_df
+
+def get_rownames(num_strings, dataframe):
+
+    index = []
+
+    for i in range(num_strings):
+        index.append("Submission %s" % str(i+1))
+
+    dataframe.index = index
+
+    return dataframe
+
+
+print("Building frequency matrix...")
+frequency_df, feature_names = run_count_vectorizer(num_strings, text)
+frequency_df.insert(loc=0, column='Subreddit', value=subreddit_tags)
+
+print("Building tf-idf matrix...")
+tfidf_df = run_tfidf_vectorizer(num_strings, feature_names, frequency_df.drop('Subreddit', axis=1))
+tfidf_df.insert(loc=0, column='Subreddit', value=subreddit_tags)
+            
+</code></pre>
 
 
 <pre><code class="nohighlight code_output">Learning vocabulary...

@@ -28,6 +28,11 @@ svg {
     min-width: 200px;
 }
 
+.rec_svg {
+    background-color: #e9f2f9;
+    border-radius: 5px;
+}
+
 iframe {
     display: block;
     margin-left: auto;
@@ -55,6 +60,10 @@ a.footer { text-decoration: none; font-size: 0.8vw; color: #3582c2;}
 p {font-size: 0.9vw; line-height: 1.4em;}
 
 blockquote {font-size: 0.9vw; line-height: 1.4em;}
+
+.text_right_align {
+    float:right;
+}
 
 /*=========================List Elements=========================*/
 ul {border-bottom: 1px solid #909aa5; font-size: 1.2em; line-height: 1.4em; color: #333;}
@@ -132,7 +141,7 @@ footer {font-size: .8vw;}
 }
 
 .button {
-    background-color: #3178b3;
+    background-color: #3582c2;
     border: none;
     border-radius: 2px;
     color: #fcfcfc;
