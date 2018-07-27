@@ -77,38 +77,38 @@ for submission in subreddit.top(limit = num_submissions):
         the filtering of the submisisons:
     </p>
 
-<pre><code class="nohighlight code_output">Gathering top 3 submission titles from <b>westworld</b>...
+<pre><code class="nohighlight code_output">Gathering top 3 submission titles from westworld...
 
-<b>Submission title:</b> My Secret Santa sent me a package, but it doesn't look like anything to me.
+Submission title: My Secret Santa sent me a package, but it doesn't look like anything to me.
 
-<b>Filtered submission:</b> secret santa sent package look like
+Filtered submission: secret santa sent package look like
 
-<b>Submission title:</b> Everything you feel is true. Ed Harris has been nominated for “Outstanding Lead Actor in 
-                  a Drama Series” at this year’s Emmys.
+Submission title: Everything you feel is true. Ed Harris has been nominated for “Outstanding Lead Actor in a Drama Series” at this year’s Emmys.
 
-<b>Filtered submission:</b> feel true ed harris nominated outstanding lead actor drama series year emmys
+Filtered submission: feel true ed harris nominated outstanding lead actor drama series year emmys
 
-<b>Submission title:</b> Reading the Emmy nominations and not seeing anything for the true star of season 2.
+Submission title: Reading the Emmy nominations and not seeing anything for the true star of season 2.
 
-<b>Filtered submission:</b> reading emmy nominations seeing true star season
+Filtered submission: reading emmy nominations seeing true star season
 
-Successfully parsed 3 submissions out of 3 --- 100.00%
+Gathered 3 submissions out of 3 --- 100.00%
 </code></pre>
 
     <p class="indent">
-        After gathering all of the submissions from each subreddit, we lost a few in each subreddit due to empty/deleted posts, but retained an average of 98.6% of all parsed submisisons. Here are the results:
+        After trying to gather 1000 submissions from each subreddit, I was able to successfully gather 2947 of the 3000 submissions (98.63%). This is due to the fact that some of the submissions were
+        either empty or deleted. After gathering the submissions, I then put all 2947 submissions into a pandas data frame (what I refer to in my code as bundling) and then 
     </p>
 
 <pre><code class="nohighlight code_output">Gathering top 1000 submission titles from westworld...
-Successfully parsed 974 submissions out of 1000 --- 97.40%
+Gathered 974 submissions out of 1000 --- 97.40%
             
 Gathering top 1000 submission titles from doctorwho...
-Successfully parsed 998 submissions out of 1000 --- 99.80%
+Gathered 998 submissions out of 1000 --- 99.80%
             
 Gathering top 1000 submission titles from gameofthrones...
-Successfully parsed 987 submissions out of 1000 --- 98.70%
+Gathered 987 submissions out of 1000 --- 98.70%
             
-Successfully parsed a total of 2959 submission titles over 3 subreddits --- 98.63%
+Gathered a total of 2959 submission titles over 3 subreddits --- 98.63%
             
 Bundling up submissions...
             
@@ -125,93 +125,52 @@ Successfully tagged: 2947 submissions
 
     <p class="indent">
         Now that I have successfully filtered, bundled and tagged the submissions, its time to do some initial analyis on this data by converting the raw data into their frequency and tfidf matrix representations. To
-        do so, I used <code class="code_inline">sklearn</code>.
+        do so, I used <code class="code_inline">sklearn</code>. The general idea to convert a raw text collection into its freqency or tfidf repesenation is rather straight-forward.
     </p>
 
-<pre><code class="Python code_highlight">def run_count_vectorizer(num_strings, text):
+<pre><code class="Python code_highlight">def get_frequency_matrix(raw_text):
 
+    #Convert our raw text into a frequency matrix
     count_vectorizer = CountVectorizer(max_df=0.25, max_features=500)
-    frequency_matrix = count_vectorizer.fit_transform(text)
+    frequency_matrix = count_vectorizer.fit_transform(raw_text)
+
+    #Get the feature names from our 
     feature_names = count_vectorizer.get_feature_names()
     frequency_df = pd.DataFrame(frequency_matrix.toarray(), columns=feature_names)
 
-    frequency_df = get_rownames(num_strings, frequency_df)
-
     return frequency_df, feature_names
 
-def run_tfidf_vectorizer(num_strings, feature_names, frequency_df):
+def get_tfidf_matrix(feature_names, frequency_df):
 
     tfidf_transformer = TfidfTransformer(use_idf=True, smooth_idf=True)
     tfidf_matrix = tfidf_transformer.fit_transform(frequency_df)
     tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
 
-    tfidf_df = get_rownames(num_strings, tfidf_df)
-
-    print("Tfidf matrix shape: %d by %d \n" % (tfidf_df.shape[0], tfidf_df.shape[1]))
-
     return tfidf_df
-
-def get_rownames(num_strings, dataframe):
-
-    index = []
-
-    for i in range(num_strings):
-        index.append("Submission %s" % str(i+1))
-
-    dataframe.index = index
-
-    return dataframe
-
-
-print("Building frequency matrix...")
-frequency_df, feature_names = run_count_vectorizer(num_strings, text)
-frequency_df.insert(loc=0, column='Subreddit', value=subreddit_tags)
-
-print("Building tf-idf matrix...")
-tfidf_df = run_tfidf_vectorizer(num_strings, feature_names, frequency_df.drop('Subreddit', axis=1))
-tfidf_df.insert(loc=0, column='Subreddit', value=subreddit_tags)
             
 </code></pre>
 
 
 <pre><code class="nohighlight code_output">Learning vocabulary...
 
-Building frequency matrix...
-Frequency matrix shape: 2947 by 500
+Building frequency matrix...                                                                        Building tf-idf matrix...
+Frequency matrix shape: 2947 by 500                                                                 Tfidf matrix shape: 2947 by 500
+
+Top 10 most frequently occuring terms in each subreddit (frequency, word):                          Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
             
-Top 10 most frequently occuring terms in each subreddit (frequency, word):
+          westworld      doctorwho   gameofthrones                                                                     westworld                 doctorwho             gameofthrones
+0  (232, westworld)  (228, doctor)    (84, season)                                                  0  (97.213372539, westworld)   (101.560813588, doctor)     (35.2739945794, game)
+1     (110, season)   (70, tardis)      (83, game)                                                  1    (44.4450434939, season)   (38.3042412892, tardis)  (35.0017312287, thrones)
+2     (81, episode)    (53, today)   (78, thrones)                                                  2   (31.3725706244, episode)    (23.2506873032, today)   (34.9305434273, season)
+3        (43, like)      (43, got)   (63, episode)                                                  3   (24.8068474103, dolores)   (20.482284365, cosplay)  (26.1464311832, episode)
+4     (41, dolores)       (39, th)       (49, got)                                                  4      (23.4631433028, ford)       (18.3196733655, th)      (22.5882265291, jon)
+5        (39, ford)      (39, new)       (44, jon)                                                  5      (18.6375845419, like)      (17.9412010307, new)      (20.9237859057, got)
+6        (31, post)  (38, cosplay)  (32, daenerys)                                                  6   (18.2665834166, bernard)      (16.4741964929, got)  (20.465286075, daenerys)
+7       (30, black)   (33, friend)   (29, cosplay)                                                  7      (15.2148709101, post)      (15.8375799748, met)     (14.7023527661, snow)
+8     (30, bernard)     (32, matt)      (26, snow)                                                  8      (14.3639195808, host)  (15.4155473247, doctors)  (14.6150241288, cosplay)
+9       (25, scene)      (32, met)      (26, like)                                                  9     (13.9498082193, maeve)   (15.3802164488, friend)     (14.1079479072, king)
             
-          westworld      doctorwho   gameofthrones
-0  (232, westworld)  (228, doctor)    (84, season)
-1     (110, season)   (70, tardis)      (83, game)
-2     (81, episode)    (53, today)   (78, thrones)
-3        (43, like)      (43, got)   (63, episode)
-4     (41, dolores)       (39, th)       (49, got)
-5        (39, ford)      (39, new)       (44, jon)
-6        (31, post)  (38, cosplay)  (32, daenerys)
-7       (30, black)   (33, friend)   (29, cosplay)
-8     (30, bernard)     (32, matt)      (26, snow)
-9       (25, scene)      (32, met)      (26, like)
-            
-Building tf-idf matrix...
-Tfidf matrix shape: 2947 by 500
-            
-Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
-            
-                   westworld                 doctorwho             gameofthrones  
-0  (97.213372539, westworld)   (101.560813588, doctor)     (35.2739945794, game)
-1    (44.4450434939, season)   (38.3042412892, tardis)  (35.0017312287, thrones)
-2   (31.3725706244, episode)    (23.2506873032, today)   (34.9305434273, season)
-3   (24.8068474103, dolores)   (20.482284365, cosplay)  (26.1464311832, episode)
-4      (23.4631433028, ford)       (18.3196733655, th)      (22.5882265291, jon)
-5      (18.6375845419, like)      (17.9412010307, new)      (20.9237859057, got)
-6   (18.2665834166, bernard)      (16.4741964929, got)  (20.465286075, daenerys)
-7      (15.2148709101, post)      (15.8375799748, met)     (14.7023527661, snow)
-8      (14.3639195808, host)  (15.4155473247, doctors)  (14.6150241288, cosplay)
-9     (13.9498082193, maeve)   (15.3802164488, friend)     (14.1079479072, king)
 </code></pre>
-
-
 
     <p class="indent">
         From the frequency matrix, we can see what the most commonly occuring words for each subreddit are.
