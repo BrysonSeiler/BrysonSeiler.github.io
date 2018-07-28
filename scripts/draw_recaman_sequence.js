@@ -1,6 +1,6 @@
 //Define canvas size
 var width = d3.select(".container").style('width').slice(0, -2);
-var height = 5 * d3.select(".container").style('height').slice(0, -2);
+var height = 7 * d3.select(".container").style('height').slice(0, -2);
 
 var center_height = height / 2;
 
