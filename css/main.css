@@ -42,26 +42,20 @@ iframe {
 /*=========================Text=========================*/
 
 /*Font family pulled from Google Fonts: Roboto Slab*/
-h1, h3, h4 {font-family: 'Roboto Slab', serif; line-height: normal; color: #0f2538;}
+h1 {font-family: 'Roboto Slab', serif; line-height: 3vw; color: #0f2538;}
 h1 { font-size: 2.2vw;}
 
-h3 { font-size: 1.6vw;}
-h4 { font-size: 1.9em;}
-
-/*Font family pulled from Google Fonts: Muli*/
-a, p, h2, blockquote, text {font-family: 'Lato', sans-serif; color: #0f2538dc;}
-
+/*Font family pulled from Google Fonts: Lato*/
+h2 {font-family: 'Lato', sans-serif; color: #0f2538;}
 h2 { font-size: 1.4vw;}
+
+a, p, blockquote, text {font-size: 0.9vw; font-family: 'Lato', sans-serif; color: #0f2538f6; line-height:1.2vw;}
 
 /*Link to Website*/
 a { text-decoration: none; color: #3582c2;}
 a.header { text-decoration: none; font-size: 0.9vw; color: #3582c2;}
 a.footer { text-decoration: none; font-size: 0.8vw; color: #3582c2;}
-
-/*Body Text*/
-p {font-size: 0.9vw; line-height: 1.4em;}
-
-blockquote {font-size: 0.9vw; line-height: 1.4em;}
+a.list { text-decoration: none; font-size: 0.9vw; color: #3582c2; }
 
 .text_right_align {
     float:right;
@@ -69,16 +63,16 @@ blockquote {font-size: 0.9vw; line-height: 1.4em;}
 
 /*=========================List Elements=========================*/
 ul {border-bottom: 1px solid #909aa5; font-size: 1.2em; line-height: 1.4em; color: #333;}
-nav ul, footer ul {font-size: 1em; font-family: 'Open Sans', sans-serif, 'Arial'; padding: 0px; list-style: none; font-weight: bold;}
-nav ul li, footer ul li { display: inline; margin-right: 20px;}
+nav ul, footer ul {font-size: 0.5vw; font-family: 'Lato', sans-serif; padding: 0px; list-style: none; font-weight: bold;}
+nav ul li, footer ul li {font-size: 0.5vw; display: inline; margin-right: 20px;}
 
 /*Footer*/
-footer {font-size: .8vw;}
+footer {font-size: .7vw;}
 
 /*Foot Note*/
 .footnote {color: #909aa5; font-size: 1em;}
 
-.tagline {font-family: 'Lato', sans-serif; font-size: 0.45em; color: #0f2537;}
+.tagline {font-family: 'Lato', sans-serif; font-size: 0.6em; color: #0f2537;}
 
 .reference {
     background: #F8F8FF;
