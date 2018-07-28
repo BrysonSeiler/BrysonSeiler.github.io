@@ -1,8 +1,8 @@
 /*Html/Body*/
 html {
     margin: auto;
-    width: 99%;
-    min-height: 100%;
+    width: 100%;
+
     background-color: #3179b310;
 }
 
@@ -42,14 +42,16 @@ iframe {
 /*=========================Text=========================*/
 
 /*Font family pulled from Google Fonts: Roboto Slab*/
-h1, h2, h3, h4 {font-family: 'Roboto Slab', serif; line-height: normal; color: #0f2538;}
-h1 { font-size: 3em;}
-h2 { font-size: 2.4vw;}
+h1, h3, h4 {font-family: 'Roboto Slab', serif; line-height: normal; color: #0f2538;}
+h1 { font-size: 2.2vw;}
+
 h3 { font-size: 1.6vw;}
 h4 { font-size: 1.9em;}
 
 /*Font family pulled from Google Fonts: Muli*/
-a, p, blockquote, text {font-family: 'Lato', sans-serif; color: #0f2538dc;}
+a, p, h2, blockquote, text {font-family: 'Lato', sans-serif; color: #0f2538dc;}
+
+h2 { font-size: 1.4vw;}
 
 /*Link to Website*/
 a { text-decoration: none; color: #3582c2;}
