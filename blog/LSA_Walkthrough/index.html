@@ -209,19 +209,29 @@ Cosine Similarity:
 
     <p class="indent">
         Given an arbitrary <i>transposed</i> tf-idf matrix
-            <math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mi>D</mi>
-            </math>,
-            there exists a singular value decomposition of the form:
-            <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-                <mi>D</mi> <mo>=</mo> <mi>U</mi> <mi>S</mi><msup><mi>V</mi><mn>T</mn></msup>
-            </math>
+
+                <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mi>D</mi>
+                  </math>, 
+                  there exists a singular value decomposition of the form:
+
+                  <div class="math_block">
+
+                        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                            <mi>D</mi> <mo>=</mo> <mi>U</mi> <mi>S</mi><msup><mi>V</mi><mn>T</mn></msup>
+                        </math>
+
+                  </div>
+                  
+
+            
+            
     </p>
     <p class="indent">
         where 
-        <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> is a unitary matrix that describes how are the <i>words in our documents</i> are related to our 
-        <i>features</i> (I'll explain what I mean by this in just a second), <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> describes the <i>strength</i> of our features and 
-        <math xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> describes how our <i>documents</i> are related to our features.
+        <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> is a unitary matrix that describes how are the <i>words in our documents</i> are related to our 
+        <i>features</i> (I'll explain what I mean by this in just a second), <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> describes the <i>strength</i> of our features and 
+        <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> describes how our <i>documents</i> are related to our features.
     </p>
 
     <p class="indent">
@@ -230,7 +240,7 @@ Cosine Similarity:
     </p>
 
     <p class="indent">
-        Here is the <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> matrix for our collection of documents:
+        Here is the <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> matrix for our collection of documents:
     </p>
 
     <div class="heatmap">
@@ -243,7 +253,7 @@ Cosine Similarity:
     </p>
 
     <p class="indent">
-        It's unclear to me what the third and fourth features are trying to describe. By taking a quick look at our <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> 
+        It's unclear to me what the third and fourth features are trying to describe. By taking a quick look at our <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> 
         matrix, which is a diagonal matrix that consists of singular values that describe the strength of each of our features:
     </p>
 
@@ -260,7 +270,7 @@ Cosine Similarity:
     </p>
 
     <p class="indent">
-        Lets take a look at our <math xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> matrix:
+        Lets take a look at our <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> matrix:
     </p>
 
     <div  class="heatmap" align= "center">
