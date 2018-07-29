@@ -1,20 +1,14 @@
 /*Html/Body*/
 html, body{
-    height: 100%;
-    background-color: #3179b310;
+   margin:0;
+   padding:0;
+   background-color: #fff;
 }
 
 .body_text {
     padding: 10px 30px 30px 30px;
-    border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: auto;
-    width: auto;
-    height: auto;
-    margin-bottom: auto;
-    margin-top: auto;
     background-color: #fff;
+    position: relative;
 }
 
 svg {
@@ -97,8 +91,10 @@ a { text-decoration: none; color: #3582c2; }
 @media screen and (max-width: 600px){
     .footer a {font-size: 2vmax;}
     .navigation a {font-size: 2vmax;}
-    
+
     .link_list a {font-size: 2vmax;}
+
+    .footer-bottom a, p {font-size: 1.2vmax; line-height: 2vmax;}
     
 }
 
@@ -139,11 +135,19 @@ a { text-decoration: none; color: #3582c2; }
 }
 
 .footer {
+    position: fixed;
+    bottom:0;
+    height: 120px;
+    width: 100%;
+    background-color: #e9f2f9;
+}
+
+.footer-top {
     overflow: auto;
     border-bottom: 1px solid #909aa5;
 }
 
-.footer a {
+.footer-top a {
     float: left;
     display: block;
     text-align: center;
@@ -153,11 +157,22 @@ a { text-decoration: none; color: #3582c2; }
     font-weight: bold;
 }
 
+.footer-bottom {
+    position: relative;
+    padding-left: 10px;
+}
+
+.footer-bottom p {
+    font-family: 'Lato', sans-serif;
+    color: #909aa5;
+}
+
+.footer-bottom a {
+    font-family: 'Lato', sans-serif;
+}
 
 
-/*Foot Note*/
-.footnote {color: #909aa5; font-size: 0.7vmax; line-height: 1.2vmax;}
-a.foot { font-size: 0.7vmax;}
+
 
 .tagline {font-family: 'Lato', sans-serif; font-size: 0.6em; color: #333;}
 
