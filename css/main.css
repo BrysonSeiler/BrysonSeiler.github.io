@@ -96,8 +96,8 @@ nav ul li, footer ul li {
 }
 
 @media screen and (max-width: 600px){
-    a.header {font-size: 1.2vmax;}
-    a.footer {font-size: 1.1vmax;}
+    a.header {font-size: 1.1em;}
+    a.footer {font-size: 1em;}
 }
 
 /*Footer*/
