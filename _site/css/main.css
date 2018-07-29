@@ -2,11 +2,10 @@
 html, body{
    margin:0;
    padding:0;
-   background-color: #fff;
 }
 
 .body_text {
-    padding: 10px 30px 30px 30px;
+    padding: 20px;
     background-color: #fff;
     position: relative;
 }
@@ -46,8 +45,7 @@ iframe {
 
 /*=========================Text=========================*/
 
-
-/*Font family pulled from Google Fonts: Roboto Slab*/
+/*HEADER 1: Font family pulled from Google Fonts: Roboto Slab*/
 h1 {
     font-size: 2.2vmax;
     font-family: 'Roboto', sans-serif;
@@ -56,21 +54,7 @@ h1 {
     color: #333;
 }
 
-/*Font family pulled from Google Fonts: Lato*/
-
-.header_box {
-    overflow: auto;
-    text-align: center;
-
-    border-style: solid;
-    border-width: 1px;
-    border-color: #909aa5;
-
-    background-color: #3583c228;
-    padding: 0.25vmax;
-    border-radius: 5px;
-}
-
+/*HEADER 2: Font family pulled from Google Fonts: Lato*/
 h2 {
     font-size: 1.2vmax;
     font-family: 'Lato', sans-serif;
@@ -78,24 +62,46 @@ h2 {
     color: #333;
 }
 
-a, b, p, i, blockquote, text {font-size: 0.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
+/*Create box around header*/
+.header_box h2 {
+    overflow: auto;
+    text-align: center;
 
-/*Link to Website*/
+    border-style: solid;
+    border-width: 1px;
+    border-color: #909aa5;
+
+    background-color: #e9f2f9;
+    padding: 0.25vmax;
+    border-radius: 5px;
+}
+
+a, b, p, i, blockquote {font-size: 0.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
 a { text-decoration: none; color: #3582c2; }
+
+/*=========================Mobile=========================*/
+@media screen and (max-width: 600px){
+    .navigation a {font-size: 2vmax;}
+    .footer a {font-size: 2vmax;}
+    .footer-bottom p {font-size: 1.2vmax; line-height: 2vmax;}
+    .footer-bottom a {font-size: 1.2vmax; line-height: 2vmax;}
+
+    h1 {font-size: 3.5vmax;}
+
+    .header_box h2 {font-size: 2vmax;}
+
+    a, b, p, i, blockquote {font-size: 1.4vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2vmax;}
+    a { text-decoration: none; color: #3582c2; }
+
+    .code_output {font-size: 1.2vmax;}
+
+    .link_list a {font-size: 2vmax;}
+    .link_list li {line-height: 5vmax;}
+
+}
 
 .text_right_align {
     float:right;
-}
-
-
-@media screen and (max-width: 600px){
-    .footer a {font-size: 2vmax;}
-    .navigation a {font-size: 2vmax;}
-
-    .link_list a {font-size: 2vmax;}
-
-    .footer-bottom a, p {font-size: 1.2vmax; line-height: 2vmax;}
-    
 }
 
 /*=========================List Elements=========================*/
@@ -106,16 +112,14 @@ a { text-decoration: none; color: #3582c2; }
     border-width: 1px;
     border-color: #909aa5;
     display: block;
-    padding: 0px 15px 5px 15px;
+    padding: 15px;
     border-radius: 5px;
     background-color: #F8F8FF;
 }
 
 .link_list li {
-    line-height: 4vmax;
+    line-height: 1vmax;
 }
-
-
 
 /*=========================Navigation and Footer=========================*/
 
@@ -134,12 +138,18 @@ a { text-decoration: none; color: #3582c2; }
     font-weight: bold;
 }
 
+/*==================================================*/
+
 .footer {
     position: fixed;
     bottom:0;
-    height: 120px;
+    left: 0;
+    height: 11%;
     width: 100%;
-    background-color: #e9f2f9;
+    background-color: #F8F8FF;
+
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .footer-top {
@@ -211,7 +221,6 @@ a { text-decoration: none; color: #3582c2; }
 
 /*=========================Code=========================*/
 .code_output {
-    font-size: 0.75vmax;
     display: block;
     padding: 15px 15px 15px 15px;
     border-radius: 5px;

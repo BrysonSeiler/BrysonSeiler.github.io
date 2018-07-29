@@ -16,6 +16,10 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	var width = d3.select(".container").style('width').slice(0, -2);
 	var height = svg_height_scale*d3.select(".container").style('height').slice(0, -2);
 
+	if (width < 600){
+		default_node_size = width * 0.01;
+	}
+
 	var svg = d3.select("body").select("svg")
 				.attr("viewBox", '0 0 ' + width + ' ' + height);
 
