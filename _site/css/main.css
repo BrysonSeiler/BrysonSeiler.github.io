@@ -2,7 +2,6 @@
 html {
     margin: auto;
     width: 100%;
-
     background-color: #3179b310;
 }
 
@@ -40,6 +39,7 @@ iframe {
 }
 
 /*=========================Text=========================*/
+
 
 /*Font family pulled from Google Fonts: Roboto Slab*/
 h1 {
@@ -80,9 +80,25 @@ a.list { text-decoration: none; font-size: 0.9vmax; font-weight: bold; color: #3
 }
 
 /*=========================List Elements=========================*/
-ul {border-bottom: 1px solid #909aa5; line-height: 1vmax; color: #333;}
-nav ul, footer ul {font-family: 'Lato', sans-serif; padding: 0px; list-style: none; font-weight: bold;}
-nav ul li, footer ul li { display: inline; margin-right: 20px;}
+ul {
+    border-bottom: 1px solid #909aa5; 
+    line-height: 1vmax; color: #333;
+}
+
+nav ul, footer ul {
+    font-family: 'Lato', sans-serif; 
+    padding: 0px; 
+    font-weight: bold;
+}
+nav ul li, footer ul li { 
+    display: inline;
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 600px){
+    a.header {font-size: 1.2vmax;}
+    a.footer {font-size: 1.1vmax;}
+}
 
 /*Footer*/
 footer {font-size: .7vmax;}
