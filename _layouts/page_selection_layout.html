@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Blog</title>
+    <title>{{ page.title }}</title>
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
 
@@ -26,16 +26,7 @@
 
     <div class="container">
 
-        <div class="main">
-    <h1>Blog</h1>
-
-    <div class="link_list">
-        <li><a href="/blog/LSA_Walkthrough/index.html">Latent Semantic Analysis</a></li>
-        <li><a href="/blog/Network_Analysis/index.html">Network Analysis</a></li>
-        <li><a href="/blog/Recaman_Sequence/index.html">Recamán's Sequence</a></li>
-    </div>
-    
-</div>
+        {{ content }}
 
     </div>
 

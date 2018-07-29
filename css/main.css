@@ -1,12 +1,7 @@
 /*Html/Body*/
-html {
-    margin: auto;
-    width: 100%;
+html, body{
+    height: 100%;
     background-color: #3179b310;
-}
-
-body {
-    min-height: 100%;
 }
 
 .body_text {
@@ -14,8 +9,11 @@ body {
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: auto;
     width: auto;
     height: auto;
+    margin-bottom: auto;
+    margin-top: auto;
     background-color: #fff;
 }
 
@@ -41,6 +39,17 @@ iframe {
     margin-right: auto;
 }
 
+.page_links {
+    height: 100%;
+    padding: 10px 30px 30px 30px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: auto;
+    background-color: #fff;
+}
+
 /*=========================Text=========================*/
 
 
@@ -48,7 +57,7 @@ iframe {
 h1 {
     font-size: 2.2vmax;
     font-family: 'Roboto', sans-serif;
-    font-weight: 100;
+    font-weight: 700;
     line-height: 3vmax;
     color: #333;
 }
@@ -80,13 +89,39 @@ a, b, p, i, blockquote, text {font-size: 0.9vmax; font-family: 'Raleway', sans-s
 /*Link to Website*/
 a { text-decoration: none; color: #3582c2; }
 
-a.list { text-decoration: none; font-size: 0.9vmax; font-weight: bold; color: #3582c2; line-height: 1.2vmax;}
-
 .text_right_align {
     float:right;
 }
 
+
+@media screen and (max-width: 600px){
+    .footer a {font-size: 2vmax;}
+    .navigation a {font-size: 2vmax;}
+    
+    .link_list a {font-size: 2vmax;}
+    
+}
+
 /*=========================List Elements=========================*/
+
+.link_list {
+    overflow: auto;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #909aa5;
+    display: block;
+    padding: 0px 15px 5px 15px;
+    border-radius: 5px;
+    background-color: #F8F8FF;
+}
+
+.link_list li {
+    line-height: 4vmax;
+}
+
+
+
+/*=========================Navigation and Footer=========================*/
 
 .navigation {
     overflow: auto;
@@ -118,9 +153,7 @@ a.list { text-decoration: none; font-size: 0.9vmax; font-weight: bold; color: #3
     font-weight: bold;
 }
 
-@media screen and (max-width: 600px){
-    .navigation a {font-size: 20px;}
-}
+
 
 /*Foot Note*/
 .footnote {color: #909aa5; font-size: 0.7vmax; line-height: 1.2vmax;}
