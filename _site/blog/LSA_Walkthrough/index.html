@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
 
-    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:700|Raleway:500,600|Roboto:700" rel="stylesheet">
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
     
@@ -20,7 +20,6 @@
 
 
 <body class = "body_text">
-
 
     <div class="navigation">
 
@@ -70,7 +69,11 @@
         identifying these subject differences is no simple task. What techniques do we have at our disposal to make a computer to recognize these kinds of differences?
     </p>
 
-    <h2>Document-Term Frequency and Cosine Similarity</h2>
+
+    <div class="header_box">
+        <h2>Document-Term Frequency and Cosine Similarity</h2>
+    </div>
+    
 
     <p class="indent">
         A common starting point begins by looking at the frequencies at which the words inside of a document appear inside of the others. Intuitively, by grouping together
@@ -143,7 +146,9 @@ Cosine Similarity:
         the document pair (2,3) has an unexpectedly high similarity score.
     </p>
 
-    <h2>Stop Words and Tf-idf</h2>
+    <div class="header_box">
+        <h2>Stop Words and Tf-idf</h2>
+    </div>
 
     <p class="indent">
         The reason why this pair has a high cosine similarity score is due to the fact that both of these documents use the word "to" frequently. This points out a major flaw in
@@ -204,7 +209,11 @@ Cosine Similarity:
         are not similar have been, for the most part, driven down to less than 20%.
     </p>
 
-    <h2>Singular Value Deomposition and Semantic Space</h2>
+
+    <div class="header_box">
+        <h2>Singular Value Deomposition and Semantic Space</h2>
+    </div>
+    
 
     <p class="indent">
         The tf-idf model coupled with cosine similarity provides us with a great approximation for the similarity between documents, but there are some limitations to this model.
