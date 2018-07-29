@@ -95,9 +95,7 @@ a { text-decoration: none; color: #3582c2; }
 
     .code_output {font-size: 1.2vmax;}
 
-    .link_list a {font-size: 2vmax;}
-    .link_list li {line-height: 5vmax;}
-
+    .link_list a {font-size: 2vmax; line-height: 3vmax;}
 }
 
 .text_right_align {
@@ -146,9 +144,10 @@ a { text-decoration: none; color: #3582c2; }
     left: 0;
     height: 11%;
     width: 100%;
-    background-color: #F8F8FF;
+    background-color: #f0f1f3;
+    border-top: 1px solid #cdd4da;
 
-    padding: 10px;
+    padding: 1px 5px 5px 5px;
     border-radius: 5px;
 }
 
@@ -174,7 +173,7 @@ a { text-decoration: none; color: #3582c2; }
 
 .footer-bottom p {
     font-family: 'Lato', sans-serif;
-    color: #909aa5;
+    color: #333;
 }
 
 .footer-bottom a {
