@@ -69,10 +69,8 @@ h2 {
 a, b, p, i, blockquote, text {font-size: 0.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #0f2538f6; line-height:1.1vmax;}
 
 /*Link to Website*/
-a { text-decoration: none; color: #3582c2; font-weight: 500; line-height: 1.2vmax;}
-a.header { font-family: 'Lato', sans-serif; text-decoration: none; font-size: 0.9vmax; font-weight: bold; color: #3582c2; line-height: 1.2vmax;}
-a.footer { font-family: 'Lato', sans-serif; text-decoration: none; font-size: 0.8vmax; font-weight: bold; color: #3582c2; line-height: 1.2vmax;}
-a.footnote_link { font-family: 'Lato', sans-serif; text-decoration: none; font-size: 0.7vmax; font-weight: 500; color: #3582c2; line-height: 1.2vmax;}
+a { text-decoration: none; color: #3582c2; }
+
 a.list { text-decoration: none; font-size: 0.9vmax; font-weight: bold; color: #3582c2; line-height: 1.2vmax;}
 
 .text_right_align {
@@ -80,31 +78,51 @@ a.list { text-decoration: none; font-size: 0.9vmax; font-weight: bold; color: #3
 }
 
 /*=========================List Elements=========================*/
-ul {
-    border-bottom: 1px solid #909aa5; 
-    line-height: 1vmax; color: #333;
+
+.navigation {
+    overflow: auto;
+    border-bottom: 1px solid #909aa5;
 }
 
-nav ul, footer ul {
-    font-family: 'Lato', sans-serif; 
-    padding: 0px; 
+.navigation a {
+    float: left;
+    display: block;
+    text-align: center;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+    font-family: 'Lato', sans-serif;
     font-weight: bold;
 }
-nav ul li, footer ul li { 
-    display: inline;
-    margin-right: 20px;
+
+.footer {
+    overflow: auto;
+    border-bottom: 1px solid #909aa5;
 }
+
+.footer a {
+    float: left;
+    display: block;
+    text-align: center;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+
 
 @media screen and (max-width: 600px){
     a.header {font-size: 1.1em;}
     a.footer {font-size: 1em;}
 }
 
-/*Footer*/
-footer {font-size: .7vmax;}
-
 /*Foot Note*/
 .footnote {color: #909aa5; font-size: 0.7vmax; line-height: 1.2vmax;}
+a.foot { font-size: 0.7vmax;}
 
 .tagline {font-family: 'Lato', sans-serif; font-size: 0.6em; color: #0f2537;}
 
