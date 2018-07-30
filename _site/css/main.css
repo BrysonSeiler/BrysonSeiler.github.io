@@ -86,16 +86,17 @@ a { text-decoration: none; color: #3582c2; }
     .footer-bottom p {font-size: 1.2vmax; line-height: 2vmax;}
     .footer-bottom a {font-size: 1.2vmax; line-height: 2vmax;}
 
-    h1 {font-size: 3.5vmax;}
+    h1 {font-size: 3.8vmax;}
 
-    .header_box h2 {font-size: 2vmax;}
+    .header_box h2 {font-size: 2.4vmax;}
 
-    a, b, p, i, blockquote {font-size: 1.4vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2vmax;}
+    a, b, p, i, blockquote {font-size: 1.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2.4vmax;}
     a { text-decoration: none; color: #3582c2; }
 
-    .code_output {font-size: 1.2vmax;}
+    .code_output {font-size: 1.55vmax;}
 
     .link_list a {font-size: 2vmax; line-height: 3vmax;}
+
 }
 
 .text_right_align {
@@ -139,16 +140,12 @@ a { text-decoration: none; color: #3582c2; }
 /*==================================================*/
 
 .footer {
-    position: fixed;
+    position: inherit;
     bottom:0;
     left: 0;
     height: 11%;
     width: 100%;
-    background-color: #f0f1f3;
-    border-top: 1px solid #cdd4da;
-
-    padding: 1px 5px 5px 5px;
-    border-radius: 5px;
+    padding-top: 20px;
 }
 
 .footer-top {
@@ -180,9 +177,6 @@ a { text-decoration: none; color: #3582c2; }
     font-family: 'Lato', sans-serif;
 }
 
-
-
-
 .tagline {font-family: 'Lato', sans-serif; font-size: 0.6em; color: #333;}
 
 .reference {
@@ -205,12 +199,19 @@ a { text-decoration: none; color: #3582c2; }
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50vmax;
+    width: 48vmax;
     height: auto;
 }
 
 
 .heatmap {
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #909aa5;
+}
+
+.heatmap_small {
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
