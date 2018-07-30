@@ -40,7 +40,9 @@ title: Subreddit Analysis
         <br/>
     </p>
 
-    <h2>Gathering and Processing Submission Titles From Reddit</h2>
+    <div class="header_box">
+        <h2>Gathering and Processing Submission Titles From Reddit</h2>
+    </div>
 
     <p class="indent">
         To gather submissions from Reddit, I used the Python package <a href="https://praw.readthedocs.io/en/latest/">PRAW</a> (Python Reddit API Wrapper). PRAW is an excellent package
@@ -52,7 +54,7 @@ title: Subreddit Analysis
         general idea:
     </p>
 
-<pre><code class="Python code_highlight">#Use your credentials to log into your bot's account
+<pre><code class="Python code_output">#Use your credentials to log into your bot's account
 reddit_bot.login()
                 
 #Create a subreddit object for a specific subreddit that contains all provided attributes of that subreddit
@@ -127,7 +129,7 @@ Successfully tagged: 2947 submissions
         do so, I used <code class="code_inline">sklearn</code>. The general idea to convert a raw text collection into its freqency or tfidf repesenation is rather straight-forward.
     </p>
 
-<pre><code class="Python code_highlight">def get_frequency_matrix(raw_text):
+<pre><code class="Python code_output">def get_frequency_matrix(raw_text):
 
     #Convert our raw text into a frequency matrix
     count_vectorizer = CountVectorizer(max_df=0.25, max_features=500)
@@ -198,7 +200,11 @@ Percent variance explained by all 300 components: 0.848
         Now that I have successfully filtered the submission titles, its time to create the frequency, tfidf, and reduced matrix.
     </p>
 
-    <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/18.embed"></iframe>
+    
+
+    <div class="graph">
+        <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/18.embed"></iframe>
+    </div>
 
 <pre><code class="nohighlight code_output">Distance metric:
 

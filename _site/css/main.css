@@ -2,6 +2,7 @@
 html, body{
    margin:0;
    padding:0;
+   height:100%;
 }
 
 .body_text {
@@ -33,7 +34,6 @@ iframe {
 }
 
 .page_links {
-    height: 100%;
     padding: 10px 30px 30px 30px;
     border-radius: 5px;
     margin-left: auto;
@@ -41,6 +41,10 @@ iframe {
     margin-bottom: auto;
     margin-top: auto;
     background-color: #fff;
+}
+
+.vspace {
+    margin-bottom: 36vmax;
 }
 
 /*=========================Text=========================*/
@@ -60,6 +64,25 @@ h2 {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     color: #333;
+}
+
+/*HEADER 3: Font family pulled from Google Fonts: Lato*/
+h3 {
+    font-size: 1.5vmax;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: #333;
+}
+
+.tagline {font-family: 'Lato', sans-serif; color: #595d61;}
+
+.reference {
+    background: #F8F8FF;
+    border-left: 2px solid #909aa5;
+    border-radius: 5px;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    font-size: 0.9em;
 }
 
 /*Create box around header*/
@@ -86,16 +109,29 @@ a { text-decoration: none; color: #3582c2; }
     .footer-bottom p {font-size: 1.2vmax; line-height: 2vmax;}
     .footer-bottom a {font-size: 1.2vmax; line-height: 2vmax;}
 
+    .vspace { margin-bottom: 55vmax;}
+
     h1 {font-size: 3.8vmax;}
 
     .header_box h2 {font-size: 2.4vmax;}
 
+    h3 {font-size: 2.8vmax;}
+    .tagline {line-height: 0.5vmax;}
+
     a, b, p, i, blockquote {font-size: 1.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2.4vmax;}
     a { text-decoration: none; color: #3582c2; }
+
+    .code_inline {font-size: 1.55vmax;}
 
     .code_output {font-size: 1.55vmax;}
 
     .link_list a {font-size: 2vmax; line-height: 3vmax;}
+
+    .heatmap_small iframe {width:100%; height: 275px;}
+
+    .math_block {font-size: 2vmax;}
+
+    .button {font-size: 2vmax;}
 
 }
 
@@ -106,6 +142,7 @@ a { text-decoration: none; color: #3582c2; }
 /*=========================List Elements=========================*/
 
 .link_list {
+    margin-bottom: 100vh;
     overflow: auto;
     border-style: solid;
     border-width: 1px;
@@ -140,7 +177,7 @@ a { text-decoration: none; color: #3582c2; }
 /*==================================================*/
 
 .footer {
-    position: inherit;
+    position: static;
     bottom:0;
     left: 0;
     height: 11%;
@@ -151,6 +188,7 @@ a { text-decoration: none; color: #3582c2; }
 .footer-top {
     overflow: auto;
     border-bottom: 1px solid #909aa5;
+    bottom:0;
 }
 
 .footer-top a {
@@ -166,28 +204,19 @@ a { text-decoration: none; color: #3582c2; }
 .footer-bottom {
     position: relative;
     padding-left: 10px;
+    bottom:0;
 }
 
 .footer-bottom p {
     font-family: 'Lato', sans-serif;
-    color: #333;
+    color: #909aa5;
 }
 
 .footer-bottom a {
     font-family: 'Lato', sans-serif;
 }
 
-.tagline {font-family: 'Lato', sans-serif; font-size: 0.6em; color: #333;}
 
-.reference {
-    background: #3179b310;
-    border-left: 2px solid #909aa5;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-    font-size: 0.9em;
-}
 
 .italics {font-size: .8em;}
 
@@ -211,7 +240,14 @@ a { text-decoration: none; color: #3582c2; }
     border-color: #909aa5;
 }
 
-.heatmap_small {
+.graph {
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #909aa5;
+}
+
+.heatmap_small iframe {
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
@@ -246,7 +282,6 @@ a { text-decoration: none; color: #3582c2; }
 }
 
 .code_inline {
-    font-size: 0.75vmax;
     color: #3582c2;
     padding: 1px 1px 1px 1px;
     border-radius: 3px;
@@ -255,10 +290,9 @@ a { text-decoration: none; color: #3582c2; }
 
 .button {
     background-color: #3582c2;
-    border-radius: 2px;
+    border-radius: 5px;
     color: #fcfcfc;
     padding: 3px 4px;
-    font-size: 0.8vmax;
     font-family: 'Lato', sans-serif;
     max-width: 100%;
 
@@ -272,12 +306,8 @@ a { text-decoration: none; color: #3582c2; }
     color: #fcfcfc;
 }
 
-.math_font_inline {
-    font-size: 1.05vmax;
-}
-
 .math_block {
     margin-top: 3vmax;
     margin-bottom: 3vmax;
-    font-size: 1.4vmax;
+    font-size: 2vmax;
 }

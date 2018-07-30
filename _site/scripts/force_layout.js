@@ -9,13 +9,13 @@
 */
 
 //Bryson Seiler: Added: function to open json networks:
-function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale) {
+function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale, h_scale) {
 
 	//Create svg container
 
 	var width = d3.select(".container").style('width').slice(0, -2);
 	var height = svg_height_scale*d3.select(".container").style('height').slice(0, -2);
-
+	
 	if (width < 600){
 		default_node_size = width * 0.01;
 	}
@@ -34,11 +34,13 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	//Draw network
 	window.draw = draw(filename, svg, simulation, show_labels);
 	
-	function draw(filename, svg, simulation, show_labels) {
+	function draw(filename, svg, simulation, show_labels, width, height) {
 
 		//Open json network
 		d3.json(filename, function (error, graph) {
 			if (error) throw error;
+
+			
 
 			//Create links
 			var link = svg.append("g")
@@ -85,6 +87,11 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 			d3.select(window).on("resize", resize);
 
 			function ticked() {
+				
+				width = d3.select(".container").style('width').slice(0, -2);
+				height = d3.select(".container").style('height').slice(0, -2);
+
+
 				link
 					.attr("x1", function (d) { return d.source.x; })
 					.attr("y1", function (d) { return d.source.y; })
@@ -92,14 +99,14 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 					.attr("y2", function (d) { return d.target.y; });
 
 				node
-					.attr("cx", function (d) { return d.x; })
-					.attr("cy", function (d) { return d.y; });
+					.attr("cx", function (d) { return d.x = Math.max(default_node_size, Math.min(width - default_node_size, d.x)); })
+					.attr("cy", function (d) { return d.y = Math.max(default_node_size, Math.min(height - default_node_size, d.y)); });
 
 				if (show_labels == true) {
 
 					lables
-						.attr("x", function (d) { return d.x; })
-						.attr("y", function (d) { return d.y; });
+						.attr("x", function (d) { return d.x = Math.max(default_node_size, Math.min(width - default_node_size, d.x)); })
+						.attr("y", function (d) { return d.y = Math.max(default_node_size, Math.min(height - default_node_size, d.y)); });
 
 				}
 
