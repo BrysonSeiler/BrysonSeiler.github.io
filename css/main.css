@@ -47,6 +47,14 @@ iframe {
     margin-bottom: 36vmax;
 }
 
+.reference_vspace {
+    margin-bottom: 3vmax;
+}
+
+.gen_vspace {
+    margin-bottom: 2vmax;
+}
+
 /*=========================Text=========================*/
 
 /*HEADER 1: Font family pulled from Google Fonts: Roboto Slab*/
@@ -62,19 +70,19 @@ h1 {
 h2 {
     font-size: 1.2vmax;
     font-family: 'Lato', sans-serif;
-    font-weight: 400;
+    font-weight: bold;
     color: #333;
 }
 
 /*HEADER 3: Font family pulled from Google Fonts: Lato*/
 h3 {
-    font-size: 1.5vmax;
+    font-size: 1.4vmax;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     color: #333;
 }
 
-.tagline {font-family: 'Lato', sans-serif; color: #595d61;}
+.tagline {font-family: 'Lato', sans-serif; color: #414346;}
 
 .reference {
     background: #F8F8FF;
@@ -88,18 +96,15 @@ h3 {
 /*Create box around header*/
 .header_box h2 {
     overflow: auto;
-    text-align: center;
-
-    border-style: solid;
-    border-width: 1px;
-    border-color: #909aa5;
-
-    background-color: #e9f2f9;
-    padding: 0.25vmax;
-    border-radius: 5px;
 }
 
-a, b, p, i, blockquote {font-size: 0.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
+.portrait img {
+    border-radius: 50%;
+    height: 12vmax;
+    width: 12vmax;
+}
+
+a, p, i, blockquote {font-size: 0.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
 a { text-decoration: none; color: #3582c2; }
 
 /*=========================Mobile=========================*/
@@ -115,10 +120,10 @@ a { text-decoration: none; color: #3582c2; }
 
     .header_box h2 {font-size: 2.4vmax;}
 
-    h3 {font-size: 2.8vmax;}
+    h3 {font-size: 2.8vmax; text-align: center;}
     .tagline {line-height: 0.5vmax;}
 
-    a, b, p, i, blockquote {font-size: 1.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2.4vmax;}
+    a, p, i, blockquote {font-size: 1.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2.4vmax;}
     a { text-decoration: none; color: #3582c2; }
 
     .code_inline {font-size: 1.55vmax;}
@@ -132,6 +137,10 @@ a { text-decoration: none; color: #3582c2; }
     .math_block {font-size: 2vmax;}
 
     .button {font-size: 2vmax;}
+
+    .reference_vspace { margin-bottom: 1vmax;}
+
+    .portrait img {height: 20vmax; width: 20vmax;}
 
 }
 
@@ -245,6 +254,7 @@ a { text-decoration: none; color: #3582c2; }
     border-style: solid;
     border-width: 1px;
     border-color: #909aa5;
+    background-color: #3583c225;
 }
 
 .graph {

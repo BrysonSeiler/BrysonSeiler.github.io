@@ -142,7 +142,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 		//New Blue: ['#215077', '#2c6b9f', '#3685c7', '#5e9ed3', '#9ac2e3', '#d6e6f4', '#feffff'];
 
 		var color = ['#215077', '#2c6b9f', '#3685c7', '#5e9ed3', '#9ac2e3', '#d6e6f4', '#eaf2f9'];
-		var size = [default_node_size, default_node_size + 6, default_node_size + 11, default_node_size + 14, default_node_size + 17, default_node_size + 20, default_node_size + 25]
+		var size = [default_node_size, default_node_size + default_node_size, default_node_size + 1.5*default_node_size, default_node_size + 2*default_node_size, default_node_size + 2.5*default_node_size, default_node_size + 3*default_node_size, default_node_size + 3.5*default_node_size]
 
 		if (value == 0) {
 
