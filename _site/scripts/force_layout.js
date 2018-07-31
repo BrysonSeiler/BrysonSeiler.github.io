@@ -9,10 +9,9 @@
 */
 
 //Bryson Seiler: Added: function to open json networks:
-function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale, h_scale) {
+function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale) {
 
 	//Create svg container
-
 	var width = d3.select(".container").style('width').slice(0, -2);
 	var height = svg_height_scale*d3.select(".container").style('height').slice(0, -2);
 	
@@ -26,7 +25,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	//Initialize force simulation
 	var simulation = d3.forceSimulation()
 		//Bryson Seiler: Added: 1. Collision 
-		.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance))
+		.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance/width))
 		.force("charge", d3.forceManyBody().strength(-(1/body_strength)*width))
 		.force("collide", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
 		.force("center", d3.forceCenter(width / 2, height / 2));
@@ -34,13 +33,11 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	//Draw network
 	window.draw = draw(filename, svg, simulation, show_labels);
 	
-	function draw(filename, svg, simulation, show_labels, width, height) {
+	function draw(filename, svg, simulation, show_labels) {
 
 		//Open json network
 		d3.json(filename, function (error, graph) {
 			if (error) throw error;
-
-			
 
 			//Create links
 			var link = svg.append("g")
@@ -88,9 +85,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 
 			function ticked() {
 				
-				width = d3.select(".container").style('width').slice(0, -2);
-				height = d3.select(".container").style('height').slice(0, -2);
-
+				height = d3.select("svg").style('height').slice(0, -2);
 
 				link
 					.attr("x1", function (d) { return d.source.x; })
@@ -105,8 +100,8 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 				if (show_labels == true) {
 
 					lables
-						.attr("x", function (d) { return d.x = Math.max(default_node_size, Math.min(width - default_node_size, d.x)); })
-						.attr("y", function (d) { return d.y = Math.max(default_node_size, Math.min(height - default_node_size, d.y)); });
+						.attr("x", function (d) { return d.x; })
+						.attr("y", function (d) { return d.y; });
 
 				}
 
@@ -114,10 +109,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 
 			function resize(){
 				width = d3.select(".container").style('width').slice(0, -2);
-				height = svg.select("container").height;
-
-				//console.log(width)
-
+				height = svg.select(".container").height;
 				svg.attr("width", width).attr("height", height);
 			}
 
@@ -159,7 +151,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 			d3.selectAll("svg").selectAll("circle").each(function (d, i) {
 				d3.select(this).attr("fill", default_node_color)
 				d3.select(this).attr("r", default_node_size)
-			})
+			});
 
 		}
 
@@ -200,7 +192,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 					d3.select(this).attr("fill", color[6]).attr("r", size[6])
 				}
 
-			})
+			});
 
 		}
 
@@ -238,7 +230,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 					d3.select(this).attr("fill", color[6]).attr("r", size[6])
 				}
 				
-			})
+			});
 
 		}
 
@@ -276,8 +268,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 					d3.select(this).attr("fill", color[6]).attr("r", size[6])
 				}
 
-				//d3.select(this).attr("r", function (d) { return default_node_size + 25*d.EigenvectorCentrality; })
-			})
+			});
 
 		}
 	}
