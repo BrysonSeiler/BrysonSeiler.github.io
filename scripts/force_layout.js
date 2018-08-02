@@ -13,10 +13,18 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 
 	//Create svg container
 	var width = d3.select(".container").style('width').slice(0, -2);
-	var height = svg_height_scale*d3.select(".container").style('height').slice(0, -2);
+	var height;
+
+	var div_dist = 1;
 	
 	if (width < 600){
 		default_node_size = width * 0.01;
+		height = (1/svg_height_scale)*d3.select(".container").style('height').slice(0, -2);
+		div_dist = width;
+	}
+	
+	else {
+		height = 900;
 	}
 
 	var svg = d3.select("body").select("svg")
@@ -25,7 +33,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	//Initialize force simulation
 	var simulation = d3.forceSimulation()
 		//Bryson Seiler: Added: 1. Collision 
-		.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance/width))
+		.force("link", d3.forceLink().id(function (d) { return d.id; }).strength(link_strength).distance(distance/div_dist))
 		.force("charge", d3.forceManyBody().strength(-(1/body_strength)*width))
 		.force("collide", d3.forceCollide(12).strength(collide_strength).iterations(iterations))
 		.force("center", d3.forceCenter(width / 2, height / 2));
@@ -142,7 +150,7 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 		//New Blue: ['#215077', '#2c6b9f', '#3685c7', '#5e9ed3', '#9ac2e3', '#d6e6f4', '#feffff'];
 
 		var color = ['#215077', '#2c6b9f', '#3685c7', '#5e9ed3', '#9ac2e3', '#d6e6f4', '#eaf2f9'];
-		var size = [default_node_size, default_node_size + default_node_size, default_node_size + 1.5*default_node_size, default_node_size + 2*default_node_size, default_node_size + 2.5*default_node_size, default_node_size + 3*default_node_size, default_node_size + 3.5*default_node_size]
+		var size = [default_node_size, default_node_size + 0.5*default_node_size, default_node_size + default_node_size, default_node_size + 1.5*default_node_size, default_node_size + 2*default_node_size, default_node_size + 2.25*default_node_size, default_node_size + 3.5*default_node_size]
 
 		if (value == 0) {
 
