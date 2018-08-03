@@ -1,17 +1,5 @@
-//Define canvas size
-var width = d3.select(".container").style('width').slice(0, -2);
-var height = 7 * d3.select(".container").style('height').slice(0, -2);
-
-var center_height = height / 2;
-
-var svg = d3.select(".visualization").append("svg")
-            .attr("viewBox", '0 0 ' + width + ' ' + height)
-            .attr("class", "rec_svg");
-
-var color = ['#3075ae'];
-
 //Recaman sequence
-var sequence = [0, 1, 3, 6, 2, 7, 13, 20, 12, 21, 11, 22, 10, 23, 9, 24, 8, 25, 43, 62, 42, 63, 41, 18, 42, 17, 43, 16, 44, 15, 45, 14, 46, 79, 113, 78, 114, 77, 39, 78, 38, 79, 37, 80, 36, 81, 35, 82, 34, 83, 33, 84, 32, 85, 31, 86, 30, 87, 29, 88, 28, 89, 27, 90, 26, 91, 157, 224, 156, 225, 155, 226, 154, 227, 153, 228, 152, 75, 153, 74, 154, 73, 155, 72, 156, 71, 157, 70, 158, 69, 159, 68, 160, 67, 161, 66, 162, 65, 163, 64, 164, 265, 367, 264, 368, 263, 369, 262, 370, 261];
+var sequence = [0, 1, 3, 6, 2, 7, 13, 20, 12, 21, 11, 22, 10, 23, 9, 24, 8, 25, 43, 62, 42, 63, 41, 18, 42, 17, 43, 16, 44, 15, 45, 14, 46, 79, 113, 78, 114, 77, 39, 78, 38, 79, 37, 80, 36, 81, 35, 82, 34, 83, 33, 84, 32, 85, 31, 86, 30, 87, 29, 88, 28, 89, 27, 90, 26, 91, 157, 224, 156, 225, 155, 226, 154, 227, 153, 228, 152, 75, 153, 74, 154, 73, 155, 72, 156, 71, 157, 70, 158, 69, 159, 68, 160, 67, 161, 66, 162, 65, 163, 64, 164];
 //Hop_size defines the distance between the i and i+1 elements in the Recaman sequence.
 var hop_size = [];
 
@@ -95,6 +83,19 @@ for (i = 0; i < hop_size.length; i++) {
 
 
 //=====================Define first arc=====================//
+
+//Define canvas size
+console.log(Math.max(...centers.slice(1,centers.length-2)))
+var width = Math.max(...centers.slice(1,centers.length-2)) + 230;
+var height = 6 * d3.select(".container").style('height').slice(0, -2);
+
+var center_height = height / 2;
+
+var svg = d3.select(".visualization").append("svg")
+            .attr("viewBox", '0 0 ' + width + ' ' + height)
+            .attr("class", "rec_svg");
+
+var color = ['#3075ae'];
 
 //Find the positioning of the first arc
 svg.select("g").remove();

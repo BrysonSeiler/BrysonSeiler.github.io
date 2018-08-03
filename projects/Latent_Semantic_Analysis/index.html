@@ -6,43 +6,83 @@ title: Subreddit Analysis
 <div class="main">
     <h1>{{page.title}}</h1>
 
-    <p class="indent">
-        If you aren’t familiar with <a href="https://www.reddit.com">Reddit</a>, it is a bulletin-board style website where you can post/share interesting links, pictures, thoughts, 
-        etc. with others. To organize what you share, Reddit uses <i>subreddits</i>, which are forums that are dedicated to a specific topic on the website. From science, politicst to
-        you name it, there is probably a subreddit for it.
-    </p>
-
-    <p class="indent">
-        If you spend enough time on Reddit, you may notice that the posts within a subreddit typically use a similar vocabulary. For example, posts within the personal finance subreddit are more likely to use words like
-        “money”, “debt”, and “loans” than most other subreddits. This raises some interesting questions:
-    </p>
-
-    <blockquote class="reference">
-        <p>
-            <i>Which subreddits have the most similar vocabulary? In other words, which subreddits are semantically similar/dissimilar?</i> <br/><br/>
-            <i>Given a post, can we make an educated guess as to which subreddit it came from?</i>
+    <div>
+        <p class="indent">
+                If you aren’t familiar with <a href="https://www.reddit.com">Reddit</a>, it is a bulletin-board style website where you can share interesting links, pictures, etc. with others. To organize what you share 
+                on the website, Reddit asks you to choose a specific <i>subreddit</i> to post your information to. A subreddit is just a forum on the website that is dedicated to a specific 
+                topic. For example, if you wanted to share pictures from your backpacking trip along the Appalachian Trail, the most obvious subreddit to choose would be <a href="https://www.reddit.com/r/hiking/">r/hiking</a>, but 
+                there’s an even more specific subreddit, <a href="https://www.reddit.com/r/AppalachianTrail/">r/AppalachianTrail</a>, that would probably be a better choice. There is a subreddit for just about anything that you can think of. 
+                Whether you’re interested in science, politics, economics, etc., there is probably a subreddit for it.
         </p>
-    </blockquote>
 
-    <p class="indent">
-        These are questions that can be answered with Latent Semantic Analysis (LSA). If you are unfamiliar with LSA, check out my <a href="/blog/LSA_Walkthrough/">blog post</a> 
-        on it. I spent some time trying to flesh out the core of how it works.
-    </p>
+        <p class="indent">
+            A direct result of having these different subreddit communities is that they have their own unique <i>vocabularies</i>. For example, posts within the hiking subreddit are more 
+            likely to contain words like “outdoors” and “nature” than a subreddit like math where the posts would be more likely to contain words like “algebra” and “calculus.” While this may seem obvious, recognizing that each subreddit has its own unique vocabulary helps tease out the idea that there is an underlying structure to the website based 
+            off each subreddits vocabulary.
+        </p>
 
-    <p class="indent">
-        In theory, if we were to gather a bunch of post titles (which I will now refer to as submissions) from different subreddits, we could then use LSA to extract the 
-        semantic similarity between them. Let's see if it works...
-    </p>
+        <p class="indent">
+            With this idea in mind, we can start to ask questions like:
+        </p>
 
-    <p class="indent">
-        The Python code for this project can be found here:
-        <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Reddit">Reddit Latent Semantic Analysis</a>
-        <br/>
-    </p>
+        <blockquote class="reference">
+            <p>
+                <i>Which subreddits have the most similar vocabularies? In other words, which subreddits are the most semantically similar/dissimilar?</i> <br/><br/>
+                <i>Given a random sentence, can I make a prediction as to which subreddit it came from?</i>
+            </p>
+        </blockquote>
+
+        <p class="indent">
+            For this project, I will attempt to answer these questions with Latent Semantic Analysis (LSA). If you are unfamiliar with LSA, I highly suggest reading my <a href="/blog/LSA_Walkthrough/">blog post</a> on it. 
+            I spent a good amount of time trying to flesh out the core ideas behind how it works. 
+        </p>
+
+        <p class="indent">
+            The Python code for this project can be found <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Reddit">here</a>.
+            <br/>
+        </p>
+    </div>
+
+    <div class="header_box">
+        <h2>Methods</h2>
+    </div>
+
+    <div>
+        <p class="indent">
+            To analyze the differences/similarities between subreddits, I will gather post titles from different subreddits and then use Latent Semantic Analysis and k-means clustering to create 
+            clusters of post titles that are semantically similar. 
+        </p>
+        <p class="indent"><b>Outline:</b></p>
+    </div>
+
+    <div class="ordered_list">
+        <ol type="1">
+            <li>Gather post titles using the Python Reddit API Wrapper package (PRAW).
+                <ol type="i">
+                    <li>Process post titles by removing special characters and stop words.</li>
+                    <li>Bundle together all post titles and tag based off origin subreddit.</li>
+                </ol>
+            </li>
+            <li>Produce frequency/tfidf matrices and then project tfidf matrix to semantic space.
+                <ol type="i">
+                    <li>Use bundled post titles as raw data set.</li>
+                    <li>Use <code class="code_inline">sklearn</code> to produce matrices.</li>
+                </ol>
+            </li>
+            <li>Cluster post titles with k-means clustering.
+                <ol type="i">
+                    <li>Use <code class="code_inline">sklearn</code> to cluster post titles in semantic space.</li>
+                    <li>Produce purity measurements of each cluster.</li>
+                </ol>
+            </li>
+        </ol>
+    </div>
 
     <div class="header_box">
         <h2>Gathering and Processing Submission Titles From Reddit</h2>
     </div>
+
+    
 
     <p class="indent">
         To gather submissions from Reddit, I used the Python package <a href="https://praw.readthedocs.io/en/latest/">PRAW</a> (Python Reddit API Wrapper). PRAW is an excellent package
