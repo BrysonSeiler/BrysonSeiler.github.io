@@ -53,7 +53,9 @@ iframe {
     margin-bottom: 2vmax;
 }
 
-/*=========================Text=========================*/
+/*++++++++++++++++++++++++++++++++++++Text++++++++++++++++++++++++++++++++++++*/
+
+/*==========================Headers==========================*/
 
 /*HEADER 1: Font family pulled from Google Fonts: Roboto Slab*/
 h1 {
@@ -80,21 +82,62 @@ h3 {
     color: #333;
 }
 
-.tagline {font-family: 'Lato', sans-serif; color: #414346;}
+.header_block h1, h2, h3 {
+    overflow: auto;
+}
+
+.header_block i {
+    font-family: 'Lato', sans-serif; 
+    color: #414346;
+    font-size: 0.8vmax;
+    margin-top: -7vmax;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .reference {
     background-color: #909aa50e;
     border: 1px solid #909aa5;
     border-radius: 5px;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-    font-size: 0.9em;
+    padding: 1vmax;
 }
 
-/*Create box around header*/
-.header_box h1, h2, h3 {
-    overflow: auto;
+.reference i {
+    display: block;
+    font-size: 0.8vmax;
+    text-indent: 2vmax;
 }
+
+.abstract {
+    background-color: #f9fcfd;
+    border: 1px solid #909aa5;
+    border-radius: 5px;
+    padding: 1vmax;
+}
+
+.abstract i {
+    display: block;
+    font-size: 0.8vmax;
+    text-indent: 2vmax;
+}
+
+
 
 .section_break {
     overflow: auto;
@@ -109,7 +152,7 @@ h3 {
     width: 12vmax;
 }
 
-a, p, i, blockquote {font-size: 0.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
+a, p, i, blockquote {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
 a { text-decoration: none; color: #3582c2; }
 
 /*=========================Mobile=========================*/
