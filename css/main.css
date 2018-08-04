@@ -1,7 +1,5 @@
 /*Html/Body*/
 html, body{
-   margin:0;
-   padding:0;
    height:100%;
 }
 
@@ -85,10 +83,8 @@ h3 {
 .tagline {font-family: 'Lato', sans-serif; color: #414346;}
 
 .reference {
-    border-left: 3px solid #909aa5;
-    border-right: 1px solid #909aa5;
-    border-top: 1px solid #909aa5;
-    border-bottom: 1px solid #909aa5;
+    background-color: #909aa50e;
+    border: 1px solid #909aa5;
     border-radius: 5px;
     margin: 1.5em 10px;
     padding: 0.5em 10px;
@@ -124,17 +120,16 @@ a { text-decoration: none; color: #3582c2; }
         margin-right: 0vmax;
     }
 
-    .navigation a {font-size: 2vmax;}
-    .footer a {font-size: 2vmax;}
-    .footer-bottom p {font-size: 1.2vmax; line-height: 2vmax;}
-    .footer-bottom a {font-size: 1.2vmax; line-height: 2vmax;}
+    .navigation a {font-size: 2.2vmax;}
+    .footer a {font-size: 2.2vmax;}
+    .footer-bottom p {font-size: 1.5vmax; line-height: 2vmax;}
+    .footer-bottom a {font-size: 1.5vmax; line-height: 2vmax;}
 
     .vspace { margin-bottom: 55vmax;}
 
-    h1 {font-size: 3.8vmax;}
+    h1 {font-size: 4vmax;}
     h2 {font-size: 3vmax;}
-    h3 {font-size: 2.6vmax;}
-
+    h3 {font-size: 2vmax;}
 
     .header_box h2 {font-size: 2.4vmax;}
 
@@ -208,7 +203,7 @@ a { text-decoration: none; color: #3582c2; }
 
 .navigation {
     overflow: auto;
-    border-bottom: 1px solid #909aa5;
+    border-bottom: 1px solid #909aa5ec;
 }
 
 .navigation a {
@@ -222,7 +217,6 @@ a { text-decoration: none; color: #3582c2; }
 }
 
 /*==================================================*/
-
 .footer {
     position: static;
     bottom:0;
@@ -234,7 +228,7 @@ a { text-decoration: none; color: #3582c2; }
 
 .footer-top {
     overflow: auto;
-    border-bottom: 1px solid #909aa5;
+    border-bottom: 1px solid #909aa5ec;
     bottom:0;
 }
 
@@ -256,7 +250,7 @@ a { text-decoration: none; color: #3582c2; }
 
 .footer-bottom p {
     font-family: 'Lato', sans-serif;
-    color: #909aa5;
+    color: #8f959b;
 }
 
 .footer-bottom a {
