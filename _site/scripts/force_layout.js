@@ -9,7 +9,7 @@
 */
 
 //Bryson Seiler: Added: function to open json networks:
-function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale) {
+function setup(filename, link_strength, body_strength, collide_strength, distance, iterations, show_labels, default_node_color, default_node_size, svg_height_scale_m, svg_height_scale) {
 
 	//Create svg container
 	var width = d3.select(".container").style('width').slice(0, -2);
@@ -19,12 +19,12 @@ function setup(filename, link_strength, body_strength, collide_strength, distanc
 	
 	if (width < 600){
 		default_node_size = width * 0.01;
-		height = (1/svg_height_scale)*d3.select(".container").style('height').slice(0, -2);
+		height = (1/svg_height_scale_m)*d3.select(".container").style('height').slice(0, -2);
 		div_dist = width;
 	}
 	
 	else {
-		height = 900;
+		height = svg_height_scale*d3.select(".container").style('height').slice(0, -2);
 	}
 
 	var svg = d3.select("body").select("svg")

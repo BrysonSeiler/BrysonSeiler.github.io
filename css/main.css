@@ -24,7 +24,7 @@ svg {
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
 }
 
 iframe {
@@ -36,8 +36,8 @@ iframe {
 .page_links {
     padding: 10px 30px 30px 30px;
     border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 15vmax;
+    margin-right: 15vmax;
     margin-bottom: auto;
     margin-top: auto;
     background-color: #fff;
@@ -59,16 +59,16 @@ iframe {
 
 /*HEADER 1: Font family pulled from Google Fonts: Roboto Slab*/
 h1 {
-    font-size: 2.2vmax;
+    font-size: 2.1vmax;
     font-family: 'Roboto', sans-serif;
-    font-weight: 700;
+    font-weight: bold;
     line-height: 3vmax;
     color: #333;
 }
 
 /*HEADER 2: Font family pulled from Google Fonts: Lato*/
 h2 {
-    font-size: 1.2vmax;
+    font-size: 1.6vmax;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     color: #333;
@@ -76,16 +76,15 @@ h2 {
 
 /*HEADER 3: Font family pulled from Google Fonts: Lato*/
 h3 {
-    font-size: 1.4vmax;
+    font-size: 1.2vmax;
     font-family: 'Lato', sans-serif;
-    font-weight: 400;
+    font-weight: bold;
     color: #333;
 }
 
 .tagline {font-family: 'Lato', sans-serif; color: #414346;}
 
 .reference {
-    background: #F8F8FF;
     border-left: 3px solid #909aa5;
     border-right: 1px solid #909aa5;
     border-top: 1px solid #909aa5;
@@ -97,8 +96,15 @@ h3 {
 }
 
 /*Create box around header*/
-.header_box h2, h3 {
+.header_box h1, h2, h3 {
     overflow: auto;
+}
+
+.section_break {
+    overflow: auto;
+    border-bottom: 1px solid #909aa55b;
+    margin-top: 1.5vmax;
+    margin-bottom: 1.5vmax;
 }
 
 .portrait img {
@@ -112,6 +118,12 @@ a { text-decoration: none; color: #3582c2; }
 
 /*=========================Mobile=========================*/
 @media screen and (max-width: 600px){
+
+    .page_links {
+        margin-left: 0vmax;
+        margin-right: 0vmax;
+    }
+
     .navigation a {font-size: 2vmax;}
     .footer a {font-size: 2vmax;}
     .footer-bottom p {font-size: 1.2vmax; line-height: 2vmax;}
@@ -120,6 +132,9 @@ a { text-decoration: none; color: #3582c2; }
     .vspace { margin-bottom: 55vmax;}
 
     h1 {font-size: 3.8vmax;}
+    h2 {font-size: 3vmax;}
+    h3 {font-size: 2.6vmax;}
+
 
     .header_box h2 {font-size: 2.4vmax;}
 
@@ -165,7 +180,7 @@ a { text-decoration: none; color: #3582c2; }
     overflow: auto;
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
     display: block;
     padding: 15px;
     border-radius: 5px;
@@ -178,7 +193,7 @@ a { text-decoration: none; color: #3582c2; }
 
 .ordered_list {
     overflow: auto;
-    margin-left: 4vmax;
+    margin-left: 1vmax;
     margin-top: -1vmax;
     margin-bottom: -1vmax;
     display: block;
@@ -251,7 +266,7 @@ a { text-decoration: none; color: #3582c2; }
 .italics {font-size: .8em;}
 
 /*Indent*/
-.indent {text-indent: 3em}
+.indent {text-indent: 2vmax}
 
 /*Images*/
 .center img {
@@ -267,14 +282,14 @@ a { text-decoration: none; color: #3582c2; }
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
 }
 
 .network {
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
     background-color: #3583c20a;
 }
 
@@ -282,14 +297,14 @@ a { text-decoration: none; color: #3582c2; }
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
 }
 
 .heatmap_small iframe {
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
 }
 
 
@@ -306,7 +321,7 @@ a { text-decoration: none; color: #3582c2; }
 
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
 }
 
 .code_highlight {
@@ -316,7 +331,7 @@ a { text-decoration: none; color: #3582c2; }
 
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
 }
 
 .code_inline {
@@ -336,7 +351,7 @@ a { text-decoration: none; color: #3582c2; }
 
     border-style: solid;
     border-width: 1px;
-    border-color: #909aa5;
+    border-color: #909aa55b;
 }
 
 .button:hover {

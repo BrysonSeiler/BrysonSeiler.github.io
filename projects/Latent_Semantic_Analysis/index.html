@@ -43,8 +43,10 @@ title: Subreddit Analysis
         </p>
     </div>
 
+    <div class="section_break"></div>
+
     <div class="header_box">
-        <h2>Methods</h2>
+        <h2>Methodology</h2>
     </div>
 
     <div>
@@ -52,7 +54,12 @@ title: Subreddit Analysis
             To analyze the differences/similarities between subreddits, I will gather post titles from different subreddits and then use Latent Semantic Analysis and k-means clustering to create 
             clusters of post titles that are semantically similar. 
         </p>
-        <p class="indent"><b>Outline:</b></p>
+    </div>
+
+    
+
+    <div class="header_box">
+        <h3>Outline</h3>
     </div>
 
     <div class="ordered_list">
@@ -77,6 +84,8 @@ title: Subreddit Analysis
             </li>
         </ol>
     </div>
+
+    <div class="section_break"></div>
 
     <div class="header_box">
         <h2>Gathering and Processing Submission Titles From Reddit</h2>
@@ -118,21 +127,7 @@ for submission in subreddit.top(limit = num_submissions):
         the filtering of the submisisons:
     </p>
 
-<pre><code class="nohighlight code_output">Gathering top 3 submission titles from westworld...
-
-Submission title: My Secret Santa sent me a package, but it doesn't look like anything to me.
-
-Filtered submission: secret santa sent package look like
-
-Submission title: Everything you feel is true. Ed Harris has been nominated for “Outstanding Lead Actor in a Drama Series” at this year’s Emmys.
-
-Filtered submission: feel true ed harris nominated outstanding lead actor drama series year emmys
-
-Submission title: Reading the Emmy nominations and not seeing anything for the true star of season 2.
-
-Filtered submission: reading emmy nominations seeing true star season
-
-Gathered 3 submissions out of 3 --- 100.00%
+<pre><code class="nohighlight code_output">
 </code></pre>
 
     <p class="indent">
@@ -140,21 +135,7 @@ Gathered 3 submissions out of 3 --- 100.00%
         either empty or deleted. After gathering the submissions, I then put all 2947 submissions into a pandas data frame (what I refer to in my code as bundling) and then 
     </p>
 
-<pre><code class="nohighlight code_output">Gathering top 1000 submission titles from westworld...
-Gathered 974 submissions out of 1000 --- 97.40%
-            
-Gathering top 1000 submission titles from doctorwho...
-Gathered 998 submissions out of 1000 --- 99.80%
-            
-Gathering top 1000 submission titles from gameofthrones...
-Gathered 987 submissions out of 1000 --- 98.70%
-            
-Gathered a total of 2959 submission titles over 3 subreddits --- 98.63%
-            
-Bundling up submissions...
-            
-Successfully bundled: 2947 submissions
-Successfully tagged: 2947 submissions
+<pre><code class="nohighlight code_output">
 </code></pre>
 
 
@@ -192,24 +173,7 @@ def get_tfidf_matrix(feature_names, frequency_df):
 </code></pre>
 
 
-<pre><code class="nohighlight code_output">Learning vocabulary...
-
-Building frequency matrix...                                                                        Building tf-idf matrix...
-Frequency matrix shape: 2947 by 500                                                                 Tfidf matrix shape: 2947 by 500
-
-Top 10 most frequently occuring terms in each subreddit (frequency, word):                          Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
-            
-          westworld      doctorwho   gameofthrones                                                                     westworld                 doctorwho             gameofthrones
-0  (232, westworld)  (228, doctor)    (84, season)                                                  0  (97.213372539, westworld)   (101.560813588, doctor)     (35.2739945794, game)
-1     (110, season)   (70, tardis)      (83, game)                                                  1    (44.4450434939, season)   (38.3042412892, tardis)  (35.0017312287, thrones)
-2     (81, episode)    (53, today)   (78, thrones)                                                  2   (31.3725706244, episode)    (23.2506873032, today)   (34.9305434273, season)
-3        (43, like)      (43, got)   (63, episode)                                                  3   (24.8068474103, dolores)   (20.482284365, cosplay)  (26.1464311832, episode)
-4     (41, dolores)       (39, th)       (49, got)                                                  4      (23.4631433028, ford)       (18.3196733655, th)      (22.5882265291, jon)
-5        (39, ford)      (39, new)       (44, jon)                                                  5      (18.6375845419, like)      (17.9412010307, new)      (20.9237859057, got)
-6        (31, post)  (38, cosplay)  (32, daenerys)                                                  6   (18.2665834166, bernard)      (16.4741964929, got)  (20.465286075, daenerys)
-7       (30, black)   (33, friend)   (29, cosplay)                                                  7      (15.2148709101, post)      (15.8375799748, met)     (14.7023527661, snow)
-8     (30, bernard)     (32, matt)      (26, snow)                                                  8      (14.3639195808, host)  (15.4155473247, doctors)  (14.6150241288, cosplay)
-9       (25, scene)      (32, met)      (26, like)                                                  9     (13.9498082193, maeve)   (15.3802164488, friend)     (14.1079479072, king)
+<pre><code class="nohighlight code_output">
             
 </code></pre>
 
@@ -225,15 +189,7 @@ Top 10 most frequently occuring terms in each subreddit (frequency, word):      
     <p class="indent">
         Now that I have successfully filtered the submission titles, its time to create the frequency, tfidf, and reduced matrix.
     </p>
-<pre><code class="nohighlight code_output">Reducing dimension of data...
-Successfully reduced data to 2947 submissions explained by 300 features
-Reduced matrix shape: 2947 by 300
-            
-Explained variance of first 5 components:  0.01797551  0.02242872  0.01745798  0.0132853   0.01079801
-            
-Singular values:  8.0255198   7.77709256  6.80748527  5.99201428  5.40177308
-            
-Percent variance explained by all 300 components: 0.848
+<pre><code class="nohighlight code_output">
 </code></pre>
 
     <p class="indent">
@@ -246,18 +202,7 @@ Percent variance explained by all 300 components: 0.848
         <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/18.embed"></iframe>
     </div>
 
-<pre><code class="nohighlight code_output">Distance metric:
-
-    1. Euclidean
-    2. Cosine (Slow on large batches)
-
-Choose metric: 1
-
-Running k-means using euclidean distance...
-
-Successfully found 3 clusters in 300 dimensions
-
-Successfully grouped 71.3% of submissions
+<pre><code class="nohighlight code_output">
 </code></pre>
 
 <p>
