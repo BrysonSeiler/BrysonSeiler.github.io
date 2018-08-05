@@ -1,12 +1,7 @@
 /*Html/Body*/
 html, body{
    height:100%;
-}
-
-.body_text {
-    padding: 20px;
-    background-color: #fff;
-    position: relative;
+   background-color: #fff;
 }
 
 svg {
@@ -31,14 +26,11 @@ iframe {
     margin-right: auto;
 }
 
-.page_links {
-    padding: 10px 30px 30px 30px;
-    border-radius: 5px;
+.page_layout {
     margin-left: 15vmax;
     margin-right: 15vmax;
     margin-bottom: auto;
     margin-top: auto;
-    background-color: #fff;
 }
 
 .vspace {
@@ -89,31 +81,28 @@ h3 {
 .header_block i {
     font-family: 'Lato', sans-serif; 
     color: #414346;
-    font-size: 0.8vmax;
-    margin-top: -7vmax;
 }
 
+/*==========================Main Text==========================*/
 
+p, i, blockquote {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
+a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; line-height:1.1vmax; text-decoration: none; color: #3582c2;}
 
+.thought {
+    background-color: #909aa50e;
+    border: 1px solid #909aa55b;
+    border-radius: 5px;
+    padding: 1vmax;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.thought i {
+    display: block;
+    font-size: 0.8vmax;
+}
 
 .reference {
     background-color: #909aa50e;
-    border: 1px solid #909aa5;
+    border: 1px solid #909aa55b;
     border-radius: 5px;
     padding: 1vmax;
 }
@@ -126,7 +115,7 @@ h3 {
 
 .abstract {
     background-color: #f9fcfd;
-    border: 1px solid #909aa5;
+    border: 1px solid #909aa55b;
     border-radius: 5px;
     padding: 1vmax;
 }
@@ -137,7 +126,65 @@ h3 {
     text-indent: 2vmax;
 }
 
+/*=========================Navigation and Footer=========================*/
 
+.navigation {
+    overflow: auto;
+    border-bottom: 1px solid #909aa5ec;
+}
+
+.navigation a {
+    float: left;
+    display: block;
+    text-align: center;
+    font-size: 0.9vmax;
+    padding: 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+/*==================================================*/
+.footer {
+    position: static;
+    bottom:0;
+    left: 0;
+    height: 11%;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.footer-top {
+    overflow: auto;
+    border-bottom: 1px solid #909aa5ec;
+    bottom:0;
+}
+
+.footer-top a {
+    float: left;
+    display: block;
+    text-align: center;
+    font-size: 0.9vmax;
+    padding: 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    position: relative;
+    padding-left: 10px;
+    bottom:0;
+}
+
+.footer-bottom p {
+    font-family: 'Lato', sans-serif;
+    color: #8f959b;
+    font-size: 0.7vmax;
+}
+
+.footer-bottom a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7vmax;
+}
 
 .section_break {
     overflow: auto;
@@ -152,15 +199,12 @@ h3 {
     width: 12vmax;
 }
 
-a, p, i, blockquote {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
-a { text-decoration: none; color: #3582c2; }
-
 /*=========================Mobile=========================*/
 @media screen and (max-width: 600px){
 
-    .page_links {
-        margin-left: 0vmax;
-        margin-right: 0vmax;
+    .page_layout {
+        margin-left: 2vmax;
+        margin-right: 2vmax;
     }
 
     .navigation a {font-size: 2.2vmax;}
@@ -172,12 +216,7 @@ a { text-decoration: none; color: #3582c2; }
 
     h1 {font-size: 4vmax;}
     h2 {font-size: 3vmax;}
-    h3 {font-size: 2vmax;}
-
-    .header_box h2 {font-size: 2.4vmax;}
-
-    h3 {font-size: 2.8vmax; text-align: center;}
-    .tagline {line-height: 0.5vmax;}
+    h3 {font-size: 2.5vmax;}
 
     a, p, i, blockquote {font-size: 1.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2.4vmax;}
     a { text-decoration: none; color: #3582c2; }
@@ -199,6 +238,12 @@ a { text-decoration: none; color: #3582c2; }
     .reference_vspace { margin-bottom: 1vmax;}
 
     .portrait img {height: 20vmax; width: 20vmax;}
+
+    .abstract i {font-size: 1.8vmax;}
+
+    .thought i {font-size: 1.8vmax;}
+
+    .reference i {font-size: 1.8vmax;}
 
 }
 
@@ -242,63 +287,7 @@ a { text-decoration: none; color: #3582c2; }
     color: #333;
 }
 
-/*=========================Navigation and Footer=========================*/
 
-.navigation {
-    overflow: auto;
-    border-bottom: 1px solid #909aa5ec;
-}
-
-.navigation a {
-    float: left;
-    display: block;
-    text-align: center;
-    padding: 10px;
-
-    font-family: 'Lato', sans-serif;
-    font-weight: bold;
-}
-
-/*==================================================*/
-.footer {
-    position: static;
-    bottom:0;
-    left: 0;
-    height: 11%;
-    width: 100%;
-    padding-top: 20px;
-}
-
-.footer-top {
-    overflow: auto;
-    border-bottom: 1px solid #909aa5ec;
-    bottom:0;
-}
-
-.footer-top a {
-    float: left;
-    display: block;
-    text-align: center;
-    padding: 10px;
-
-    font-family: 'Lato', sans-serif;
-    font-weight: bold;
-}
-
-.footer-bottom {
-    position: relative;
-    padding-left: 10px;
-    bottom:0;
-}
-
-.footer-bottom p {
-    font-family: 'Lato', sans-serif;
-    color: #8f959b;
-}
-
-.footer-bottom a {
-    font-family: 'Lato', sans-serif;
-}
 
 .italics {font-size: .8em;}
 
@@ -313,7 +302,6 @@ a { text-decoration: none; color: #3582c2; }
     width: 48vmax;
     height: auto;
 }
-
 
 .heatmap {
     border-radius: 5px;
@@ -343,7 +331,6 @@ a { text-decoration: none; color: #3582c2; }
     border-width: 1px;
     border-color: #909aa55b;
 }
-
 
 /*=========================Code=========================*/
 .code_output {
