@@ -2,6 +2,10 @@
 html, body{
    height:100%;
    background-color: #fff;
+
+   font-size: calc(0.875em + 0.25 * (100vw - 80em) / 40);
+   font-size: -webkit-calc(87.5% + 0.25 * (100vw - 8000%) / 40);
+
 }
 
 svg {
@@ -51,26 +55,26 @@ iframe {
 
 /*HEADER 1: Font family pulled from Google Fonts: Roboto Slab*/
 h1 {
-    font-size: 2.1vmax;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    line-height: 3vmax;
+    font-size: 4vmin;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    line-height: 4vmin;
     color: #333;
 }
 
 /*HEADER 2: Font family pulled from Google Fonts: Lato*/
 h2 {
-    font-size: 1.6vmax;
+    font-size: 3vmin;
     font-family: 'Lato', sans-serif;
-    font-weight: bold;
+    font-weight: 700;
     color: #333;
 }
 
 /*HEADER 3: Font family pulled from Google Fonts: Lato*/
 h3 {
-    font-size: 1.2vmax;
+    font-size: 2vmin;
     font-family: 'Lato', sans-serif;
-    font-weight: bold;
+    font-weight: 700;
     color: #333;
 }
 
@@ -79,14 +83,28 @@ h3 {
 }
 
 .header_block i {
-    font-family: 'Lato', sans-serif; 
+    font-family: 'Lato', sans-serif;
     color: #414346;
 }
 
 /*==========================Main Text==========================*/
 
-p, i, blockquote {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height:1.1vmax;}
-a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; line-height:1.1vmax; text-decoration: none; color: #3582c2;}
+p, i, blockquote {
+    font-size: 1.6vmin; 
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 300; 
+    color: #333; 
+    line-height: 2.7vmin; 
+}
+
+a {
+    font-size: 1.6vmin; 
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 300; 
+    line-height: 2.7vmin; 
+    text-decoration: none; 
+    color: #3582c2;
+}
 
 .thought {
     background-color: #909aa50e;
@@ -97,7 +115,7 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 
 .thought i {
     display: block;
-    font-size: 0.8vmax;
+    font-size: 1.5vmin;
 }
 
 .reference {
@@ -109,7 +127,7 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 
 .reference i {
     display: block;
-    font-size: 0.8vmax;
+    font-size: 1.5vmin; 
     text-indent: 2vmax;
 }
 
@@ -137,7 +155,7 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
     float: left;
     display: block;
     text-align: center;
-    font-size: 0.9vmax;
+    font-size: 1.5vmin;
     padding: 10px;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
@@ -163,7 +181,7 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
     float: left;
     display: block;
     text-align: center;
-    font-size: 0.9vmax;
+    font-size: 1.5vmin;
     padding: 10px;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
@@ -176,14 +194,16 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 }
 
 .footer-bottom p {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #8f959b;
-    font-size: 0.7vmax;
+    font-size: 1.1vmin;
+    line-height: 1.6vmin;
 }
 
 .footer-bottom a {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.7vmax;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1vmin;
+    line-height: 1.6vmin;
 }
 
 .section_break {
@@ -200,11 +220,11 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 }
 
 /*=========================Mobile=========================*/
-@media screen and (max-width: 600px){
+@media screen and (max-width: 500px){
 
     .page_layout {
-        margin-left: 2vmax;
-        margin-right: 2vmax;
+        margin-left: 3vmax;
+        margin-right: 3vmax;
     }
 
     .navigation a {font-size: 2.2vmax;}
@@ -214,11 +234,11 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 
     .vspace { margin-bottom: 55vmax;}
 
-    h1 {font-size: 4vmax;}
-    h2 {font-size: 3vmax;}
+    h1 {font-size: 5vmax; line-height: 6vmax;}
+    h2 {font-size: 4vmax;}
     h3 {font-size: 2.5vmax;}
 
-    a, p, i, blockquote {font-size: 1.9vmax; font-family: 'Raleway', sans-serif; font-weight: 500; color: #333; line-height: 2.4vmax;}
+    a, p, i, blockquote {font-size: 2.2vmax; font-family: 'Roboto', sans-serif; color: #333; line-height: 3.5vmax;}
     a { text-decoration: none; color: #3582c2; }
 
     .code_inline {font-size: 1.6vmax;}
@@ -227,7 +247,7 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 
     .link_list a {font-size: 2vmax; line-height: 3vmax;}
 
-    .ordered_list {font-size: 2vmax; line-height: 3vmax;}
+    .ordered_list {font-size: 2vmax; line-height: 4vmax;}
 
     .heatmap_small iframe {width:100%; height: 275px;}
 
@@ -283,7 +303,8 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 }
 
 .ordered_list li {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 300;
     color: #333;
 }
 
@@ -334,6 +355,7 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 
 /*=========================Code=========================*/
 .code_output {
+    font-size: 0.8vmax;
     display: block;
     padding: 15px 15px 15px 15px;
     border-radius: 5px;
@@ -349,10 +371,9 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
 }
 
 .code_highlight {
-    font-size: 0.75vmax;
+    font-size: 0.8vmax;
     border-radius: 5px;
     white-space: pre-wrap;
-
     border-style: solid;
     border-width: 1px;
     border-color: #909aa55b;
@@ -370,7 +391,7 @@ a {font-size: 0.8vmax; font-family: 'Raleway', sans-serif; font-weight: 500; lin
     border-radius: 5px;
     color: #fcfcfc;
     padding: 3px 4px;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
     max-width: 100%;
 
     border-style: solid;
