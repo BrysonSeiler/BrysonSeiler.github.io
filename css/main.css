@@ -107,7 +107,7 @@ a {
 }
 
 .thought {
-    background-color: #909aa50e;
+    background-color: #eaf2f9c7;
     border: 1px solid #909aa55b;
     border-radius: 5px;
     padding: 1vmax;
@@ -122,17 +122,20 @@ a {
     background-color: #909aa50e;
     border: 1px solid #909aa55b;
     border-radius: 5px;
-    padding: 1vmax;
+    padding-top: 0.1vmin;
+    padding-bottom: 0.1vmin;
+    padding-left: 2vmin;
+    padding-right: 2vmin;
 }
 
-.reference i {
+.reference p {
     display: block;
     font-size: 1.5vmin; 
     text-indent: 2vmax;
 }
 
 .abstract {
-    background-color: #f9fcfd;
+    background-color: #8dbbe041;
     border: 1px solid #909aa55b;
     border-radius: 5px;
     padding: 1vmax;
@@ -140,7 +143,7 @@ a {
 
 .abstract i {
     display: block;
-    font-size: 0.8vmax;
+    font-size: 0.9vmax;
     text-indent: 2vmax;
 }
 
@@ -362,7 +365,7 @@ a {
     margin-left: auto;
     margin-right: auto;
     height: auto;
-    background-color: #F8F8FF;
+    background-color: #f9fcfda2;
     white-space: pre-wrap;
 
     border-style: solid;

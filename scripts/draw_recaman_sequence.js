@@ -81,13 +81,11 @@ for (i = 0; i < hop_size.length; i++) {
     }
 }
 
-
 //=====================Define first arc=====================//
 
 //Define canvas size
-console.log(Math.max(...centers.slice(1,centers.length-2)))
 var width = Math.max(...centers.slice(1,centers.length-2)) + 230;
-var height = 6 * d3.select(".container").style('height').slice(0, -2);
+var height = 2.5*Math.max(...inner_radii);
 
 var center_height = height / 2;
 
