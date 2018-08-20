@@ -252,7 +252,17 @@ a {
 
     .ordered_list {font-size: 2vmax; line-height: 4vmax;}
 
-    .heatmap_small iframe {width:100%; height: 275px;}
+    .heatmap {
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #909aa55b;
+        padding: 10px;
+        width: 100%;
+        height: 40vmax;
+    }
+
+    .heatmap_small {width:100%; height: 350px;}
 
     .math_block {font-size: 2vmax;}
 
@@ -273,6 +283,8 @@ a {
 @media screen and (min-width: 601px){
     .code_inline {font-size: 0.8vmax;}
     .ordered_list {line-height: 1.75vmax;}
+    .heatmap {width: 100%; height: 40vmin;}
+    .heatmap_small {width: 40vmin; height: 40vmin;}
 }
 
 .text_right_align {
@@ -332,6 +344,8 @@ a {
     border-style: solid;
     border-width: 1px;
     border-color: #909aa55b;
+    padding: 10px;
+
 }
 
 .network {
@@ -349,10 +363,14 @@ a {
     border-color: #909aa55b;
 }
 
-.heatmap_small iframe {
+.heatmap_small {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
+    padding: 10px;
     border-color: #909aa55b;
 }
 
