@@ -246,7 +246,7 @@ a {
 
     .code_inline {font-size: 1.6vmax;}
 
-    .code_output {font-size: 1.55vmax;}
+    .code_output {font-size: 1.8vmax;}
 
     .link_list a {font-size: 2vmax; line-height: 3vmax;}
 
@@ -264,7 +264,7 @@ a {
 
     .heatmap_small {width:100%; height: 350px;}
 
-    .math_block {font-size: 2vmax;}
+    .math_block {font-size: 3vmax;}
 
     .button {font-size: 2vmax;}
 
@@ -276,15 +276,17 @@ a {
 
     .thought i {font-size: 1.8vmax;}
 
-    .reference i {font-size: 1.8vmax;}
+    .reference p {font-size: 2vmax;}
 
 }
 
 @media screen and (min-width: 601px){
     .code_inline {font-size: 0.8vmax;}
+    .code_output {font-size: 0.8vmax;}
     .ordered_list {line-height: 1.75vmax;}
     .heatmap {width: 100%; height: 40vmin;}
     .heatmap_small {width: 40vmin; height: 40vmin;}
+    .math_block {font-size: 3vmin;}
 }
 
 .text_right_align {
@@ -376,7 +378,6 @@ a {
 
 /*=========================Code=========================*/
 .code_output {
-    font-size: 0.8vmax;
     display: block;
     padding: 15px 15px 15px 15px;
     border-radius: 5px;
@@ -428,5 +429,4 @@ a {
 .math_block {
     margin-top: 3vmax;
     margin-bottom: 3vmax;
-    font-size: 2vmax;
 }

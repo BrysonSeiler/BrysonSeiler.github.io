@@ -45,8 +45,7 @@
     <p class="indent">
         Within the realm of natural language processing,
         <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that is used to analyze the relationships between a set of documents
-        based on the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort
-        large collections of documents.
+        based on the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort a large collection of documents.
     </p>
 
     <p class="indent">
@@ -55,8 +54,10 @@
         <br/>
     </p>
 
+    <div class="section_break"></div>
+
     <p class="indent">
-        To understand Latent Semantic Analysis, lets walk through an example of how it can be used to sort the following four (very unrealistic) documents:
+        To understand how Latent Semantic Analysis works, lets walk through an example of how it can be used to sort the following four (very unrealistic) documents:
     </p>
 
     <div class="center">
@@ -64,15 +65,14 @@
     </div>
     
     <p class="indent">
-        After reading through these documents, it’s not hard to see that they could be sorted into two different categories. For the
-        sake of simplicity, let’s call these categories
+        After reading through these documents, intuitively, we can see that they could be sorted into two different categories. For the sake of simplicity, let’s call these categories
         <i>pets</i> and
         <i>travel</i>.
     </p>
 
     <p class="indent">
         This is a rather trivial conclusion for us to draw since the subject of the first two documents is clearly different than the last two, but for a computer,
-        identifying these subject differences is no simple task. What techniques do we have at our disposal to make a computer to recognize these kinds of differences?
+        identifying these subject differences is not a simple task. What techniques do we have at our disposal to make it easier for a computer to recognize these kinds of differences?
     </p>
 
     <div class="section_break"></div>
@@ -83,9 +83,17 @@
     
 
     <p class="indent">
-        A common starting point begins by looking at the frequencies at which the words inside of a document appear inside of the others. Intuitively, by grouping together
-        the documents that use the same words frequently, we can (naively) sort the documents. To do this, it is common practice to convert a collection of documents into what 
-        is known as a <i>document-term</i> frequency matrix (in my code and from here on out, I will refer to it as a "frequency matrix").
+        One common technique begins by first looking at the frequencies at which the words inside of a document appear inside of
+        the others. Intuitively, documents that use the same words frequently have a higher probability of being similar to one
+        another. For example, we know that on a basic level, the first two documents in our collection can be considered to be
+        similar to one another due to the fact that they both use the words cats and dogs frequently. 
+        
+        
+        A common starting point
+        begins by looking at the frequencies at which the words inside of a document appear inside of the other documents. Intuitively,
+        by grouping together the documents that use the same words frequently, we can sort the documents. To do this, it is common
+        practice to convert a collection of documents into what is known as a <i>document-term</i> frequency matrix (in my
+        code and from here on out, I will refer to it as a "frequency matrix").
     </p>
 
 
@@ -361,7 +369,7 @@ Cosine Similarity:
     </p>
 
     <p class="indent">
-        Here is the <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> matrix for our collection of documents:
+        Here is the <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>U</mi> </math> matrix for our collection of documents:
     </p>
 
     <div class="heatmap">
@@ -413,7 +421,7 @@ Cosine Similarity:
     </p>
 
     <p class="indent">
-        It's unclear to me what the third and fourth features are trying to describe. By taking a quick look at our <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> 
+        It's unclear to me what the third and fourth features are trying to describe. By taking a quick look at our <math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>S</mi> </math> 
         matrix, which is a diagonal matrix that consists of singular values that describe the strength of each of our features:
     </p>
 
@@ -430,7 +438,7 @@ Cosine Similarity:
     </p>
 
     <p class="indent">
-        Lets take a look at our <math class="math_font_inline" xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> matrix:
+        Lets take a look at our <math xmlns="http://www.w3.org/1998/Math/MathML"> <msup><mi>V</mi><mn>T</mn></msup> </math> matrix:
     </p>
 
     <div class="heatmap_small">
