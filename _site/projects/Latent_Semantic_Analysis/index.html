@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:700|Roboto:300" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atelier-sulphurpool-light.min.css">
     
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
@@ -31,44 +31,52 @@
 
     <div class="abstract">
         <i class="indent">
-            <b>Abstract-</b>The purpose of this project is to analyze the differences/similarities between subreddits on the website Reddit, I will gather post titles from different subreddits and then 
-            use Latent Semantic Analysis and k-means clustering to create clusters of post titles that are semantically similar. 
+            <b>Abstract - </b> The purpose of this project is to analyze the relationships between communities on the website
+            Reddit based on the unique words used within each subreddit. Latent Semantic Analysis will be used to analyze these
+            relationships and to identify similar communities.
         </i>
     </div>
 
     <div class="header_block">
         <h2>Introduction</h2>
     </div>
-
+    
     <div>
         <p class="indent">
-                If you aren’t familiar with <a href="https://www.reddit.com">Reddit</a>, it is a bulletin-board style website where you can share interesting links, pictures, etc. with others. To organize what you share 
-                on the website, Reddit asks you to choose a specific <i>subreddit</i> to post your information to. A subreddit is just a forum on the website that is dedicated to a specific 
-                topic. For example, if you wanted to share pictures from your backpacking trip along the Appalachian Trail, the most obvious subreddit to choose would be <a href="https://www.reddit.com/r/hiking/">r/hiking</a>, but 
-                there’s an even more specific subreddit, <a href="https://www.reddit.com/r/AppalachianTrail/">r/AppalachianTrail</a>, that would probably be a better choice. There is a subreddit for just about anything that you can think of. 
-                Whether you’re interested in science, politics, economics, etc., there is probably a subreddit for it.
+            If you aren’t familiar with <a href="https://www.reddit.com">Reddit</a>, it is a bulletin-board style website where
+            you can share interesting links, pictures, etc. with others. To organize what you share on the website, Reddit asks
+            you to choose a specific <i>subreddit</i> to post your information to. A subreddit is just a forum on the website
+            that is dedicated to a specific topic. For example, if you wanted to share pictures from your backpacking trip along
+            the Appalachian Trail, the most obvious subreddit to choose would be <a href="https://www.reddit.com/r/hiking/">r/hiking</a>,
+            but there’s an even more specific subreddit, <a href="https://www.reddit.com/r/AppalachianTrail/">r/AppalachianTrail</a>,
+            that would probably be a better choice. There is a subreddit for just about anything that you can think of. Whether
+            you’re interested in science, politics, economics, etc., there is probably a subreddit for it.
         </p>
-
+    
         <p class="indent">
-            A direct result of having these different subreddit communities is that they have their own unique <i>vocabularies</i>. For example, posts within the hiking subreddit are more 
-            likely to contain words like “outdoors” and “nature” than a subreddit like math where the posts would be more likely to contain words like “algebra” and “calculus.” While this may seem obvious, recognizing that each subreddit has its own unique vocabulary helps tease out the idea that there is an underlying structure to the website based 
-            off each subreddits vocabulary.
+            A direct result of having these different subreddit communities is that they have their own unique <i>vocabularies</i>.
+            For example, posts within the hiking subreddit are more likely to contain words like “outdoors” and “nature” than
+            a subreddit like math where the posts would be more likely to contain words like “algebra” and “calculus.” While
+            this may seem obvious, recognizing that each subreddit has its own unique vocabulary helps tease out the idea that
+            there is an underlying structure to the website based off each subreddits vocabulary.
         </p>
-
+    
         <p class="indent">
             With this idea in mind, we can start to ask questions like:
         </p>
-
+    
         <div class="thought">
-            <i>Which subreddits have the most similar vocabularies? In other words, which subreddits are the most semantically similar/dissimilar?</i> <br/>
+            <i>Which subreddits have the most similar vocabularies? In other words, which subreddits are the most semantically
+                similar/dissimilar?</i> <br/>
             <i>Given a random sentence, can I make a prediction as to which subreddit it came from?</i>
         </div>
-
+    
         <p class="indent">
-            For this project, I will attempt to answer these questions with Latent Semantic Analysis (LSA). If you are unfamiliar with LSA, I highly suggest reading my <a href="/blog/LSA_Walkthrough/">blog post</a> on it. 
-            I spent a good amount of time trying to flesh out the core ideas behind how it works. 
+            For this project, I will attempt to answer these questions with Latent Semantic Analysis (LSA). If you are unfamiliar with
+            LSA, I highly suggest reading my <a href="/blog/LSA_Walkthrough/">blog post</a> on it. I spent a good amount
+            of time trying to flesh out the core ideas behind how it works.
         </p>
-
+    
         <p class="indent">
             The Python code for this project can be found <a href="https://github.com/BrysonSeiler/Latent-Semantic-Analysis-Reddit">here</a>.
             <br/>
@@ -83,8 +91,8 @@
 
     <div>
         <p class="indent">
-            To analyze the differences/similarities between subreddits, I will gather post titles from different subreddits and then use Latent Semantic Analysis and k-means clustering to create 
-            clusters of post titles that are semantically similar. 
+            To analyze the differences/similarities between subreddits, I will gather post titles from different subreddits and then
+            use Latent Semantic Analysis and k-means clustering to create clusters of post titles that are semantically similar.
         </p>
     </div>
 
@@ -120,47 +128,191 @@
     <div class="section_break"></div>
 
     <div class="header_block">
-        <h2>Gathering and Processing Submission Titles From Reddit</h2>
+        <h2>Gathering and Processing Post Titles From Reddit</h2>
     </div>
+<div>
+    <p class="indent">
+        To gather post titles from Reddit, I decided to use the Python package <a href="https://praw.readthedocs.io/en/latest/">PRAW</a>
+        (Python Reddit API Wrapper) as it provides easy to access to Reddit’s API and ensures that I don’t exceed the API’s
+        request rate limits. One downside to Reddit’s API is that I’m limited to gathering 1000 post titles per request,
+        but for the time being, if we are gathering 1000 post titles from multiple subreddits, we should have enough data
+        to mess around with.
+    </p>
 
+    <p class="indent">
+        Once you have created your Reddit developer account and have your credentials for OAuth2, we can begin gathering post titles
+        from any subreddit of our choosing with only a few of lines of code. Here's an example:
+    </p>
+</div>
+
+<pre><code class="Python code_output">import config
+import praw
+
+num_posts = 5
     
-
-    <p class="indent">
-        To gather submissions from Reddit, I used the Python package <a href="https://praw.readthedocs.io/en/latest/">PRAW</a> (Python Reddit API Wrapper). PRAW is an excellent package
-        that allows for simple access to Reddit's API. It's easy to use and it allows you to gather up to 1000 submissions (per subreddit) at once. 
-    </p>
-
-    <p class="indent">
-        Once you have signed up to access Reddit's API and have your credientials for OAuth2, we can have access to subreddit submissions with only a few lines of code. Here's the
-        general idea:
-    </p>
-
-<pre><code class="Python code_output">#Use your credentials to log into your bot's account
-reddit_bot.login()
+#Use your credentials to log into your bot's account
+bot = praw.Reddit(username = config.username,
+                password = config.password,
+                client_id = config.client_id,
+                client_secret = config.client_secret,
+                user_agent = "Subreddit_Analysis")
                 
-#Create a subreddit object for a specific subreddit that contains all provided attributes of that subreddit
-subreddit = reddit_bot.subreddit(subreddit_name)
+#Create a object for the 'hiking' subreddit
+subreddit = bot.subreddit('hiking')
                 
-#Print top level comments from x number of submissions inside of the subreddit
-for submission in subreddit.top(limit = num_submissions):
-    print(submission)
+#Print post titles from x number of posts inside of the 'hiking' subreddit (can be sorted by top, hot, new, ...)
+for post in subreddit.hot(limit = num_posts):
+    print(post.title, "\n")
             
 </code></pre>
 
-    <p class="indent">
-        For this project, I decided to keep it simple gather 1000 submissions from three different subreddits: Westworld, Doctor Who, and Game of Thrones. These are T.V. show fan base subreddits where character 
-        names will be frequently mentioned. My hope is that LSA will pick up on this fact and be able to differentiate betwen the subreddits.
+<div>
+    <p>
+        Output:
     </p>
+</div>
 
-    <p class="indent">
-        While gathering submissions from each subreddit, I filter out all of the special characters along with stop words and remove capitalization to make it easier for the data to be processed when it comes to 
-        applying LSA. By using <code class="code_inline">stop_words = set(list(text.ENGLISH_STOP_WORDS) +  list(stopwords.words("english")))</code> I was able to combine both the <code class="code_inline">nltk</code> and 
-        <code class="code_inline">sklearn</code> stop word sets since individually, they did not seem to remove the breadth of stop words that I would have liked. Here's some sample output showing before/after 
-        the filtering of the submisisons:
-    </p>
+<pre><code class="nohighlight code_output">Yesterday, at Chopok Mountain, Slovakia [OC]
 
-<pre><code class="nohighlight code_output">
+2,917 meters above sea level with view to the „Gschnitzer and Pflerscher Tribulaun“, Schwarze Wand - Obernberg valley, Tirol, Austria
+        
+Atop Grassy Ridge Bald, Pisgah National Forest, N.C./Tenn. boarder, U.S.A.
+        
+Hiking to Island Lake, Colorado is well worth the long drive!
+        
+I love it when I get to cross a beautiful footbridge on the trail. Caples Creek, Ca.         
 </code></pre>
+
+<div>
+    <p class="indent">
+        As you can see, it is rather easy to start gathering post titles from a specific subreddit, but these titles require some
+        further processing if we are going to eventually use them for latent semantic analysis. First, we need to remove
+        all the special characters, numbers and capitalization. This can be accomplished with regular expressions, specifically,
+        the <code class="code_inline">re</code> package in Python.
+    </p>
+
+    <p class="indent">
+        Continuing off of the code above, we can quickly implement a method to clean up the titles with <code class="code_inline">re</code>:
+    </p>
+</div>
+
+<pre><code class="Python code_output">import re
+
+def clean(post):
+
+    #Remove parentheses
+    re_p = re.sub("([\(\[]).*?([\)\]])", "\g<1>\g<2>", post)
+
+    #Remove links
+    re_l = re.sub(r"http\S+|([\(\[]).*?([\)\]])", "", re_p)
+
+    #Remove special characters
+    re_s = re.sub(r"[^A-Za-z \—]+", " ", re_l)
+
+    #Remove capitalization
+    re_c = re.sub('[A-Z]+', lambda x: x.group(0).lower(), re_s)
+
+    #Remove excess white space
+    filtered_post = " ".join(re_c.split())
+
+    return filtered_post
+                  
+#Print post titles from x number of posts inside of the 'hiking' subreddit (can be sorted by top, hot, new, ...)
+for post in subreddit.hot(limit = num_posts):
+    print(clean(post.title), "\n")                   
+</code></pre>
+
+<div>
+    <p class="indent">
+        After running our post titles through this method, the following output is produced:
+    </p>
+</div>
+
+<pre><code class="nohighlight code_output">yesterday at chopok mountain slovakia
+
+meters above sea level with view to the gschnitzer and pflerscher tribulaun schwarze wand obernberg valley tirol austria
+        
+hiking to island lake colorado is well worth the long drive
+        
+atop grassy ridge bald pisgah national forest n c tenn boarder u s a
+        
+i love it when i get to cross a beautiful footbridge on the trail caples creek ca        
+</code></pre>
+
+<div>
+    <p class="indent">
+        Now that we have removed special characters, numbers and capitalization, the titles are much easier to deal with, but
+        there is still a couple of issues that need to be dealt with. For example, take a look at this title:
+    </p>
+</div>
+
+<pre><code class="nohighlight code_output">atop grassy ridge bald pisgah national forest n c tenn boarder u s a</code></pre>
+
+<div>
+    <p class="indent">
+        As we can see, when we removed the special characters from “U.S.A,” whitespace was left behind. We obviously know that the
+        letters “u” and “s” should not be interpreted as words, but sadly later on when we further analyze these titles,
+        letters that are separated by whitespace will be interpreted as unique words by the program. Another issue is that
+        words that appear frequently like “is” and “the” in our post titles will end up contributing to the noise in our
+        data (I further flesh out why this is the case in my <a href="/blog/LSA_Walkthrough/">blog post on LSA</a>).
+    </p>
+
+    <p class="indent">
+        Both of these problems can by solved by introducing a list of stop words. There are many different websites that can provide
+        custom stop word lists that fit different needs better than others. I found that by combining both the <code
+            class="code_inline">nltk</code> and <code class="code_inline">sklearn</code> English stop word lists, I was able
+        to remove the majority of noise contributed to nuisance words within post titles on reddit, but this is all a matter
+        of preference.
+    </p>
+</div>
+
+
+<pre><code class="Python code_output">from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from sklearn.feature_extraction import text
+
+#Set stop words to english (Uses both sklearn and nltk stopwords)
+stop_words = set(list(text.ENGLISH_STOP_WORDS) +  list(stopwords.words("english")))
+
+filtered_post = []
+                
+#Print post title from x number of posts inside of the 'hiking' subreddit
+for post in subreddit.hot(limit = num_posts):
+
+    #Clean the post title and tokenize
+    post_tokens = word_tokenize(str(clean(post.title)))
+
+    #Remove stopwords from tokenized comment
+    for word in post_tokens:
+        if word not in stop_words:
+            filtered_post.append(word)
+
+    print("Filtered post: %s \n" % str(' '.join(filtered_post)))
+    filtered_post = []   
+</code></pre>
+
+<div>
+    <p class="indent">
+        Output:
+    </p>
+</div>
+
+<pre><code class="nohighlight code_output">Filtered post: yesterday chopok mountain slovakia
+
+Filtered post: meters sea level view gschnitzer pflerscher tribulaun schwarze wand obernberg valley tirol austria
+        
+Filtered post: hiking island lake colorado worth long drive
+        
+Filtered post: atop grassy ridge bald pisgah national forest boarder a
+
+Filtered post: love cross beautiful footbridge trail caples creek
+</code></pre>
+
+<div>
+    <p class="indent">
+        After removing stop words, our titles are finally at a point where I feel comfortable feeding them in as data to analyze. 
+    </p>
+</div>
 
     <p class="indent">
         After trying to gather 1000 submissions from each subreddit, I was able to successfully gather 2947 of the 3000 submissions (98.63%). This is due to the fact that some of the submissions were

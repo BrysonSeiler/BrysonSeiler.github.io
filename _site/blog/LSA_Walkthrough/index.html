@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:700|Roboto:300" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atelier-sulphurpool-light.min.css">
     
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
@@ -44,8 +44,8 @@
 
     <p class="indent">
         Within the realm of natural language processing,
-        <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a tool that is used to analyze the relationships between a set of documents
-        based on the words that they contain. This post will take an in-depth look at LSA and show how it can be used to sort a large collection of documents.
+        <a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent Semantic Analysis</a> (LSA) is a technique used to analyze the relationships between a collection of 
+        documents based off of the words that are inside of them. This post will take an in-depth look at LSA and show how it can be used to sort a large collection of documents.
     </p>
 
     <p class="indent">
@@ -86,14 +86,9 @@
         One common technique begins by first looking at the frequencies at which the words inside of a document appear inside of
         the others. Intuitively, documents that use the same words frequently have a higher probability of being similar to one
         another. For example, we know that on a basic level, the first two documents in our collection can be considered to be
-        similar to one another due to the fact that they both use the words cats and dogs frequently. 
-        
-        
-        A common starting point
-        begins by looking at the frequencies at which the words inside of a document appear inside of the other documents. Intuitively,
-        by grouping together the documents that use the same words frequently, we can sort the documents. To do this, it is common
-        practice to convert a collection of documents into what is known as a <i>document-term</i> frequency matrix (in my
-        code and from here on out, I will refer to it as a "frequency matrix").
+        similar to one another due to the fact that they both use the words cats and dogs frequently. To further analyze these
+        relationships, it is common practice to convert a collection of documents into what is known as <i>document-term</i> 
+        frequency matrix (in my code and from here on out, I will refer to it as a "frequency matrix").
     </p>
 
 

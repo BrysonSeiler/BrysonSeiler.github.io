@@ -31,8 +31,8 @@ iframe {
 }
 
 .page_layout {
-    margin-left: 15vmax;
-    margin-right: 15vmax;
+    margin-left: 16vmax;
+    margin-right: 16vmax;
     margin-bottom: auto;
     margin-top: auto;
 }
@@ -90,7 +90,7 @@ h3 {
 /*==========================Main Text==========================*/
 
 p, i, blockquote {
-    font-size: 1.6vmin; 
+    font-size: 1.55vmin; 
     font-family: 'Roboto', sans-serif; 
     font-weight: 300; 
     color: #333; 
@@ -98,7 +98,7 @@ p, i, blockquote {
 }
 
 a {
-    font-size: 1.6vmin; 
+    font-size: 1.55vmin; 
     font-family: 'Roboto', sans-serif; 
     font-weight: 300; 
     line-height: 2.7vmin; 
@@ -107,20 +107,21 @@ a {
 }
 
 .thought {
-    background-color: #eaf2f9c7;
-    border: 1px solid #909aa55b;
-    border-radius: 5px;
-    padding: 1vmax;
+    padding-top: 1.5vmax;
+    padding-left: 6vmax;
+    padding-bottom: 1.5vmax;
 }
 
 .thought i {
     display: block;
-    font-size: 1.5vmin;
+    font-size: 1.55vmin;
 }
 
 .reference {
     background-color: #909aa50e;
     border: 1px solid #909aa55b;
+    margin-left: 3vmax;
+    margin-right:3vmax;
     border-radius: 5px;
     padding-top: 0.1vmin;
     padding-bottom: 0.1vmin;
@@ -130,20 +131,22 @@ a {
 
 .reference p {
     display: block;
-    font-size: 1.5vmin; 
+    font-size: 1.55vmin; 
     text-indent: 2vmax;
 }
 
 .abstract {
-    background-color: #8dbbe041;
+    background-color: #eaf2f9a4;
     border: 1px solid #909aa55b;
+    margin-left: 3vmax;
+    margin-right: 3vmax;
     border-radius: 5px;
     padding: 1vmax;
 }
 
 .abstract i {
     display: block;
-    font-size: 0.9vmax;
+    font-size: 1.55vmin;
     text-indent: 2vmax;
 }
 
@@ -246,7 +249,7 @@ a {
 
     .code_inline {font-size: 1.6vmax;}
 
-    .code_output {font-size: 1.8vmax;}
+    .code_output {font-size: 1.8vmax; margin-left: 3vmin; margin-right: 3vmin;}
 
     .link_list a {font-size: 2vmax; line-height: 3vmax;}
 
@@ -274,16 +277,16 @@ a {
 
     .abstract i {font-size: 1.8vmax;}
 
-    .thought i {font-size: 1.8vmax;}
+    .thought i {font-size: 2vmax;}
 
     .reference p {font-size: 2vmax;}
 
 }
 
 @media screen and (min-width: 601px){
-    .code_inline {font-size: 0.8vmax;}
-    .code_output {font-size: 0.8vmax;}
-    .ordered_list {line-height: 1.75vmax;}
+    .code_inline {font-size: 1.4vmin;}
+    .code_output {font-size: 1.3vmin;}
+    .ordered_list {font-size: 1.55vmin; line-height: 1.75vmax;}
     .heatmap {width: 100%; height: 40vmin;}
     .heatmap_small {width: 40vmin; height: 40vmin;}
     .math_block {font-size: 3vmin;}
@@ -381,10 +384,12 @@ a {
     display: block;
     padding: 15px 15px 15px 15px;
     border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 4vmax;
+    margin-right: 4vmax;
+    margin-top: 2vmax;
+    margin-bottom: 2vmax;
     height: auto;
-    background-color: #f9fcfda2;
+    background-color: #f5f6fa;
     white-space: pre-wrap;
 
     border-style: solid;
