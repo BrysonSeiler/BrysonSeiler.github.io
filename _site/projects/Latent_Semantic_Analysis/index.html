@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Subreddit Analysis</title>
+    <title>Reddit Community Clustering</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -27,7 +27,7 @@
 
     <div class="container">
         <div class="main">
-    <h1>Subreddit Analysis</h1>
+    <h1>Reddit Community Clustering</h1>
 
     <div class="abstract">
         <i class="indent">
@@ -86,62 +86,27 @@
     <div class="section_break"></div>
 
     <div class="header_block">
-        <h2>Methodology</h2>
-    </div>
-
-    <div>
-        <p class="indent">
-            To analyze the differences/similarities between subreddits, I will gather post titles from different subreddits and then
-            use Latent Semantic Analysis and k-means clustering to create clusters of post titles that are semantically similar.
-        </p>
-    </div>
-
-    
-
-    <div class="header_block">
-        <h3>Outline</h3>
-    </div>
-
-    <div class="ordered_list">
-        <ol type="1">
-            <li>Gather post titles using the Python Reddit API Wrapper package (PRAW).
-                <ol type="i">
-                    <li>Process post titles by removing special characters and stop words.</li>
-                    <li>Bundle together all post titles and tag based off origin subreddit.</li>
-                </ol>
-            </li>
-            <li>Produce frequency/tfidf matrices and then project tfidf matrix to semantic space.
-                <ol type="i">
-                    <li>Use bundled post titles as raw data set.</li>
-                    <li>Use <code class="code_inline">sklearn</code> to produce matrices.</li>
-                </ol>
-            </li>
-            <li>Cluster post titles with k-means clustering.
-                <ol type="i">
-                    <li>Use <code class="code_inline">sklearn</code> to cluster post titles in semantic space.</li>
-                    <li>Produce purity measurements of each cluster.</li>
-                </ol>
-            </li>
-        </ol>
-    </div>
-
-    <div class="section_break"></div>
-
-    <div class="header_block">
         <h2>Gathering and Processing Post Titles From Reddit</h2>
     </div>
 <div>
+
     <p class="indent">
-        To gather post titles from Reddit, I decided to use the Python package <a href="https://praw.readthedocs.io/en/latest/">PRAW</a>
-        (Python Reddit API Wrapper) as it provides easy to access to Reddit’s API and ensures that I don’t exceed the API’s
-        request rate limits. One downside to Reddit’s API is that I’m limited to gathering 1000 post titles per request,
-        but for the time being, if we are gathering 1000 post titles from multiple subreddits, we should have enough data
-        to mess around with.
+        Before I start gathering data for this project, I want to take a second to outline exactly how I am going about
+        gathering and processing post titles. To gather post titles from Reddit, I decided to use the Python package <a href="https://praw.readthedocs.io/en/latest/">PRAW</a>
+        (Python Reddit API Wrapper) as it provides easy to access to Reddit’s API and ensures that I don’t exceed the API’s request
+        rate limits.
+    </p>
+
+    <p class="indent">
+        With PRAW, the first step towards gathering the information we need is to get your client ID and secret keys for OAuth2 authentication.
+        This just ensures that Reddit knows who is making requests to pull data from their website and when. Check out this <a
+            href="https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps">OAuth2 quick start guide</a>
+        for more information on how to set up your developer account.
     </p>
 
     <p class="indent">
         Once you have created your Reddit developer account and have your credentials for OAuth2, we can begin gathering post titles
-        from any subreddit of our choosing with only a few of lines of code. Here's an example:
+        from any subreddit of our choosing with only a few of lines of code:
     </p>
 </div>
 
@@ -157,22 +122,18 @@ bot = praw.Reddit(username = config.username,
                 client_secret = config.client_secret,
                 user_agent = "Subreddit_Analysis")
                 
-#Create a object for the 'hiking' subreddit
+#Create a object that contains information on the 'hiking' subreddit
 subreddit = bot.subreddit('hiking')
                 
-#Print post titles from x number of posts inside of the 'hiking' subreddit (can be sorted by top, hot, new, ...)
+#Print the post titles from the first x number of posts inside of the 'hiking' subreddit (can be sorted by top, hot, new, ...)
 for post in subreddit.hot(limit = num_posts):
     print(post.title, "\n")
             
 </code></pre>
 
-<div>
-    <p>
-        Output:
-    </p>
-</div>
-
-<pre><code class="nohighlight code_output">Yesterday, at Chopok Mountain, Slovakia [OC]
+<pre><code class="nohighlight code_output">OUTPUT:
+    
+Yesterday, at Chopok Mountain, Slovakia [OC]
 
 2,917 meters above sea level with view to the „Gschnitzer and Pflerscher Tribulaun“, Schwarze Wand - Obernberg valley, Tirol, Austria
         
@@ -185,14 +146,14 @@ I love it when I get to cross a beautiful footbridge on the trail. Caples Creek,
 
 <div>
     <p class="indent">
-        As you can see, it is rather easy to start gathering post titles from a specific subreddit, but these titles require some
-        further processing if we are going to eventually use them for latent semantic analysis. First, we need to remove
+        As you can see, it is rather easy to start gathering post titles from subreddits. Now we can start the process of transforming
+        these post titles into something that is more suitable for latent semantic analysis. The first thing that we need to do is remove
         all the special characters, numbers and capitalization. This can be accomplished with regular expressions, specifically,
         the <code class="code_inline">re</code> package in Python.
     </p>
 
     <p class="indent">
-        Continuing off of the code above, we can quickly implement a method to clean up the titles with <code class="code_inline">re</code>:
+        Continuing off of the code above, we can quickly implement a method to clean up the titles:
     </p>
 </div>
 
@@ -222,13 +183,9 @@ for post in subreddit.hot(limit = num_posts):
     print(clean(post.title), "\n")                   
 </code></pre>
 
-<div>
-    <p class="indent">
-        After running our post titles through this method, the following output is produced:
-    </p>
-</div>
-
-<pre><code class="nohighlight code_output">yesterday at chopok mountain slovakia
+<pre><code class="nohighlight code_output">OUTPUT:
+    
+yesterday at chopok mountain slovakia
 
 meters above sea level with view to the gschnitzer and pflerscher tribulaun schwarze wand obernberg valley tirol austria
         
@@ -241,7 +198,7 @@ i love it when i get to cross a beautiful footbridge on the trail caples creek c
 
 <div>
     <p class="indent">
-        Now that we have removed special characters, numbers and capitalization, the titles are much easier to deal with, but
+        Now that we have removed special characters, numbers and capitalization, the titles are much more suitable for LSA, but
         there is still a couple of issues that need to be dealt with. For example, take a look at this title:
     </p>
 </div>
@@ -250,22 +207,26 @@ i love it when i get to cross a beautiful footbridge on the trail caples creek c
 
 <div>
     <p class="indent">
-        As we can see, when we removed the special characters from “U.S.A,” whitespace was left behind. We obviously know that the
-        letters “u” and “s” should not be interpreted as words, but sadly later on when we further analyze these titles,
-        letters that are separated by whitespace will be interpreted as unique words by the program. Another issue is that
-        words that appear frequently like “is” and “the” in our post titles will end up contributing to the noise in our
-        data (I further flesh out why this is the case in my <a href="/blog/LSA_Walkthrough/">blog post on LSA</a>).
+        As you can see, our first issue is that we still have a few individual characters floating around that need to be removed.
+        While the cleaning method did its job correctly, I failed to realize that abbreviations like “U.S.A” would leave
+        behind whitespace between the individual letters. When it comes to feeding this data into other methods down the
+        line, the program is going to interpret the individual characters as unique words, which is obviously something that
+        we do not want, so we need to find a way to get rid of them. The second issue that we are encountering is that our
+        titles are filled with what are considered to be nuisance words like “the” and “is.” Words like these that will appear
+        frequently in the majority of the titles that we are going to gather do not contribute much to the overall meaning
+        that the title is trying to convey, hence they will just end up being extra noise in our model that we do not want.
     </p>
 
     <p class="indent">
-        Both of these problems can by solved by introducing a list of stop words. There are many different websites that can provide
-        custom stop word lists that fit different needs better than others. I found that by combining both the <code
-            class="code_inline">nltk</code> and <code class="code_inline">sklearn</code> English stop word lists, I was able
-        to remove the majority of noise contributed to nuisance words within post titles on reddit, but this is all a matter
-        of preference.
+        We can solve both of these problems by introducing a list of stop words to filter out these individual characters and nuisance
+        words (if you are unfamiliar with stop words, I will again refer you to this <a href="/blog/LSA_Walkthrough/">blog
+            post</a>). There are many different lists of English stop words that you can find on the internet that will be
+        better for some models and worse for others, it really just depends on what you’re trying to accomplish. I found
+        that for this project, by combining both the <code class="code_inline">nltk</code> and
+        <code class="code_inline">sklearn</code> stop word lists, I was able to remove the majority of these nuisance words
+        and individual characters.
     </p>
 </div>
-
 
 <pre><code class="Python code_output">from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -291,13 +252,9 @@ for post in subreddit.hot(limit = num_posts):
     filtered_post = []   
 </code></pre>
 
-<div>
-    <p class="indent">
-        Output:
-    </p>
-</div>
-
-<pre><code class="nohighlight code_output">Filtered post: yesterday chopok mountain slovakia
+<pre><code class="nohighlight code_output">OUTPUT:
+    
+Filtered post: yesterday chopok mountain slovakia
 
 Filtered post: meters sea level view gschnitzer pflerscher tribulaun schwarze wand obernberg valley tirol austria
         
@@ -310,29 +267,111 @@ Filtered post: love cross beautiful footbridge trail caples creek
 
 <div>
     <p class="indent">
-        After removing stop words, our titles are finally at a point where I feel comfortable feeding them in as data to analyze. 
+        After removing our stop words, these titles are finally at a point where I feel comfortable feeding them in as raw data into
+        our model. Let’s put this to the test and actually collect some data!
     </p>
 </div>
 
+<div class="section_break"></div>
+
+<div class="header_block">
+    <h2>Data Collection</h2>
+</div>
+
+<div>
     <p class="indent">
-        After trying to gather 1000 submissions from each subreddit, I was able to successfully gather 2947 of the 3000 submissions (98.63%). This is due to the fact that some of the submissions were
-        either empty or deleted. After gathering the submissions, I then put all 2947 submissions into a pandas data frame (what I refer to in my code as bundling) and then 
+        For this project, I decided that I should keep it simple and gather post titles from only three different subreddits. One
+        downside to Reddit’s API is that I’m limited to gathering 1000 post titles per request, which makes it hard to gather
+        large amounts of data, but for the time being, if we’re gathering 1000 post titles from multiple subreddits, we should
+        have enough data to at least mess around with.
     </p>
 
-<pre><code class="nohighlight code_output">
+    <p class="indent">
+        At the time of making this project, the TV show Lost is playing in the background, so let’s choose three TV show fan base
+        subreddits to analyze: Lost, West World and Doctor Who.
+    </p>
+</div>
+
+<pre><code class="nohighlight code_output">OUTPUT:
+
+Enter the names of the subreddits (separated by commas) that you would like to analyze: lost,westworld,doctorwho
+
+#-------------------------------------------------------------------------------#
+Gathering top 1000 post titles from lost...
+#-------------------------------------------------------------------------------#
+
+Post title: Ran into Jack today! :) (contains 34 comments)
+
+Filtered post: ran jack today
+
+Post title: Look who I randomly got to sit next to at the Book of Mormon in Chicago last night! (contains 28 comments)
+
+Filtered post: look randomly got sit book mormon chicago night
+
+...
+
+Successfully read 995 posts out of 1000 --- 99.50%
+
+#-------------------------------------------------------------------------------#
+Gathering top 1000 post titles from westworld...
+#-------------------------------------------------------------------------------#
+
+Post title: Westworld Season 2 Trailer (Superbowl) (contains 91 comments)
+
+Filtered post: westworld season trailer
+
+Post title: Elon Musk: "What do you think we're living in?" (contains 72 comments)
+
+Filtered post: elon musk think living
+
+...
+
+Successfully read 973 posts out of 1000 --- 97.30%
+
+#-------------------------------------------------------------------------------#
+Gathering top 1000 post titles from doctorwho...
+#-------------------------------------------------------------------------------#
+
+Post title: Like Streaming Doctor Who? Please take 2 minutes out of your day and stop ISPs from destroying net neutrality and charging you more for the streaming you love!! (contains 39 comments)
+
+Filtered post: like streaming doctor minutes day stop isps destroying net neutrality charging streaming love
+
+Post title: Matt Smith being a bro. (contains 105 comments)
+
+Filtered post: matt smith bro
+
+...
+
+Successfully read 998 posts out of 1000 --- 99.80%
+
+#-------------------------------------------------------------------------------#
+Successfully read a total of 2966 post titles over 3 subreddits --- 98.87%
+#-------------------------------------------------------------------------------#
+
+Bundling up posts...
+
+Successfully bundled: 2954 posts
+Successfully tagged: 2954 posts
 </code></pre>
 
-
+<div>
     <p class="indent">
-        When I refer to tagging and bundling, I am refering to the fact that I bundled all 2947 submissions into one pandas data frame and then created a separate column to tag each of the submissions with the proper subreddit
-        in which the submission came from. This will be the raw data that is used when we run LSA.
+        After reading 1000 posts from each subreddit, I was able successfully gather and filter 2966 out of the 3000 (98.87%) post titles that
+        were read. The reason why some of the posts were not read was due to the fact that either the user deleted the post
+        or that after filtering the title, it was empty, so it was discarded.
     </p>
 
+    <p class="indent">
+        After gathering the titles, I put all 2966 into a column in a pandas data frame (which I refer to as bundling in my code). I then
+        created a separate column in the data frame that includes labels for each title that indicates which subreddit it came from (I
+        refer to this as tagging in my code).
+    </p>
 
     <p class="indent">
-        Now that I have successfully filtered, bundled and tagged the submissions, its time to do some initial analyis on this data by converting the raw data into their frequency and tfidf matrix representations. To
-        do so, I used <code class="code_inline">sklearn</code>. The general idea to convert a raw text collection into its freqency or tfidf repesenation is rather straight-forward.
+        Now that I have successfully filtered, bundled and tagged the titles, its time to do some initial analyis on this data by converting the raw data into their frequency and tfidf matrix representations. To
+        do so, I used <code class="code_inline">sklearn</code>. The general idea to convert a raw text collection into its freqency or tfidf repesenation is rather straight-forward:
     </p>
+</div>
 
 <pre><code class="Python code_output">def get_frequency_matrix(raw_text):
 
@@ -356,14 +395,63 @@ def get_tfidf_matrix(feature_names, frequency_df):
             
 </code></pre>
 
+<div>
+    <p class="indent">
+        From the frequency matrix, we can see what the most commonly occuring words for each subreddit are and from the tfidf matrix,
+        we can see what the most "important" words for each subreddit are:
+    </p>
+</div>
 
-<pre><code class="nohighlight code_output">
-            
+
+<pre><code class="nohighlight code_output">OUTPUT:
+    
+Learning vocabulary...
+
+Building frequency matrix...
+Frequency matrix shape: 2954 by 500
+
+Top 10 most frequently occuring terms in each subreddit (frequency, word):
+
+             lost         westworld      doctorwho
+0     (264, lost)  (229, westworld)  (223, doctor)
+1      (53, time)     (109, season)   (72, tardis)
+2     (51, today)     (78, episode)    (52, today)
+3  (50, watching)        (44, like)      (42, got)
+4       (36, day)     (42, dolores)       (40, th)
+5   (34, episode)        (40, ford)      (40, new)
+6       (33, new)     (32, bernard)  (38, cosplay)
+7       (33, got)       (31, black)   (33, friend)
+8  (31, favorite)        (31, post)     (32, matt)
+9    (30, island)       (26, scene)      (32, met)
+
+#-------------------------------------------------------------------------------#
+
+Building tf-idf matrix...
+Tfidf matrix shape: 2954 by 500
+
+Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
+
+                             lost                      westworld                      doctorwho
+0       (105.7410446885777, lost)  (95.9171964840228, westworld)    (98.12051961736533, doctor)
+1         (24.237046146598, time)    (47.00682149014582, season)    (38.53775687096871, tardis)
+2      (21.97703968987548, today)  (30.926452207508344, episode)     (21.93737587780408, today)
+3  (21.859701992474747, watching)  (25.338218374152113, dolores)   (21.20877099295608, cosplay)
+4     (18.285704938708523, locke)      (24.43600766655133, ford)        (19.04766140330174, th)
+5       (17.668726319490837, day)     (19.164721422293642, like)      (17.148465608424903, got)
+6    (17.488538288408737, island)   (18.21061190658453, bernard)      (16.945853180771472, new)
+7       (15.863108143237097, new)     (15.566489581966671, post)    (15.07661005869906, friend)
+8  (15.754216253937335, favorite)    (15.028881080571793, maeve)    (14.901575705604301, dalek)
+9       (15.583894955786707, got)      (14.511512977912473, hbo)      (14.837508745561601, met)
 </code></pre>
 
-    <p class="indent">
-        From the frequency matrix, we can see what the most commonly occuring words for each subreddit are.
+
+<div>
+    <p>
+        1. some titles were removed because of the max_df statemnt in first method
+        2. I reduced the number of words that are ncluded to 500 since the majority are not important.
     </p>
+</div>
+    
 
      
 
@@ -373,7 +461,19 @@ def get_tfidf_matrix(feature_names, frequency_df):
     <p class="indent">
         Now that I have successfully filtered the submission titles, its time to create the frequency, tfidf, and reduced matrix.
     </p>
-<pre><code class="nohighlight code_output">
+<pre><code class="nohighlight code_output">OUTPUT:
+
+Reducing dimension of data...
+Successfully reduced data to 2954 posts explained by 300 features
+Reduced matrix shape: 2954 by 300
+
+#-------------------------------------------------------------------------------#
+
+Explained variance of first 5 components: 0.01547978 0.02130377 0.02018137 0.01032878 0.01088992
+
+Singular values: 7.83334653 7.59046825 7.41905755 5.66803483 5.4793154
+
+Percent variance explained by all components: 0.852
 </code></pre>
 
     <p class="indent">
@@ -383,15 +483,12 @@ def get_tfidf_matrix(feature_names, frequency_df):
     
 
     <div class="graph">
-        <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen src="//plot.ly/~BrysonSeiler/18.embed"></iframe>
+        <iframe width="100%" height="800" margin-left: "auto" margin-right: "auto" frameborder="0" allowfullscreen frameborder="0" scrolling="no" src="//plot.ly/~BrysonSeiler/21.embed"></iframe>
     </div>
 
 <pre><code class="nohighlight code_output">
 </code></pre>
 
-<p>
-    Hm. Okay, well it did alright, but not perfect. It seems like a large ammount of the data clusters into that corner. 
-</p>
 
 </div>
     </div>

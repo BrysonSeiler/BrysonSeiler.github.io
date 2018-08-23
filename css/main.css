@@ -107,9 +107,13 @@ a {
 }
 
 .thought {
-    padding-top: 1.5vmax;
-    padding-left: 6vmax;
-    padding-bottom: 1.5vmax;
+    padding: 1vmax;
+
+    margin-left: 4vmax;
+    margin-right: 4vmax;
+
+    background-color: #909aa50e;
+    border: 1px solid #909aa55b;
 }
 
 .thought i {
@@ -136,11 +140,10 @@ a {
 }
 
 .abstract {
-    background-color: #eaf2f9a4;
+    background-color: #f5f7ff;
     border: 1px solid #909aa55b;
-    margin-left: 3vmax;
-    margin-right: 3vmax;
-    border-radius: 5px;
+    margin-left: 4vmax;
+    margin-right: 4vmax;
     padding: 1vmax;
 }
 
@@ -362,6 +365,8 @@ a {
 }
 
 .graph {
+    margin-left: 4vmax;
+    margin-right: 4vmax;
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
