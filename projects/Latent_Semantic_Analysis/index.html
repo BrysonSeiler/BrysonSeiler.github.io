@@ -255,17 +255,12 @@ Filtered post: love cross beautiful footbridge trail caples creek
     <h2>Data Collection</h2>
 </div>
 
-<div>
+<div> 
     <p class="indent">
-        For this project, I decided that I should keep it simple and gather post titles from only three different subreddits. One
-        downside to Reddit’s API is that I’m limited to gathering 1000 post titles per request, which makes it hard to gather
-        large amounts of data, but for the time being, if we’re gathering 1000 post titles from multiple subreddits, we should
-        have enough data to at least mess around with.
-    </p>
-
-    <p class="indent">
-        At the time of making this project, the TV show Lost is playing in the background, so let’s choose three TV show fan base
-        subreddits to analyze: Lost, West World and Doctor Who.
+        For this project, I decided to keep it simple and gather post titles from three different TV show fanbase subreddits: <i>Lost</i>,
+        <i>Westworld</i>, and <i>Doctor Who</i>. One of the downsides to Reddit’s API is that I’m limited to gathering 1000 titles per
+        request, which makes it hard to gather large amounts of data, but for the time being, 3000 titles should be enough
+        data to mess around with.
     </p>
 </div>
 
@@ -327,26 +322,34 @@ Successfully read a total of 2966 post titles over 3 subreddits --- 98.87%
 
 Bundling up posts...
 
-Successfully bundled: 2954 posts
-Successfully tagged: 2954 posts
+Successfully bundled: 2966 posts
+Successfully tagged: 2966 posts
 </code></pre>
 
 <div>
     <p class="indent">
-        After reading 1000 posts from each subreddit, I was able successfully gather and filter 2966 out of the 3000 (98.87%) post titles that
-        were read. The reason why some of the posts were not read was due to the fact that either the user deleted the post
-        or that after filtering the title, it was empty, so it was discarded.
+        After attempting to gather 1000 titles from each subreddit, I was able to successfully filter 2966 out of the 3000 (98.87%)
+        that were read. Some of the titles were not read because they were either deleted by the user, or after removing stop
+        words, all words were removed, hence they were discarded.
     </p>
 
     <p class="indent">
-        After gathering the titles, I put all 2966 into a column in a pandas data frame (which I refer to as bundling in my code). I then
-        created a separate column in the data frame that includes labels for each title that indicates which subreddit it came from (I
-        refer to this as tagging in my code).
+        After gathering all the titles, I put all of them into a list (which I refer to as bundling in my code) and then created
+        a separate list which includes labels for each title that indicates which subreddit it came from (I refer to this as
+        tagging in my code).
     </p>
+</div>
 
+<div class="section_break"></div>
+
+<div class="header_block">
+    <h2>Data Processing</h2>
+</div>
+
+<div>
     <p class="indent">
-        Now that I have successfully filtered, bundled and tagged the titles, its time to do some initial analyis on this data by converting the raw data into their frequency and tfidf matrix representations. To
-        do so, I used <code class="code_inline">sklearn</code>. The general idea to convert a raw text collection into its freqency or tfidf repesenation is rather straight-forward:
+        Now that we have my raw text dataset, we can start our analysis. The first thing that we need to do is convert this dataset
+        into a frequency matrix. With <code class="code_inline">sklearn</code>, we can build a quick method to produce the frequency matrix for our dataset:
     </p>
 </div>
 
@@ -360,16 +363,49 @@ Successfully tagged: 2954 posts
     feature_names = count_vectorizer.get_feature_names()
     frequency_df = pd.DataFrame(frequency_matrix.toarray(), columns=feature_names)
 
-    return frequency_df, feature_names
+    return frequency_df, feature_names   
+</code></pre>
 
-def get_tfidf_matrix(feature_names, frequency_df):
+<div>
+    <p class="indent"> 
+        In my code, I set <code class="code_inline">max_df=0.25</code> to tell the vectorizer to remove words that appear in more than a quarter of the documents.
+        This is just a further processing step that will, in the end, make our clustering more accurate for the same reasoning
+        of stop words. I also set <code class="code_inline">max_features=500</code> (only use the top 500 most frequently occurring words) to ensure that
+        our dataset stays relatively small.
+    </p>
+</div>
+
+
+<pre><code class="nohighlight code_output">OUTPUT:
+    
+    Learning vocabulary...
+    
+    Building frequency matrix...
+    Frequency matrix shape: 2966 by 500
+    
+    Top 10 most frequently occuring terms in each subreddit (frequency, word):
+    
+                 lost         westworld      doctorwho
+    0     (264, lost)  (229, westworld)  (223, doctor)
+    1      (53, time)     (109, season)   (72, tardis)
+    2     (51, today)     (78, episode)    (52, today)
+    3  (50, watching)        (44, like)      (42, got)
+    4       (36, day)     (42, dolores)       (40, th)
+    5   (34, episode)        (40, ford)      (40, new)
+    6       (33, new)     (32, bernard)  (38, cosplay)
+    7       (33, got)       (31, black)   (33, friend)
+    8  (31, favorite)        (31, post)     (32, matt)
+    9    (30, island)       (26, scene)      (32, met)
+</code></pre>
+
+<pre><code class="Python code_output">def get_tfidf_matrix(feature_names, frequency_df):
 
     tfidf_transformer = TfidfTransformer(use_idf=True, smooth_idf=True)
     tfidf_matrix = tfidf_transformer.fit_transform(frequency_df)
+
     tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
 
     return tfidf_df
-            
 </code></pre>
 
 <div>
@@ -379,32 +415,12 @@ def get_tfidf_matrix(feature_names, frequency_df):
     </p>
 </div>
 
-
 <pre><code class="nohighlight code_output">OUTPUT:
     
 Learning vocabulary...
 
-Building frequency matrix...
-Frequency matrix shape: 2954 by 500
-
-Top 10 most frequently occuring terms in each subreddit (frequency, word):
-
-             lost         westworld      doctorwho
-0     (264, lost)  (229, westworld)  (223, doctor)
-1      (53, time)     (109, season)   (72, tardis)
-2     (51, today)     (78, episode)    (52, today)
-3  (50, watching)        (44, like)      (42, got)
-4       (36, day)     (42, dolores)       (40, th)
-5   (34, episode)        (40, ford)      (40, new)
-6       (33, new)     (32, bernard)  (38, cosplay)
-7       (33, got)       (31, black)   (33, friend)
-8  (31, favorite)        (31, post)     (32, matt)
-9    (30, island)       (26, scene)      (32, met)
-
-#-------------------------------------------------------------------------------#
-
 Building tf-idf matrix...
-Tfidf matrix shape: 2954 by 500
+Tfidf matrix shape: 2966 by 500
 
 Top 10 highest tfidf scoring terms in each subreddit (cumulative score, word):
 

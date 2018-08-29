@@ -109,11 +109,13 @@ a {
 .thought {
     padding: 1vmax;
 
-    margin-left: 4vmax;
-    margin-right: 4vmax;
+    margin-left: 6vmax;
+    margin-right: 6vmax;
+    margin-top: 2vmax;
+    margin-bottom: 2vmax;
 
-    background-color: #909aa50e;
-    border: 1px solid #909aa55b;
+    border-left: 3px solid #3582c2;
+    background-color: #f5f7ff;
 }
 
 .thought i {
