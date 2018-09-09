@@ -367,11 +367,17 @@ Successfully tagged: 2966 posts
 </code></pre>
 
 <div>
-    <p class="indent"> 
-        In my code, I set <code class="code_inline">max_df=0.25</code> to tell the vectorizer to remove words that appear in more than a quarter of the documents.
-        This is just a further processing step that will, in the end, make our clustering more accurate for the same reasoning
-        of stop words. I also set <code class="code_inline">max_features=500</code> (only use the top 500 most frequently occurring words) to ensure that
-        our dataset stays relatively small.
+    <p class="indent">
+        In my code, I set <code class="code_inline">max_df=0.25</code> to tell the vectorizer to remove words that appear
+        in more than 25% of the documents. This helps further reduce the noise in the dataset by removing frequently occurring
+        words that my previous processing methods may have missed. I also set <code class="code_inline">max_features=500</code> to
+        ensure that our dataset remains relatively small so that my computer doesn’t get bogged down when it comes to running
+        singular value decomposition later on down the line.
+    </p>
+
+    <p class="indent">
+        After running the data set through this method to produce the frequency matrix, I did a quick search through the matrix to
+        find the most frequently occurring terms inside of each subreddit.
     </p>
 </div>
 
@@ -397,6 +403,12 @@ Successfully tagged: 2966 posts
     8  (31, favorite)        (31, post)     (32, matt)
     9    (30, island)       (26, scene)      (32, met)
 </code></pre>
+
+<div>
+    <p>
+        As you can see, if you’re a fan of any of the shows, the many most frequently occurring words in each subreddit are the central characters.
+    </p>
+</div>
 
 <pre><code class="Python code_output">def get_tfidf_matrix(feature_names, frequency_df):
 
